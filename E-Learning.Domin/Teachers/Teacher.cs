@@ -1,4 +1,5 @@
 ﻿using E_Learning.Domain.Abstractions;
+using E_Learning.Domain.Teachers.Events;
 
 namespace E_Learning.Domain.Teachers
 {
@@ -18,6 +19,7 @@ namespace E_Learning.Domain.Teachers
         public static Teacher Create(Guid userId, UrlShamCash urlShamCash , SubjectTeacher subjectTeacher)
         {
             var teacher = new Teacher(userId, urlShamCash ,subjectTeacher);
+            teacher.RaiseDomainEvent(new TeacherCreatedDomainEvent(teacher.Id, teacher.UrlShamCash.Value, teacher.SubjectTeacher.Value));
             return teacher;
         }
     }

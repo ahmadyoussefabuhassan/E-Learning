@@ -3,10 +3,8 @@
 namespace E_Learning.Domain.User.Events
 {
     public sealed record UserCreatedDomainEvent(Guid UserId,
-        string FirstName,
-        string LastName,
+        string FullName,
         string Email,
-        string Password,
         string PhoneNumber,
         string Address,
         string ImageUrl
