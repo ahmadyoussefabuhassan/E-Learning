@@ -1,6 +1,6 @@
 ﻿using MediatR;
 
-namespace E_Learning.Domin.Abstractions
+namespace E_Learning.Domain.Abstractions
 {
     public interface IDomainEvent : INotification
     {

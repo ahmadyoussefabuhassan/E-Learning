@@ -1,14 +1,15 @@
-﻿using E_Learning.Domin.Abstractions;
+﻿using E_Learning.Domain.Abstractions;
 using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace E_Learning.Domin.User
+namespace E_Learning.Domain.User
 {
     public class User : Entity
     {
+        private User() { }
         private User(Guid Id, FullName fullName, Email email, Password password, PhoneNumber phoneNumber, Address address, ImageUrl imageUrl, DateTime createdAt, Guid roleId) : base(Id)
         {
             FullName = fullName;

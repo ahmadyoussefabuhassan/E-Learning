@@ -1,11 +1,6 @@
-﻿using E_Learning.Domin.Abstractions;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+﻿using E_Learning.Domain.Abstractions;
 
-namespace E_Learning.Domin.User.Events
+namespace E_Learning.Domain.User.Events
 {
     public sealed record UserCreatedDomainEvent(Guid UserId,
         string FirstName,

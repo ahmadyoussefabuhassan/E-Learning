@@ -5,7 +5,7 @@ using System.Text;
 using System.Text.RegularExpressions;
 using System.Threading.Tasks;
 
-namespace E_Learning.Domin.User
+namespace E_Learning.Domain.User
 {
     public record PhoneNumber
     {

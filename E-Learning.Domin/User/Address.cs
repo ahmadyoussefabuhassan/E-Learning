@@ -4,7 +4,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace E_Learning.Domin.User
+namespace E_Learning.Domain.User
 {
     public record Address(string Value);
 }
