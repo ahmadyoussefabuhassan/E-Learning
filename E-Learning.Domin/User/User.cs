@@ -9,7 +9,9 @@ namespace E_Learning.Domain.User
 {
     public class User : Entity
     {
-        private User() { }
+        private User() : base(Guid.Empty)
+        {
+        }
         private User(Guid Id, FullName fullName, Email email, Password password, PhoneNumber phoneNumber, Address address, ImageUrl imageUrl, DateTime createdAt, Guid roleId) : base(Id)
         {
             FullName = fullName;

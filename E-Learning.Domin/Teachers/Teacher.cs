@@ -4,7 +4,10 @@ namespace E_Learning.Domain.Teachers
 {
     public class Teacher : Entity
     {
-        public Teacher() { }
+        private Teacher() : base(Guid.Empty)
+        {
+        }
+
         private Teacher(Guid Id, UrlShamCash urlShamCash, SubjectTeacher subjectTeacher) : base(Id)
         {
             UrlShamCash = urlShamCash;
