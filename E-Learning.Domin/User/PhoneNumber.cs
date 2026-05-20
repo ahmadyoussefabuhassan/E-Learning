@@ -1,13 +1,8 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Text.RegularExpressions;
-using System.Threading.Tasks;
+﻿using System.Text.RegularExpressions;
 
 namespace E_Learning.Domain.User
 {
-    public record PhoneNumber
+    public sealed record PhoneNumber
     {
         public string Value { get; init; }
         public PhoneNumber(string value)

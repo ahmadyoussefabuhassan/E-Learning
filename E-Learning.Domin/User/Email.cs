@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace E_Learning.Domain.User
 {
-    public record Email
+    public sealed record Email
     {
         public string Value { get; init; }
         public Email(string value)

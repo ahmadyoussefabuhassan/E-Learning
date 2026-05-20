@@ -1,14 +1,9 @@
 ﻿using E_Learning.Domain.Abstractions;
 using E_Learning.Domain.User.Events;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace E_Learning.Domain.User
 {
-    public class User : Entity
+    public sealed class User : Entity
     {
         private User() : base(Guid.Empty)
         {
@@ -32,9 +27,9 @@ namespace E_Learning.Domain.User
         public ImageUrl ImageUrl { get; private set; }
         public DateTime CreatedAt { get; private set; }
         public Guid RoleId { get; private set; }
-        public static User Create(Guid userId, FullName fullName, Email email, Password password, PhoneNumber phoneNumber, Address address, ImageUrl imageUrl, Guid roleId)
+        public static User Create( FullName fullName, Email email, Password password, PhoneNumber phoneNumber, Address address, ImageUrl imageUrl, Guid roleId)
         {
-            var user = new User(userId, fullName, email, password, phoneNumber, address, imageUrl, roleId);
+            var user = new User(Guid.NewGuid(), fullName, email, password, phoneNumber, address, imageUrl, roleId);
             user.RaiseDomainEvent(new UserCreatedDomainEvent(user.Id, user.FullName.Value, user.Email.Value, user.PhoneNumber.Value, user.Address.Value, user.ImageUrl.Value));
             return user;
         }

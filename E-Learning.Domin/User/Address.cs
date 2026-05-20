@@ -6,5 +6,5 @@ using System.Threading.Tasks;
 
 namespace E_Learning.Domain.User
 {
-    public record Address(string Value);
+    public sealed record Address(string Value);
 }
