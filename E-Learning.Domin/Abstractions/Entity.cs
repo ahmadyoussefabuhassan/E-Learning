@@ -1,5 +1,4 @@
-﻿
-namespace E_Learning.Domain.Abstractions
+﻿namespace E_Learning.Domain.Abstractions
 {
     public abstract class Entity
     {
