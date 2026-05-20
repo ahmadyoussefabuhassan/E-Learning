@@ -1,4 +1,6 @@
 ﻿
+using System.Diagnostics.CodeAnalysis;
+
 namespace E_Learning.Domain.Abstractions
 {
     public class Result
