@@ -20,5 +20,7 @@ namespace E_Learning.Domain.Students
             student.RaiseDomainEvent(new StudentCreatedDomainEvent(student.Id, student.SubjectStudent.Value));
             return student;
         }
+        public void UpdateProfile(SubjectStudent subjectStudent)
+            => SubjectStudent = subjectStudent;
     }
 }

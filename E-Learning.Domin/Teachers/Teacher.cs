@@ -22,5 +22,10 @@ namespace E_Learning.Domain.Teachers
             teacher.RaiseDomainEvent(new TeacherCreatedDomainEvent(teacher.Id, teacher.UrlShamCash.Value, teacher.SubjectTeacher.Value));
             return teacher;
         }
+        public void UpdateProfile(UrlShamCash urlShamCash, SubjectTeacher subjectTeacher)
+        {
+            UrlShamCash = urlShamCash;
+            SubjectTeacher = subjectTeacher;
+        }
     }
 }

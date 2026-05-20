@@ -7,6 +7,6 @@ namespace E_Learning.Domain.User.Events
         string Email,
         string PhoneNumber,
         string Address,
-        string ImageUrl
+        string? ImageUrl
     ) : IDomainEvent;
 }
