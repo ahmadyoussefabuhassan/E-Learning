@@ -1,5 +1,7 @@
 ﻿using E_Learning.Domain.Abstractions;
+using E_Learning.Domain.Shared;
 using E_Learning.Domain.Units.Event;
+
 using System;
 using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;

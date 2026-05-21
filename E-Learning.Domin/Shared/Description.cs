@@ -4,7 +4,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace E_Learning.Domain.ExamExplanations
+namespace E_Learning.Domain.Shared
 {
     public record Description
     {
@@ -18,4 +18,5 @@ namespace E_Learning.Domain.ExamExplanations
             Value = value;
         }
     }
+    
 }

@@ -3,6 +3,7 @@ using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
 using E_Learning.Domain.Abstractions;
 using E_Learning.Domain.Courses.Events;
+using E_Learning.Domain.Shared;
 
 namespace E_Learning.Domain.Courses
 {
@@ -12,7 +13,7 @@ namespace E_Learning.Domain.Courses
         {
         }
 
-        private Course(Guid id, Name name, ImageUrl imageUrl, Description description, Price price, IsActive isActive, Guid classesId, Guid teacherId) : base(id)
+        private Course(Guid id, Name name, ImageUrl imageUrl, Description description, Price price, bool isActive, Guid classesId, Guid teacherId) : base(id)
         {
             Name = name;
             ImageUrl = imageUrl;
@@ -31,13 +32,14 @@ namespace E_Learning.Domain.Courses
 
         public Price Price { get; private set; }
 
-        public IsActive IsActive { get; private set; }
+        public bool IsActive { get; private set; }
         public Guid ClassesId { get; private set; }
         public Guid TeacherId { get; private set; }
 
-        public static Course Create(Guid id, Name name, ImageUrl imageUrl, Description description, Price price, IsActive isActive, Guid classesId, Guid teacherId)
+        public static Course Create(Guid id, Name name, ImageUrl imageUrl, Description description, Price price , Guid classesId, Guid teacherId)
         {
-            var course = new Course(id, name, imageUrl, description, price, isActive, classesId, teacherId);
+
+            var course = new Course(id, name, imageUrl, description, price, false, classesId, teacherId);
             course.RaiseDomainEvent(new CourseCreatedDomainEvent(course.Id, course.Name.Value, course.Price.Value, course.TeacherId, course.ClassesId));
             return course;
         }

@@ -3,6 +3,7 @@ using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
 using E_Learning.Domain.Sections.Events;
 using E_Learning.Domain.Abstractions;
+using E_Learning.Domain.Shared;
 
 namespace E_Learning.Domain.Sections
 {
@@ -19,7 +20,6 @@ namespace E_Learning.Domain.Sections
             CourseId = courseId;
         }
 
-        [MaxLength(30)]
         public Title Title { get; private set; }
 
         public Price Price { get; private set; }

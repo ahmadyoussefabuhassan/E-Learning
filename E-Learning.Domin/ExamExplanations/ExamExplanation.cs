@@ -1,5 +1,6 @@
 ﻿using E_Learning.Domain.Abstractions;
 using E_Learning.Domain.ExamExplanations.Events;
+using E_Learning.Domain.Shared;
 using System;
 using System.Collections.Generic;
 using System.Linq;

@@ -4,7 +4,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace E_Learning.Domain.Courses
+namespace E_Learning.Domain.Shared
 {
     public record Price
     {
