@@ -8,6 +8,7 @@ namespace E_Learning.Domain.Students
     {
         private Student() : base(Guid.Empty)
         {
+
         }
         private Student(Guid Id, SubjectStudent subjectStudent) : base(Id)
         {
