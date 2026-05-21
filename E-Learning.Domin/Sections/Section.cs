@@ -12,7 +12,7 @@ namespace E_Learning.Domain.Sections
         {
         }
 
-        private Section(Guid id, string title, decimal price, Guid courseId) : base(id)
+        private Section(Guid id, Title title, Price price, Guid courseId) : base(id)
         {
             Title = title;
             Price = price;
@@ -20,30 +20,14 @@ namespace E_Learning.Domain.Sections
         }
 
         [MaxLength(30)]
-        public string Title { get; private set; }
+        public Title Title { get; private set; }
 
-        [Column(TypeName = "decimal(18,2)")]
-        public decimal Price { get; private set; }
+        public Price Price { get; private set; }
         public Guid CourseId { get; private set; }
-        public static Section Create(Guid id, string title, decimal price, Guid courseId)
+        public static Section Create(Guid id, Title title, Price price, Guid courseId)
         {
-            if (string.IsNullOrWhiteSpace(title))
-                throw new ArgumentException("title must not be empty", nameof(title));
-
-            title = title.Trim();
-
-            if (title.Length > 30)
-                throw new ArgumentException("title must be at most 30 characters", nameof(title));
-            if (price < 0)
-                throw new ArgumentException("price must be non-negative", nameof(price));
-            if (courseId == Guid.Empty)
-                throw new ArgumentException("courseId must be a valid Guid", nameof(courseId));
-
-            if (id == Guid.Empty)
-                id = Guid.NewGuid();
-
             var section = new Section(id, title, price, courseId);
-            section.RaiseDomainEvent(new SectionCreatedDomainEvent(section.Id, section.Title, section.Price, section.CourseId));
+            section.RaiseDomainEvent(new SectionCreatedDomainEvent(section.Id, section.Title.Value, section.Price.Value, section.CourseId));
             return section;
         }
     }

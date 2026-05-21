@@ -13,31 +13,21 @@ namespace E_Learning.Domain.ExamVideos
         private ExamVideo(Guid id) : base(id)
         {
         }
-        private ExamVideo(Guid id, string videoUrl, int year, Guid examExplanationId) : base(id)
+        private ExamVideo(Guid id, VideoUrl videoUrl, Year year, Guid examExplanationId) : base(id)
         {
             VideoUrl = videoUrl;
             Year = year;
             ExamExplanationId = examExplanationId;
         }
-        public string VideoUrl { get; private set; }
-        public int Year { get; private set; }
+        public VideoUrl VideoUrl { get; private set; }
+        public Year Year { get; private set; }
         public Guid ExamExplanationId { get; private set; }
 
-        public static ExamVideo Create(Guid id, string videoUrl, int year, Guid examExplanationId)
+        public static ExamVideo Create(Guid id, VideoUrl videoUrl, Year year, Guid examExplanationId)
         {
-            if (string.IsNullOrWhiteSpace(videoUrl))
-                throw new ArgumentException("videoUrl must not be empty", nameof(videoUrl));
-            videoUrl = videoUrl.Trim();
-            if (videoUrl.Length > 255)
-                throw new ArgumentException("videoUrl must be at most 255 characters", nameof(videoUrl));
-            if (year < 1900 || year > DateTime.Now.Year)
-                throw new ArgumentException("year must be a valid year", nameof(year));
-            if (examExplanationId == Guid.Empty)
-                throw new ArgumentException("examExplanationId must be a valid Guid", nameof(examExplanationId));
-            if (id == Guid.Empty)
-                id = Guid.NewGuid();
+            
             var examVideo = new ExamVideo(id, videoUrl, year, examExplanationId);
-            examVideo.RaiseDomainEvent(new ExamVideoCreatedDomainEvent(examVideo.Id, examVideo.VideoUrl, examVideo.Year, examVideo.ExamExplanationId));
+            examVideo.RaiseDomainEvent(new ExamVideoCreatedDomainEvent(examVideo.Id, examVideo.VideoUrl.Value, examVideo.Year.Value, examVideo.ExamExplanationId));
             return examVideo;
         }
     }

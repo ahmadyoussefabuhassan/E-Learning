@@ -15,21 +15,19 @@ namespace E_Learning.Domain.Units
         {
 
         }
-        private Unit(Guid id, string title, string description, Guid sectionId) : base(id)
+        private Unit(Guid id, Title title, Description description, Guid sectionId) : base(id)
         {
             Title = title;
             Description = description;
             SectionId = sectionId;
         }
-        [MaxLength(30)]
-        public string Title { get; private set; }
-        [MaxLength(255)]
-        public string Description { get; private set; }
+        public Title Title { get; private set; }
+        public Description Description { get; private set; }
         public Guid SectionId { get; private set; }
-        public static Unit Create(Guid id, string title, string description, Guid sectionId)
+        public static Unit Create(Guid id, Title title, Description description, Guid sectionId)
         {
             var unit = new Unit(id, title, description, sectionId);
-            unit.RaiseDomainEvent(new UnitCreatedDomainEvent(id, title, description, sectionId));
+            unit.RaiseDomainEvent(new UnitCreatedDomainEvent(id, title.Value, description.Value , sectionId));
             return unit;
         }
     }
