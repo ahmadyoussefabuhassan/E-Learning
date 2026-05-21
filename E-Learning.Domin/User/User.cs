@@ -32,14 +32,14 @@ namespace E_Learning.Domain.User
         public Guid RoleId { get; private set; }
         public Student? Student { get; private set; } 
         public Teacher? Teacher { get; private set; }
-        public List<RefreshToken> RefreshTokens { get; private set; } = new List<RefreshToken>();
+        public ICollection<RefreshToken> RefreshTokens { get; private set; } = new List<RefreshToken>();
         public static User Create(FullName fullName, Email email, Password password, PhoneNumber phoneNumber, Address address, ImageUrl imageUrl, Guid roleId)
         {
             var user = new User(Guid.NewGuid(), fullName, email, password, phoneNumber, address, imageUrl, roleId);
             user.RaiseDomainEvent(new UserCreatedDomainEvent(user.Id, user.FullName.Value, user.Email.Value, user.PhoneNumber.Value, user.Address.Value, user.ImageUrl?.Value));
             return user;
         }
-        public  void ChangePassword(Password newPassword)
+        public void ChangePassword(Password newPassword)
         {
             Password = newPassword;
             RaiseDomainEvent(new UserPasswordChangedDomainEvent(Id, Email.Value));
