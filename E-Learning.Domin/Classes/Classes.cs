@@ -19,7 +19,7 @@ namespace E_Learning.Domain.Classes
             StudentID = studentID;
         }
 
-        public string Name { get; private set; }
+        public Name Name { get; private set; }
         public string Description { get; private set; }
         public Guid TeachersID { get; private set; }
         public Guid StudentID { get; private set; }
