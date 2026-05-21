@@ -1,4 +1,5 @@
 ﻿using E_Learning.Domain.Abstractions;
+using E_Learning.Domain.Invtensives.Events;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -9,24 +10,28 @@ namespace E_Learning.Domain.Invtensives
 {
     public class Invtensives : Entity
     {
+        public Invtensives(Guid Id, Title title, Description description, Price price, CourseID courseID) : base(Id)
+        {
+        }
+
         private Invtensives() : base(Guid.Empty)
         { }
-        private Invtensives(Guid id, string title, string description, decimal  price, Guid courseID) : base(id)
+        private Invtensives(Guid id, Title title, Description description, Price price, CourseID courseID) : base(id)
         {
             Title = title;
             Description = description;
             Price = price;
             CourseID = courseID ;
         }
-        public string Title { get; private set; }
-        public string Description { get; private set; }
-        public decimal Price { get; private set; }
-        public Guid CourseID { get; private set; }
+        public Title Title { get; private set; }
+        public Description Description { get; private set; }
+        public Price Price { get; private set; }
+        public CourseID CourseID { get; private set; }
 
-        public static Invtensives Create(string title, string description, decimal price, Guid courseID)
+        public static Invtensives Create(Title title, Description description, Price price, CourseID courseID)
         {
             var invtensive = new Invtensives(Guid.NewGuid(), title, description, price, courseID);
-            invtensive.RaiseDomainEvent(new InvtensivesCreatedEvent(invtensive.Id, invtensive.Title, invtensive.Description, invtensive.Price, invtensive.CourseID));
+            invtensive.RaiseDomainEvent(new InvtensivesCreatedEvent(invtensive.Id, invtensive.Title.Value, invtensive.Description.Value, invtensive.Price.Value, invtensive.CourseID.Value));
             return invtensive;
         }
     }

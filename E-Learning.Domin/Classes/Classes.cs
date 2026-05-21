@@ -12,23 +12,15 @@ namespace E_Learning.Domain.Classes
     {
         private Classes () : base (Guid.Empty)
         { }
-        private Classes (Guid id, string name, string description, Guid teachersID, Guid  studentID) : base (id)
-        {
-            Name = name;
-            Description = description;
-            TeachersID = teachersID;
-            StudentID = studentID;
-        }
+        private Classes (Guid id, Name name) : base (id)=> Name = name;
+           
+        public Name Name { get; private set; }
+      
 
-        public string Name { get; private set; }
-        public string Description { get; private set; }
-        public Guid TeachersID { get; private set; }
-        public Guid StudentID { get; private set; }
-
-        public static Classes Create(string name, string description, Guid teachersID, Guid studentID)
+        public static Classes Create(Name Name)
         {
-            var @class = new Classes(Guid.NewGuid(), name, description, teachersID, studentID);
-            @class .RaiseDomainEvent (new ClassesCreatedEvent(@class.Id, @class.Name, @class.Description, @class.TeachersID, @class.StudentID));
+            var @class = new Classes(Guid.NewGuid(),Name);
+            @class.RaiseDomainEvent(new ClassesCreatedEvent(@class.Id, @class.Name.Value));
             return @class;
         }
     }

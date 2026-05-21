@@ -1,4 +1,5 @@
 ﻿using E_Learning.Domain.Abstractions;
+using E_Learning.Domain.InvtensivesVideos.Events;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -11,19 +12,19 @@ namespace E_Learning.Domain.InvtensivesVideos
     {
         private InvtensivesVideos(): base(Guid.Empty) { }
 
-        private InvtensivesVideos(Guid id, Guid invtensiveId, string videoUrl) : base(id)
+        private InvtensivesVideos(Guid id, InvtensiveId invtensiveId, VideoUrl videoUrl) : base(id)
         {
             InvtensiveId = invtensiveId;
-            VideoUrl = videoUrl;
+            VideoUrl = videoUrl;   
         }
 
-        public Guid InvtensiveId { get; private set; }
-        public string VideoUrl { get; private set; }
+        public InvtensiveId InvtensiveId { get; private set; }
+        public VideoUrl VideoUrl { get; private set; }
 
-        public static InvtensivesVideos Create(Guid invtensiveId, string videoUrl)
+        public static InvtensivesVideos Create(InvtensiveId invtensiveId, VideoUrl videoUrl)
         {
             var invtensivesVideo = new InvtensivesVideos(Guid.NewGuid(), invtensiveId, videoUrl);
-            invtensivesVideo.RaiseDomainEvent(new InvtensivesVideosCreatedEvent(invtensivesVideo.Id, invtensivesVideo.InvtensiveId, invtensivesVideo.VideoUrl));
+            invtensivesVideo.RaiseDomainEvent(new InvtensivesVideosCreatedEvent(invtensivesVideo.Id, invtensivesVideo.InvtensiveId.Value, invtensivesVideo.VideoUrl.Value));
             return invtensivesVideo;
         }
     }
