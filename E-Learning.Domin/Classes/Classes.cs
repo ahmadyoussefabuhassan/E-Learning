@@ -9,12 +9,12 @@ namespace E_Learning.Domain.Classes
     {
         private Classes () : base (Guid.Empty)
         { }
-        private Classes (Guid id, Name name) : base (id)=> Name = name;
+        private Classes (Guid id, ClassesName name) : base (id)=> Name = name;
            
-        public Name Name { get; private set; }
+        public ClassesName Name { get; private set; }
       
         public ICollection<Course> Courses { get; private set; } = new List<Course>();
-        public static Classes Create(Name Name)
+        public static Classes Create(ClassesName Name)
         {
             var classes = new Classes(Guid.NewGuid(),Name);
             classes.RaiseDomainEvent(new ClassesCreatedEvent(classes.Id, classes.Name.Value));
