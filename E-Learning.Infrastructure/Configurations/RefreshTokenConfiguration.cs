@@ -25,7 +25,7 @@ namespace E_Learning.Infrastructure.Configurations
                 .HasMaxLength(200);
             builder.Property(x => x.IsUsed)
                 .IsRequired()
-                .HasDefaultValue(false); ;
+                .HasDefaultValue(false); 
             builder.Property(x => x.IsRevoked)
                 .IsRequired()
                 .HasDefaultValue(false); 
