@@ -25,7 +25,7 @@ namespace E_Learning.Domain.InvtensivesVideos
         public static InvtensivesVideos Create(Guid invtensiveId, VideoUrl videoUrl)
         {
             var invtensivesVideo = new InvtensivesVideos(Guid.NewGuid(), invtensiveId, videoUrl);
-            invtensivesVideo.RaiseDomainEvent(new InvtensivesVideosCreatedEvent(invtensivesVideo.Id, invtensivesVideo.InvtensiveId.Value, invtensivesVideo.VideoUrl.Value));
+            invtensivesVideo.RaiseDomainEvent(new InvtensivesVideosCreatedEvent(invtensivesVideo.Id, invtensivesVideo.InvtensiveId, invtensivesVideo.VideoUrl.Value));
             return invtensivesVideo;
         }
     }

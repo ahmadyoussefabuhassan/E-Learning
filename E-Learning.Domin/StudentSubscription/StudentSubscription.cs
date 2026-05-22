@@ -1,4 +1,5 @@
 ﻿using E_Learning.Domain.Abstractions;
+using E_Learning.Domain.Students;
 using E_Learning.Domain.StudentSubscription.Events;
 
 namespace E_Learning.Domain.StudentSubscription
@@ -22,6 +23,7 @@ namespace E_Learning.Domain.StudentSubscription
         }
 
         public Guid StudentId { get; private set; }
+        public Student? Students { get; private set; }
         public Guid TargetId { get; private set; }
         public TargetType TargetType { get; private set; }
         public ReceiptImageUrl ReceiptImageUrl { get; private set; }

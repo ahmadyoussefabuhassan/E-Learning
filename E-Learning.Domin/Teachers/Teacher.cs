@@ -15,7 +15,7 @@ namespace E_Learning.Domain.Teachers
             UrlShamCash = urlShamCash;
             SubjectTeacher = subjectTeacher;
         }
-        public UrlShamCash UrlShamCash { get; private set; }
+        public UrlShamCash? UrlShamCash { get; private set; }
         public SubjectTeacher SubjectTeacher { get; private set; }
         public  ICollection<Course> Courses { get; private set; } = new List<Course>();
         public static Teacher Create(Guid userId, UrlShamCash urlShamCash , SubjectTeacher subjectTeacher)

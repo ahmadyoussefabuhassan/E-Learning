@@ -3,6 +3,7 @@ using E_Learning.Domain.Courses.Events;
 using E_Learning.Domain.ExamExplanations;
 using E_Learning.Domain.Sections;
 using E_Learning.Domain.Shared;
+using E_Learning.Domain.Teachers;
 
 namespace E_Learning.Domain.Courses
 {
@@ -34,6 +35,7 @@ namespace E_Learning.Domain.Courses
         public bool IsActive { get; private set; }
         public Guid ClassesId { get; private set; }
         public Guid TeacherId { get; private set; }
+        public Teacher? Teachers { get; private set; }
         public ICollection<Section> Sections { get; private set; } = new List<Section>();
         public ICollection<ExamExplanation> ExamExplanations { get; private set; } = new List<ExamExplanation>();
         public ICollection<Invtensives.Invtensives> Invtensives { get; private set; } = new List<Invtensives.Invtensives>();
