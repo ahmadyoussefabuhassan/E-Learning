@@ -1,5 +1,4 @@
-﻿using System;
-using E_Learning.Domain.Abstractions;
+﻿using E_Learning.Domain.Abstractions;
 
 namespace E_Learning.Domain.StudentSubscription.Events
 {

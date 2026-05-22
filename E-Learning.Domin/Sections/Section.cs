@@ -1,13 +1,11 @@
-﻿using System;
-using System.ComponentModel.DataAnnotations;
-using System.ComponentModel.DataAnnotations.Schema;
-using E_Learning.Domain.Sections.Events;
+﻿using E_Learning.Domain.Sections.Events;
 using E_Learning.Domain.Abstractions;
 using E_Learning.Domain.Shared;
+using E_Learning.Domain.Courses;
 
 namespace E_Learning.Domain.Sections
 {
-    public class Section : Entity
+    public sealed class Section : Entity
     {
         private Section() : base(Guid.Empty)
         {
@@ -24,6 +22,7 @@ namespace E_Learning.Domain.Sections
 
         public Price Price { get; private set; }
         public Guid CourseId { get; private set; }
+        public Course? Course { get; private set; }
         public static Section Create(Guid id, Title title, Price price, Guid courseId)
         {
             var section = new Section(id, title, price, courseId);

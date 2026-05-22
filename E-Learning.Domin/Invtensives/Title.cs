@@ -6,5 +6,5 @@ using System.Threading.Tasks;
 
 namespace E_Learning.Domain.Invtensives
 {
-    public record Title(string Value);
+    public sealed record Title(string Value);
 }

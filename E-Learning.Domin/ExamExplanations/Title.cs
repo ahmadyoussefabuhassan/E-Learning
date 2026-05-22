@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace E_Learning.Domain.ExamExplanations
 {
-    public record Title
+    public sealed record Title
     {
         public string Value { get; init; }
         public Title(string value)

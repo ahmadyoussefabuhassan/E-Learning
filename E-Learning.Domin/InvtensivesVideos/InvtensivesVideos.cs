@@ -12,16 +12,17 @@ namespace E_Learning.Domain.InvtensivesVideos
     {
         private InvtensivesVideos(): base(Guid.Empty) { }
 
-        private InvtensivesVideos(Guid id, InvtensiveId invtensiveId, VideoUrl videoUrl) : base(id)
+        private InvtensivesVideos(Guid id, Guid invtensiveId, VideoUrl videoUrl) : base(id)
         {
             InvtensiveId = invtensiveId;
             VideoUrl = videoUrl;   
         }
 
-        public InvtensiveId InvtensiveId { get; private set; }
+        public Guid InvtensiveId { get; private set; }
+        public Invtensives.Invtensives? Invtensive { get; private set; }
         public VideoUrl VideoUrl { get; private set; }
 
-        public static InvtensivesVideos Create(InvtensiveId invtensiveId, VideoUrl videoUrl)
+        public static InvtensivesVideos Create(Guid invtensiveId, VideoUrl videoUrl)
         {
             var invtensivesVideo = new InvtensivesVideos(Guid.NewGuid(), invtensiveId, videoUrl);
             invtensivesVideo.RaiseDomainEvent(new InvtensivesVideosCreatedEvent(invtensivesVideo.Id, invtensivesVideo.InvtensiveId.Value, invtensivesVideo.VideoUrl.Value));

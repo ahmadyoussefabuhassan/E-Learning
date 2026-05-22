@@ -1,17 +1,14 @@
 ﻿using E_Learning.Domain.Abstractions;
+using E_Learning.Domain.Courses;
 using E_Learning.Domain.ExamExplanations.Events;
+using E_Learning.Domain.ExamVideos;
 using E_Learning.Domain.Shared;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace E_Learning.Domain.ExamExplanations
 {
-    public class ExamExplanation : Entity
+    public sealed class ExamExplanation : Entity
     {
-        private ExamExplanation(Guid Id) : base(Id)
+        private ExamExplanation() : base(Guid.Empty)
         {
         }
         private ExamExplanation(Guid id, Title title, Description description, Price price, Guid courseId) : base(id)
@@ -26,6 +23,8 @@ namespace E_Learning.Domain.ExamExplanations
         public Description Description { get; private set; }
         public Price Price { get; private set; }
         public Guid CourseId { get; private set; }
+        public Course? Course { get; private set; } 
+        public ICollection<ExamVideo> ExamExplanationVideos { get; private set; } = new List<ExamVideo>();
 
         public static ExamExplanation Create(Guid id, Title title, Description description, Price price, Guid courseId)
         {

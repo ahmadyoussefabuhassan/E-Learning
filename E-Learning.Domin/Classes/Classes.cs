@@ -1,14 +1,11 @@
 ﻿using E_Learning.Domain.Abstractions;
 using E_Learning.Domain.Classes.Events;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+using E_Learning.Domain.Courses;
+
 
 namespace E_Learning.Domain.Classes
 {
-    public class Classes : Entity
+    public sealed class Classes : Entity
     {
         private Classes () : base (Guid.Empty)
         { }
@@ -16,12 +13,12 @@ namespace E_Learning.Domain.Classes
            
         public Name Name { get; private set; }
       
-
+        public ICollection<Course> Courses { get; private set; } = new List<Course>();
         public static Classes Create(Name Name)
         {
-            var @class = new Classes(Guid.NewGuid(),Name);
-            @class.RaiseDomainEvent(new ClassesCreatedEvent(@class.Id, @class.Name.Value));
-            return @class;
+            var classes = new Classes(Guid.NewGuid(),Name);
+            classes.RaiseDomainEvent(new ClassesCreatedEvent(classes.Id, classes.Name.Value));
+            return classes;
         }
     }
 }

@@ -1,19 +1,13 @@
 ﻿using E_Learning.Domain.Abstractions;
+using E_Learning.Domain.Lessons;
 using E_Learning.Domain.Shared;
 using E_Learning.Domain.Units.Event;
-
-using System;
-using System.Collections.Generic;
-using System.ComponentModel.DataAnnotations;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-
+using E_Learning.Domain.Sections;
 namespace E_Learning.Domain.Units
 {
-    public class Unit : Entity
+    public sealed class Unit : Entity
     {
-        private Unit(Guid Id) : base(Id)
+        private Unit() : base(Guid.Empty)
         {
 
         }
@@ -26,6 +20,8 @@ namespace E_Learning.Domain.Units
         public Title Title { get; private set; }
         public Description Description { get; private set; }
         public Guid SectionId { get; private set; }
+        public Section? Section { get; private set; }
+        public ICollection<Lesson> Lessons { get; private set; } = new List<Lesson>();  
         public static Unit Create(Guid id, Title title, Description description, Guid sectionId)
         {
             var unit = new Unit(id, title, description, sectionId);

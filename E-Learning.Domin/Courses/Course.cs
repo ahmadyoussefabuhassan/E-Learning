@@ -1,13 +1,12 @@
-﻿using System;
-using System.ComponentModel.DataAnnotations;
-using System.ComponentModel.DataAnnotations.Schema;
-using E_Learning.Domain.Abstractions;
+﻿using E_Learning.Domain.Abstractions;
 using E_Learning.Domain.Courses.Events;
+using E_Learning.Domain.ExamExplanations;
+using E_Learning.Domain.Sections;
 using E_Learning.Domain.Shared;
 
 namespace E_Learning.Domain.Courses
 {
-    public class Course : Entity
+    public sealed class Course : Entity
     {
         private Course() : base(Guid.Empty)
         {
@@ -35,13 +34,17 @@ namespace E_Learning.Domain.Courses
         public bool IsActive { get; private set; }
         public Guid ClassesId { get; private set; }
         public Guid TeacherId { get; private set; }
+        public ICollection<Section> Sections { get; private set; } = new List<Section>();
+        public ICollection<ExamExplanation> ExamExplanations { get; private set; } = new List<ExamExplanation>();
+        public ICollection<Invtensives.Invtensives> Invtensives { get; private set; } = new List<Invtensives.Invtensives>();
 
         public static Course Create(Guid id, Name name, ImageUrl imageUrl, Description description, Price price , Guid classesId, Guid teacherId)
         {
 
-            var course = new Course(id, name, imageUrl, description, price, false, classesId, teacherId);
+            var course = new Course(id, name, imageUrl, description, price, true, classesId, teacherId);
             course.RaiseDomainEvent(new CourseCreatedDomainEvent(course.Id, course.Name.Value, course.Price.Value, course.TeacherId, course.ClassesId));
             return course;
         }
+        public void ToggleStatus() => IsActive = !IsActive;
     }
 }

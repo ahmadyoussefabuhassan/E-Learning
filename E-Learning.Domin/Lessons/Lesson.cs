@@ -1,15 +1,10 @@
 ﻿using E_Learning.Domain.Abstractions;
 using E_Learning.Domain.Lessons.Event;
-using System;
-using System.Collections.Generic;
-using System.ComponentModel.DataAnnotations;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+using E_Learning.Domain.Units;
 
 namespace E_Learning.Domain.Lessons
 {
-    public class Lesson : Entity
+    public sealed class Lesson : Entity
     {
         private Lesson() : base(Guid.Empty)
         {
@@ -26,6 +21,7 @@ namespace E_Learning.Domain.Lessons
         public URL URL { get; private set; }
         public TitleUrl TitleUrl { get; private set; }
         public Guid UnitId { get; private set; }
+        public Unit? Unit { get; private set; }
         public static Lesson Create(Guid id, LessonTitle lessontitle, URL url, TitleUrl titleurl, Guid unitId)
         {
             var lesson = new Lesson(id, lessontitle, url, titleurl, unitId);

@@ -1,12 +1,8 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+﻿
 
 namespace E_Learning.Domain.ExamVideos
 {
-    public record VideoUrl
+    public sealed record VideoUrl
     {
         public string Value { get; init; }
         public VideoUrl(string value)

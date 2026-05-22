@@ -2,7 +2,7 @@
 
 namespace E_Learning.Domain.Roles
 {
-    public class Role : Entity
+    public sealed class Role : Entity
     {
         private Role() : base(Guid.Empty)
         {

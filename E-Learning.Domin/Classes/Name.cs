@@ -6,6 +6,6 @@ using System.Threading.Tasks;
 
 namespace E_Learning.Domain.Classes
 {
-    public record Name(string Value);
+    public sealed record Name(string Value);
    
 }

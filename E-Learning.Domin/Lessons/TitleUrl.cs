@@ -1,12 +1,8 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+﻿
 
 namespace E_Learning.Domain.Lessons
 {
-    public record TitleUrl
+    public sealed record TitleUrl
     {
         public string Value { get; init; }
         public TitleUrl(string value)

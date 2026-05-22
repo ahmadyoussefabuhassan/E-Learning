@@ -1,12 +1,7 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-
+﻿
 namespace E_Learning.Domain.Sections
 {
-    public record Title
+    public sealed record Title
     {
         public string Value { get; init; }
         public Title(string value)

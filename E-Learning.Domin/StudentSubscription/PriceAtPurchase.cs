@@ -1,4 +1,4 @@
 ﻿namespace E_Learning.Domain.StudentSubscription
 {
-    public record PriceAtPurchase(decimal Value);
+    public sealed record PriceAtPurchase(decimal Value);
 }

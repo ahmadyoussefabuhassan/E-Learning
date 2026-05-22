@@ -1,4 +1,4 @@
 ﻿namespace E_Learning.Domain.StudentSubscription
 {
-    public record ReceiptImageUrl(string Value);
+    public sealed record ReceiptImageUrl(string Value);
 }

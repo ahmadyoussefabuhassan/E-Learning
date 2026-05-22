@@ -1,12 +1,8 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+﻿
 
 namespace E_Learning.Domain.Roles
 {
-    public record Name
+    public sealed record Name
     {
         public string Value { get; init; }
         public readonly static Name Admin = new Name("Admin");

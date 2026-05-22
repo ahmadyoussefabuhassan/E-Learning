@@ -7,8 +7,5 @@ using System.Threading.Tasks;
 
 namespace E_Learning.Domain.ExamVideos.Event
 {
-    public sealed record ExamVideoCreatedDomainEvent(Guid Id, string VideoUrl, int Year, Guid ExamExplanationId) : IDomainEvent
-    {
-        
-    }
+    public sealed record ExamVideoCreatedDomainEvent(Guid Id, string VideoUrl, int Year, Guid ExamExplanationId) : IDomainEvent;
 }
