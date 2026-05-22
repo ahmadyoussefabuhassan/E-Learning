@@ -28,7 +28,7 @@ namespace E_Learning.Infrastructure.Configurations
                 .HasDefaultValue(false); ;
             builder.Property(x => x.IsRevoked)
                 .IsRequired()
-                .HasDefaultValue(false); ;
+                .HasDefaultValue(false); 
             // Indexes
             builder.HasIndex(x => x.Token).IsUnique();
 
