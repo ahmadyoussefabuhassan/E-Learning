@@ -30,6 +30,7 @@ namespace E_Learning.Infrastructure.Configurations
                 .HasMaxLength(255);
 
             builder.Property(c => c.IsActive)
+             .HasDefaultValue(true)
             .IsRequired();
             builder.Property(p => p.Price)
                 .HasConversion(p => p.Value, p => new Price(p))
@@ -39,11 +40,6 @@ namespace E_Learning.Infrastructure.Configurations
             builder.HasOne<Classes>()
                 .WithMany()
                 .HasForeignKey(c => c.ClassesId)
-                .OnDelete(DeleteBehavior.Restrict);
-
-            builder.HasOne<Teacher>()
-                .WithMany()
-                .HasForeignKey(c => c.TeacherId)
                 .OnDelete(DeleteBehavior.Restrict);
         }
     }

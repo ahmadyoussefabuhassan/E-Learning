@@ -21,10 +21,10 @@ namespace E_Learning.Domain.ExamVideos
         public Guid ExamExplanationId { get; private set; }
         public ExamExplanation? ExamExplanation { get; private set; }
 
-        public static ExamVideo Create(Guid id, VideoUrl videoUrl, Year year, Guid examExplanationId)
+        public static ExamVideo Create(VideoUrl videoUrl, Year year, Guid examExplanationId)
         {
             
-            var examVideo = new ExamVideo(id, videoUrl, year, examExplanationId);
+            var examVideo = new ExamVideo(Guid.NewGuid(), videoUrl, year, examExplanationId);
             examVideo.RaiseDomainEvent(new ExamVideoCreatedDomainEvent(examVideo.Id, examVideo.VideoUrl.Value, examVideo.Year.Value, examVideo.ExamExplanationId));
             return examVideo;
         }

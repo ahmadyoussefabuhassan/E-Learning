@@ -22,9 +22,9 @@ namespace E_Learning.Domain.Lessons
         public TitleUrl TitleUrl { get; private set; }
         public Guid UnitId { get; private set; }
         public Unit? Unit { get; private set; }
-        public static Lesson Create(Guid id, LessonTitle lessontitle, URL url, TitleUrl titleurl, Guid unitId)
+        public static Lesson Create(LessonTitle lessontitle, URL url, TitleUrl titleurl, Guid unitId)
         {
-            var lesson = new Lesson(id, lessontitle, url, titleurl, unitId);
+            var lesson = new Lesson(Guid.NewGuid(), lessontitle, url, titleurl, unitId);
             lesson.RaiseDomainEvent(new LessonCreatedDomainEvent(lesson.Id, lesson.LessonTitle.Value, lesson.URL.Value, lesson.TitleUrl.Value, lesson.UnitId));
             return lesson;
         }

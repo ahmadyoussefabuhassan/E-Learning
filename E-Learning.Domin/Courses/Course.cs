@@ -40,10 +40,10 @@ namespace E_Learning.Domain.Courses
         public ICollection<ExamExplanation> ExamExplanations { get; private set; } = new List<ExamExplanation>();
         public ICollection<Invtensives.Invtensives> Invtensives { get; private set; } = new List<Invtensives.Invtensives>();
 
-        public static Course Create(Guid id, CourseName name, ImageUrl imageUrl, Description description, Price price, Guid classesId, Guid teacherId)
+        public static Course Create(CourseName name, ImageUrl imageUrl, Description description, Price price, Guid classesId, Guid teacherId)
         {
 
-            var course = new Course(id, name, imageUrl, description, price, true, classesId, teacherId);
+            var course = new Course(Guid.NewGuid(), name, imageUrl, description, price, true, classesId, teacherId);
             course.RaiseDomainEvent(new CourseCreatedDomainEvent(course.Id, course.CourseName.Value, course.Price.Value, course.TeacherId, course.ClassesId));
             return course;
         }

@@ -26,10 +26,10 @@ namespace E_Learning.Domain.ExamExplanations
         public Course? Course { get; private set; } 
         public ICollection<ExamVideo> ExamExplanationVideos { get; private set; } = new List<ExamVideo>();
 
-        public static ExamExplanation Create(Guid id, Title title, Description description, Price price, Guid courseId)
+        public static ExamExplanation Create(Title title, Description description, Price price, Guid courseId)
         {
             
-            var examExplanation = new ExamExplanation(id, title, description, price, courseId);
+            var examExplanation = new ExamExplanation(Guid.NewGuid(), title, description, price, courseId);
             examExplanation.RaiseDomainEvent(new ExamExplanationCreatedEvent(examExplanation.Id, examExplanation.Title.Value, examExplanation.Description.Value, examExplanation.Price.Value, examExplanation.CourseId));
             return examExplanation;
         }
