@@ -1,10 +1,10 @@
 ﻿
 namespace E_Learning.Domain.Sections
 {
-    public sealed record Title
+    public sealed record SectionTitle
     {
         public string Value { get; init; }
-        public Title(string value)
+        public SectionTitle(string value)
         {
             if (string.IsNullOrWhiteSpace(value))
                 throw new ArgumentException("Title cannot be null or empty.", nameof(value));

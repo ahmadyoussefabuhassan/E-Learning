@@ -2,10 +2,10 @@
 
 namespace E_Learning.Domain.Units
 {
-    public sealed record Title
+    public sealed record UnitTitle
     {
         public string Value { get; init; }
-        public Title(string value)
+        public UnitTitle(string value)
         {
             if (string.IsNullOrWhiteSpace(value))
                 throw new ArgumentException("Title cannot be null or empty.", nameof(value));

@@ -11,21 +11,21 @@ namespace E_Learning.Domain.Units
         {
 
         }
-        private Unit(Guid id, Title title, Description description, Guid sectionId) : base(id)
+        private Unit(Guid id, UnitTitle unitTitle, Description description, Guid sectionId) : base(id)
         {
-            Title = title;
+            UnitTitle = unitTitle;
             Description = description;
             SectionId = sectionId;
         }
-        public Title Title { get; private set; }
+        public UnitTitle UnitTitle { get; private set; }
         public Description Description { get; private set; }
         public Guid SectionId { get; private set; }
         public Section? Section { get; private set; }
         public ICollection<Lesson> Lessons { get; private set; } = new List<Lesson>();  
-        public static Unit Create(Guid id, Title title, Description description, Guid sectionId)
+        public static Unit Create(Guid id, UnitTitle UnitTitle, Description description, Guid sectionId)
         {
-            var unit = new Unit(id, title, description, sectionId);
-            unit.RaiseDomainEvent(new UnitCreatedDomainEvent(id, title.Value, description.Value , sectionId));
+            var unit = new Unit(id, UnitTitle, description, sectionId);
+            unit.RaiseDomainEvent(new UnitCreatedDomainEvent(id, UnitTitle.Value, description.Value , sectionId));
             return unit;
         }
     }

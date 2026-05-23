@@ -11,22 +11,22 @@ namespace E_Learning.Domain.Sections
         {
         }
 
-        private Section(Guid id, Title title, Price price, Guid courseId) : base(id)
+        private Section(Guid id, SectionTitle title, Price price, Guid courseId) : base(id)
         {
-            Title = title;
+            SectionTitle = title;
             Price = price;
             CourseId = courseId;
         }
 
-        public Title Title { get; private set; }
+        public SectionTitle SectionTitle { get; private set; }
 
         public Price Price { get; private set; }
         public Guid CourseId { get; private set; }
         public Course? Course { get; private set; }
-        public static Section Create(Guid id, Title title, Price price, Guid courseId)
+        public static Section Create(Guid id, SectionTitle title, Price price, Guid courseId)
         {
             var section = new Section(id, title, price, courseId);
-            section.RaiseDomainEvent(new SectionCreatedDomainEvent(section.Id, section.Title.Value, section.Price.Value, section.CourseId));
+            section.RaiseDomainEvent(new SectionCreatedDomainEvent(section.Id, section.SectionTitle.Value, section.Price.Value, section.CourseId));
             return section;
         }
     }

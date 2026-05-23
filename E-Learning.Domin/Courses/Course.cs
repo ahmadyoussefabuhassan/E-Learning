@@ -13,9 +13,9 @@ namespace E_Learning.Domain.Courses
         {
         }
 
-        private Course(Guid id, Name name, ImageUrl imageUrl, Description description, Price price, bool isActive, Guid classesId, Guid teacherId) : base(id)
+        private Course(Guid id, CourseName name, ImageUrl imageUrl, Description description, Price price, bool isActive, Guid classesId, Guid teacherId) : base(id)
         {
-            Name = name;
+            CourseName = name;
             ImageUrl = imageUrl;
             Description = description;
             Price = price;
@@ -24,7 +24,7 @@ namespace E_Learning.Domain.Courses
             TeacherId = teacherId;
         }
 
-        public Name Name { get; private set; }
+        public CourseName CourseName { get; private set; }
 
         public ImageUrl ImageUrl { get; private set; }
 
@@ -40,11 +40,11 @@ namespace E_Learning.Domain.Courses
         public ICollection<ExamExplanation> ExamExplanations { get; private set; } = new List<ExamExplanation>();
         public ICollection<Invtensives.Invtensives> Invtensives { get; private set; } = new List<Invtensives.Invtensives>();
 
-        public static Course Create(Guid id, Name name, ImageUrl imageUrl, Description description, Price price , Guid classesId, Guid teacherId)
+        public static Course Create(Guid id, CourseName name, ImageUrl imageUrl, Description description, Price price, Guid classesId, Guid teacherId)
         {
 
             var course = new Course(id, name, imageUrl, description, price, true, classesId, teacherId);
-            course.RaiseDomainEvent(new CourseCreatedDomainEvent(course.Id, course.Name.Value, course.Price.Value, course.TeacherId, course.ClassesId));
+            course.RaiseDomainEvent(new CourseCreatedDomainEvent(course.Id, course.CourseName.Value, course.Price.Value, course.TeacherId, course.ClassesId));
             return course;
         }
         public void ToggleStatus() => IsActive = !IsActive;
