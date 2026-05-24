@@ -4,8 +4,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace E_Learning.Domain.Classes
+namespace E_Learning.Domain.Invtensives
 {
-    public sealed record Name(string Value);
-   
+    public sealed record InvtensivesTitle(string Value);
 }

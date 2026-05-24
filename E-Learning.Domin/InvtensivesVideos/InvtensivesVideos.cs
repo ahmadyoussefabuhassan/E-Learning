@@ -12,7 +12,7 @@ namespace E_Learning.Domain.InvtensivesVideos
     {
         private InvtensivesVideos(): base(Guid.Empty) { }
 
-        private InvtensivesVideos(Guid id, Guid invtensiveId, VideoUrl videoUrl) : base(id)
+        private InvtensivesVideos(Guid id, Guid invtensiveId, InvtensivesVideosVideoUrl videoUrl) : base(id)
         {
             InvtensiveId = invtensiveId;
             VideoUrl = videoUrl;   
@@ -20,9 +20,9 @@ namespace E_Learning.Domain.InvtensivesVideos
 
         public Guid InvtensiveId { get; private set; }
         public Invtensives.Invtensives? Invtensive { get; private set; }
-        public VideoUrl VideoUrl { get; private set; }
+        public InvtensivesVideosVideoUrl VideoUrl { get; private set; }
 
-        public static InvtensivesVideos Create(Guid invtensiveId, VideoUrl videoUrl)
+        public static InvtensivesVideos Create(Guid invtensiveId, InvtensivesVideosVideoUrl videoUrl)
         {
             var invtensivesVideo = new InvtensivesVideos(Guid.NewGuid(), invtensiveId, videoUrl);
             invtensivesVideo.RaiseDomainEvent(new InvtensivesVideosCreatedEvent(invtensivesVideo.Id, invtensivesVideo.InvtensiveId, invtensivesVideo.VideoUrl.Value));
