@@ -26,7 +26,7 @@ namespace E_Learning.Domain.Courses
 
         public CourseName CourseName { get; private set; }
 
-        public ImageUrl ImageUrl { get; private set; }
+        public ImageUrl? ImageUrl { get; private set; }
 
         public Description Description { get; private set; }
 

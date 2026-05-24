@@ -21,7 +21,7 @@ namespace E_Learning.Infrastructure.Configurations
 
             builder.Property(c => c.ImageUrl)
                 .HasConversion(i => i.Value, i => new ImageUrl(i))
-                .IsRequired()
+                .IsRequired(false)
                 .HasMaxLength(255);
 
             builder.Property(c => c.Description)

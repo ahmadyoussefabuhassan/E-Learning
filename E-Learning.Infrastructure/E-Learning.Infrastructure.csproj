@@ -32,8 +32,4 @@
     <ProjectReference Include="..\E-Learning.Domin\E-Learning.Domain.csproj" />
   </ItemGroup>
 
-  <ItemGroup>
-    <Folder Include="DateSeeds\" />
-  </ItemGroup>
-
 </Project>

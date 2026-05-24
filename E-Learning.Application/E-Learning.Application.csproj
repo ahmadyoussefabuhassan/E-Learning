@@ -7,4 +7,11 @@
     <Nullable>enable</Nullable>
   </PropertyGroup>
 
+  <ItemGroup>
+    <Folder Include="Abstractions\Behaviors\" />
+    <Folder Include="Abstractions\Messaging\" />
+    <Folder Include="Abstractions\Email\" />
+    <Folder Include="Abstractions\Services\" />
+  </ItemGroup>
+
 </Project>
