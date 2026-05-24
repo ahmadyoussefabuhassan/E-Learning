@@ -19,7 +19,7 @@ namespace E_Learning.Infrastructure.Configurations
             builder.HasKey(e => e.Id);
 
             builder.Property(e => e.VideoUrl)
-                .HasConversion(v => v.Value, v => new VideoUrl(v))
+                .HasConversion(v => v.Value, v => new ExamVideosVideoUrl(v))
                 .IsRequired();
 
             builder.Property(e => e.Year)
