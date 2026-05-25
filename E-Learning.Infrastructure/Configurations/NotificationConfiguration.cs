@@ -15,39 +15,26 @@ namespace E_Learning.Infrastructure.Configurations
         {
             builder. HasKey(n => n.Id);
             builder .ToTable("Notifications");
-
-            builder.OwnsOne(i => i.Title, titleBuilder =>
-            {
-                titleBuilder.Property(title => title.Value)
-                    .HasColumnName("Title")
+            builder.Property(notification => notification.Title)
+                .HasConversion(title => title.Value , value => new Title(value))
                     .HasMaxLength(50)
                     .IsRequired();
-            });
-
-            builder.OwnsOne(i => i.Message, messageBuilder =>
-            {
-                messageBuilder.Property(message => message.Value)
-                    .HasColumnName("Message")
+            builder.Property(notification => notification.Message)
+                .HasConversion(message => message.Value , value => new Message(value))
                     .HasMaxLength(50)
                     .IsRequired();
-            });
-
-            builder.OwnsOne(i => i.UrlRedirect, urlRedirectBuilder =>
-            {
-                urlRedirectBuilder.Property(urlRedirect => urlRedirect.Value)
-                    .HasColumnName("UrlRedirect")
-                    .HasMaxLength(50)
-                    .IsRequired();
-            });
+            builder.Property(notification => notification.UrlRedirect)
+                .HasConversion(urlRedirect => urlRedirect.Value , value => new UrlRedirect(value))
+                .HasMaxLength(50)
+                 .IsRequired(false);
 
 
             builder.Property(n => n.CreatedAt)
-                .HasColumnName("CreatedAt")
                 .IsRequired();
 
 
             builder.Property(n => n.IsRead)
-                .HasColumnName("IsRead")
+                .HasDefaultValue(true)
                 .IsRequired();
         }
     }

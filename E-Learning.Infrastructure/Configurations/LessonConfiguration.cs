@@ -19,24 +19,24 @@ namespace E_Learning.Infrastructure.Configurations
 
             builder.HasKey(l => l.Id);
 
-            builder.Property(l => l.LessonTitle)
-                .HasConversion(t => t.Value, t => new LessonTitle(t))
+            builder.Property(lessons => lessons.LessonTitle)
+                .HasConversion(title => title.Value, t => new LessonTitle(t))
                 .HasMaxLength(255)
                 .IsRequired();
 
 
-            builder.Property(l => l.URL)
+            builder.Property(lessons => lessons.URL)
                 .HasConversion(u => u.Value, u => new URL(u))
                 .HasMaxLength(255);
 
 
-            builder.Property(l => l.TitleUrl)
+            builder.Property(lessons => lessons.TitleUrl)
                .HasConversion(t => t.Value, t => new TitleUrl(t))
                .HasMaxLength(50);
 
             builder.HasOne<Unit>()
                 .WithMany()
-                .HasForeignKey(l => l.UnitId)
+                .HasForeignKey(lessons => lessons.UnitId)
                 .OnDelete(DeleteBehavior.Cascade);
         }
     }

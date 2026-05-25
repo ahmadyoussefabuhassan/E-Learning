@@ -17,38 +17,21 @@ namespace E_Learning.Infrastructure.Configurations
             builder.ToTable("Invtensives");
 
             builder.HasKey(i => i.Id);
+            builder.Property(Inv => Inv.Title)
+                 .HasConversion(title => title.Value , value => new InvtensivesTitle(value))
+                  .HasMaxLength(50)
+                  .IsRequired();
 
-            builder.OwnsOne(i => i.Title, titleBuilder =>
-            {
-                titleBuilder.Property(title => title.Value)
-                    .HasColumnName("Title")
-                    .HasMaxLength(50)
-                    .IsRequired();
-            });
+            builder.Property(Inv => Inv.Description)
+                .HasConversion(description => description.Value , value => new Description(value))
+                .HasMaxLength(50)
+                .IsRequired();
+            builder.Property(Inv => Inv.Price)
+                .HasConversion(price => price.Value  , value => new Price(value))
+                .HasColumnType("decimal(18,2)")
+                .IsRequired();
 
-
-            builder.OwnsOne
-             (
-              d => d.Description , DescriptionBuilder =>
-               {
-                 DescriptionBuilder.Property(description => description.Value)
-                 .HasColumnName("Description")
-                 .HasMaxLength(50)
-                 .IsRequired();
-              }
-             );
-
-            builder.OwnsOne
-             (
-             p => p.Price, PricBuilder =>
-              {
-                PricBuilder.Property (price => price.Value)
-                 .HasColumnType("Price(18,2)")
-                 .IsRequired();
-              }
-            );
-
-
+            //
             builder .HasOne (Invtensives => Invtensives.Course)
                 .WithMany (course => course.Invtensives)
                 .HasForeignKey(Invtensives => Invtensives.CourseID) 

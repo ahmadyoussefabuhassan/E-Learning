@@ -12,8 +12,11 @@ namespace E_Learning.Infrastructure.Configurations
     {
         public void Configure(EntityTypeBuilder<Course> builder)
         {
+
             builder.ToTable("Courses");
+            // 
             builder.HasKey(c => c.Id);
+            //
             builder.Property(c => c.CourseName)
                 .HasConversion(n => n.Value, n => new CourseName(n))
                 .IsRequired()
@@ -30,8 +33,9 @@ namespace E_Learning.Infrastructure.Configurations
                 .HasMaxLength(255);
 
             builder.Property(c => c.IsActive)
-             .HasDefaultValue(true)
-            .IsRequired();
+                .HasDefaultValue(true)
+                .IsRequired();
+
             builder.Property(p => p.Price)
                 .HasConversion(p => p.Value, p => new Price(p))
                 .IsRequired()

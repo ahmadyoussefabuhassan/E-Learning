@@ -15,36 +15,25 @@ namespace E_Learning.Infrastructure.Configurations
 
         public void Configure(EntityTypeBuilder<StudentSubscription> builder)
         {
-            builder.HasKey(i => i.Id);
+           // Table name
             builder.ToTable("StudentSubscriptions");
+            // Primary key
+            builder.HasKey(studentsubscriptions => studentsubscriptions.Id);
+            // Properties
+            builder.Property(studentsubscriptions => studentsubscriptions.TargetType )
+                .HasConversion(targettype => targettype.Value , value  => new TargetType(value))
+                .HasMaxLength(50)
+                .IsRequired();
 
-            builder.OwnsOne(tt => tt.TargetType, TargetTypeBuilder =>
-            {
-                TargetTypeBuilder.Property(t => t.Value)
-            .HasColumnName("TargetType")
-                    .HasMaxLength(50)
-                    .IsRequired();
-            });
+            builder.Property(studentsubscriptions => studentsubscriptions.ReceiptImageUrl)
+                .HasConversion(receiptimageurl => receiptimageurl.Value , value => new ReceiptImageUrl(value))
+                .HasMaxLength(100)
+                .IsRequired();
 
-                builder.OwnsOne(r => r.ReceiptImageUrl, ReceiptImageUrlBuilder =>
-                {
-                    ReceiptImageUrlBuilder.Property(r => r.Value)
-                .HasColumnName("ReceiptImageUrl")
-                        .HasMaxLength(200)
-                        .IsRequired();
-                });
-    
-                builder.OwnsOne(p => p.PriceAtPurchase, PriceAtPurchaseBuilder =>
-                {
-                    PriceAtPurchaseBuilder.Property(p => p.Value)
-                .HasColumnType("PriceAtPurchase(18,2)")
-                        .HasPrecision(18, 2)
-                        .IsRequired();
-                });           
-            builder .HasOne(StudentSubscriptions => StudentSubscriptions.Students)
-                .WithMany(Students => Students.StudentSubscriptions)
-                .HasForeignKey(StudentSubscriptions => StudentSubscriptions.StudentId)
-                .OnDelete(DeleteBehavior.Cascade);
+            builder.Property(studentsubscriptions => studentsubscriptions.PriceAtPurchase)
+                .HasConversion(priceAtpurchase => priceAtpurchase.Value, value => new PriceAtPurchase(value))
+                .HasColumnType("decimal(18,2)")
+                .IsRequired();
         }
 
             

@@ -15,16 +15,15 @@ namespace E_Learning.Infrastructure.Configurations
     {
         public void Configure(EntityTypeBuilder<InvtensivesVideos> builder)
         {
-           builder.ToTable("InvtensivesVideos");
-           builder .HasKey (i=>i.Id);
 
-            builder.OwnsOne(i => i.VideoUrl, VideoUrlBuilder =>
-            {
-                VideoUrlBuilder.Property(VideoUrl => VideoUrl.Value)
-                    .HasColumnName("VideoUrl")
-                    .HasMaxLength(50)
-                    .IsRequired();
-            });
+           builder.ToTable("InvtensivesVideos");
+           
+            builder .HasKey (i=>i.Id);
+
+            builder.Property(IntV => IntV.VideoUrl)
+                .HasConversion(videourl => videourl.Value , value => new InvtensivesVideosVideoUrl(value))
+                .HasMaxLength(50)
+                .IsRequired(); 
 
             builder .HasOne(InvtensivesVideos => InvtensivesVideos.Invtensive)
                 .WithMany(Invtensive => Invtensive.InvtensivesVideos)

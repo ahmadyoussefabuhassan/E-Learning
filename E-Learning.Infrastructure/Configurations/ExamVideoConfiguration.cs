@@ -14,18 +14,19 @@ namespace E_Learning.Infrastructure.Configurations
     {
         public void Configure(EntityTypeBuilder<ExamVideo> builder)
         {
+            //
             builder.ToTable("ExamVideos");
-
-            builder.HasKey(e => e.Id);
-
-            builder.Property(e => e.VideoUrl)
-                .HasConversion(v => v.Value, v => new ExamVideosVideoUrl(v))
+            //
+            builder.HasKey(examvideo => examvideo.Id);
+            //
+            builder.Property(examvideo => examvideo.VideoUrl)
+                .HasConversion(examvideosvideourl => examvideosvideourl.Value, v => new ExamVideosVideoUrl(v))
                 .IsRequired();
 
-            builder.Property(e => e.Year)
-                .HasConversion(y => y.Value, y => new Year(y))
+            builder.Property(examvideo => examvideo.Year)
+                .HasConversion(year => year.Value, y => new Year(y))
                 .IsRequired();
-
+            //
             builder.HasOne<ExamExplanation>()
             .WithMany()
             .HasForeignKey(i => i.ExamExplanationId)

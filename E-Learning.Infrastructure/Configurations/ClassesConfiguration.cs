@@ -14,17 +14,15 @@ namespace E_Learning.Infrastructure.Configurations
     {
         public void Configure(EntityTypeBuilder<Classes> builder)
         {
-          builder.ToTable ("Classes");
+             builder.ToTable ("Classes");
 
-          builder .HasKey (c => c.Id);
-             
-            builder.OwnsOne(r => r.Name, nameBuilder =>
-            {
-                nameBuilder.Property(name => name.Value)
-                    .HasColumnName("Name")
-                    .HasMaxLength(50)
-                    .IsRequired();
-            });
+             builder.HasKey(classes => classes.Id);
+
+            builder.Property(classes => classes.Name)
+                 .HasConversion(name  => name.Value , value => new ClassesName(value))
+                 .HasMaxLength(50)
+                 .IsRequired();
+
         }
     }
 }

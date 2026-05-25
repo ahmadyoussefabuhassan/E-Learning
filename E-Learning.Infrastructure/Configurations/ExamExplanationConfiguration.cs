@@ -10,23 +10,25 @@ namespace E_Learning.Infrastructure.Configurations
     {
         public void Configure(EntityTypeBuilder<ExamExplanation> builder)
         {
+            //
             builder.ToTable("ExamExplanations");
-
-            builder.HasKey(e => e.Id);
-
-            builder.Property(e => e.Title)
-                .HasConversion(t => t.Value, t => new Title(t))
+            //
+            builder.HasKey(examexplanation => examexplanation.Id);
+            //
+            builder.Property(examexplanation => examexplanation.Title)
+                .HasConversion(title => title.Value, t => new Title(t))
                 .HasMaxLength(30)
                 .IsRequired();
 
-            builder.Property(e => e.Description)
-                .HasConversion(d => d.Value, d => new Description(d))
+            builder.Property(examexplanation => examexplanation.Description)
+                .HasConversion(description => description.Value, d => new Description(d))
                 .HasMaxLength(255)
                 .IsRequired();
-            builder.Property(e => e.Price)
-                .HasConversion(p => p.Value, p => new Price(p))
+            builder.Property(examexplanation => examexplanation.Price)
+                .HasConversion(price => price.Value, p => new Price(p))
                 .HasColumnType("decimal(18,2)")
                 .IsRequired();
+            //
             builder.HasOne<Course>()
                 .WithMany()
                 .HasForeignKey(e => e.CourseId)
