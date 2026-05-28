@@ -1,5 +1,5 @@
 ﻿using E_Learning.Domain.User;
-
+using Microsoft.EntityFrameworkCore;
 
 namespace E_Learning.Infrastructure.Repositories
 {
@@ -9,5 +9,9 @@ namespace E_Learning.Infrastructure.Repositories
         {
 
         }
+
+        public async Task<User?> GetByEmailAsync(Email email, CancellationToken cancellationToken)
+                 => await _dbContext.Set<User>()
+            .FirstOrDefaultAsync(x => x.Email.Value == email.Value, cancellationToken);
     }
 }

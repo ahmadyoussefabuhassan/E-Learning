@@ -1,4 +1,7 @@
-﻿using E_Learning.Domain.Abstractions;
+﻿using E_Learning.Application.Abstractions.Authentication;
+using E_Learning.Application.Abstractions.Clock;
+using E_Learning.Application.Abstractions.Files;
+using E_Learning.Domain.Abstractions;
 using E_Learning.Domain.Classes;
 using E_Learning.Domain.Courses;
 using E_Learning.Domain.ExamExplanations;
@@ -16,6 +19,9 @@ using E_Learning.Domain.StudentSubscription;
 using E_Learning.Domain.Teachers;
 using E_Learning.Domain.Units;
 using E_Learning.Domain.User;
+using E_Learning.Infrastructure.Authentication;
+using E_Learning.Infrastructure.Clock;
+using E_Learning.Infrastructure.Files;
 using E_Learning.Infrastructure.Repositories;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
@@ -58,6 +64,10 @@ namespace E_Learning.Infrastructure
             services.AddScoped<IStudentSubscriptionRepositry , StudentSubscriptionRepositry>();
             // Register Unit of Work
             services.AddScoped<IUnitOfWork>(s => s.GetRequiredService<ApplicationDbContext>());
+            // Register other services like file handling, JWT service, etc. if needed
+            services.AddScoped<IFileService, FileService>();
+            services.AddScoped<IJwtService, JwtService>();
+            services.AddScoped<IDateTimeProvider, DateTimeProvider>();
             return services;
         }
     }

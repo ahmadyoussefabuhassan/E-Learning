@@ -15,5 +15,7 @@ namespace E_Learning.Domain.User
 
         public static readonly Error Unauthorized = new(
             "User.Unauthorized", "ليس لديك الصلاحية الكافية للقيام بهذا الإجراء");
+        public static Error InvalidEmail = new Error("User.InvalidEmail", "The email address is invalid.");
+        public static Error InvalidPassword = new Error("User.InvalidPassword", "The password is invalid.");
     }
 }

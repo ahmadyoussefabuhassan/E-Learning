@@ -1,5 +1,6 @@
 ﻿using E_Learning.Domain.Abstractions;
 using E_Learning.Domain.RefreshTokens;
+using E_Learning.Domain.Roles;
 using E_Learning.Domain.Students;
 using E_Learning.Domain.Teachers;
 using E_Learning.Domain.User.Events;
@@ -30,6 +31,7 @@ namespace E_Learning.Domain.User
         public ImageUrl? ImageUrl { get; private set; }
         public DateTime CreatedAt { get; private set; }
         public Guid RoleId { get; private set; }
+        public Role? Role { get; private set; } 
         public Student? Student { get; private set; } 
         public Teacher? Teacher { get; private set; }
         public ICollection<RefreshToken> RefreshTokens { get; private set; } = new List<RefreshToken>();
