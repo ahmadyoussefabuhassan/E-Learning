@@ -17,9 +17,6 @@
     <Folder Include="ExamVideos\" />
     <Folder Include="Invtensives\" />
     <Folder Include="InvtensivesVideos\" />
-    <Folder Include="Students\GetProfileStudent\" />
-    <Folder Include="Students\UpdateProfileStudent\" />
-    <Folder Include="Students\RegisterStudent\" />
   </ItemGroup>
 
   <ItemGroup>

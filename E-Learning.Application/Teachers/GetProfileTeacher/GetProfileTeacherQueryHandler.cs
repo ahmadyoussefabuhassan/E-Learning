@@ -4,11 +4,7 @@ using E_Learning.Domain.Abstractions;
 using E_Learning.Domain.Roles;
 using E_Learning.Domain.Teachers;
 using E_Learning.Domain.User;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+
 
 namespace E_Learning.Application.Teachers.GetProfileTeacher
 {
