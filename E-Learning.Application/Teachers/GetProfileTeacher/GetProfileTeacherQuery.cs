@@ -2,5 +2,5 @@
 
 namespace E_Learning.Application.Teachers.GetProfileTeacher
 {
-    public sealed record GetProfileTeacherCommand(Guid userId) : IQuery<TeacherResponse>;
+    public sealed record GetProfileTeacherQuery(Guid userId) : IQuery<TeacherResponse>;
 }

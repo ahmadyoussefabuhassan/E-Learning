@@ -6,9 +6,10 @@ using E_Learning.Domain.RefreshTokens;
 using E_Learning.Domain.Roles;
 using E_Learning.Domain.User;
 
-namespace E_Learning.Application.Users.LogInUser
+
+namespace E_Learning.Application.Students.LogInStudent
 {
-    public sealed class LogInUserCommandHandler : ICommandHandler<LogInUserCommand, AuthenticationResponse>
+    public sealed class LogInStudentCommandHandler : ICommandHandler<LogInStudentCommand, AuthenticationResponse>
     {
         private readonly IUnitOfWork _unitOfWork;
         private readonly IJwtService _jwtService;
@@ -17,7 +18,12 @@ namespace E_Learning.Application.Users.LogInUser
         private readonly IRoleRepository _roleRepository;
         private readonly IDateTimeProvider _dateTimeProvider;
 
-        public LogInUserCommandHandler(IUnitOfWork unitOfWork, IJwtService jwtService, IUserRepository userRepository, IRefreshTokenRepository refreshTokenRepository, IRoleRepository roleRepository, IDateTimeProvider dateTimeProvider)
+        public LogInStudentCommandHandler(IUnitOfWork unitOfWork,
+            IJwtService jwtService,
+            IUserRepository userRepository, 
+            IRefreshTokenRepository refreshTokenRepository,
+            IRoleRepository roleRepository, 
+            IDateTimeProvider dateTimeProvider)
         {
             _unitOfWork = unitOfWork;
             _jwtService = jwtService;
@@ -27,15 +33,15 @@ namespace E_Learning.Application.Users.LogInUser
             _dateTimeProvider = dateTimeProvider;
         }
 
-        public async Task<Result<AuthenticationResponse>> Handle(LogInUserCommand request, CancellationToken cancellationToken)
+        public async Task<Result<AuthenticationResponse>> Handle(LogInStudentCommand request, CancellationToken cancellationToken)
         {
             var user = await _userRepository.GetByEmailAsync(new Email(request.Email), cancellationToken);
             if (user is null)
                 return Result.Failure<AuthenticationResponse>(UserErorrs.InvalidCredentials);
             var role = await _roleRepository.GetByIdAsync(user.RoleId, cancellationToken);
-            if(role is null)
+            if (role is null)
                 return Result.Failure<AuthenticationResponse>(RoleErrors.NotFound);
-            if (role.Name != Name.Admin|| role.Name != Name.Teacher)
+            if (role.Name != Name.Student)
                 return Result.Failure<AuthenticationResponse>(UserErorrs.Unauthorized);
             var token = _jwtService.GenerateToken(user.Id, user.Email.Value, role.Name.Value);
             var refreshTokenText = Convert.ToBase64String(Guid.NewGuid().ToByteArray());
@@ -50,8 +56,6 @@ namespace E_Learning.Application.Users.LogInUser
             await _unitOfWork.SaveChangesAsync(cancellationToken);
             var response = new AuthenticationResponse(token, refreshToken.Token, user.Id);
             return Result.Success(response);
-
-
         }
     }
 }

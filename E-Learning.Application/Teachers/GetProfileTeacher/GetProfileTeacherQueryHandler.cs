@@ -12,26 +12,26 @@ using System.Threading.Tasks;
 
 namespace E_Learning.Application.Teachers.GetProfileTeacher
 {
-    public sealed class GetProfileTeacherCommandHandler : BaseService, IQueryHandler<GetProfileTeacherCommand, TeacherResponse>
+    public sealed class GetProfileTeacherQueryHandler : BaseService, IQueryHandler<GetProfileTeacherQuery, TeacherResponse>
     {
         private readonly IUserRepository _userRepository;
         private readonly ITeacherRepository _teacherRepository;
 
-        public GetProfileTeacherCommandHandler(IUserRepository userRepository, ITeacherRepository teacherRepository)
+        public GetProfileTeacherQueryHandler(IUserRepository userRepository, ITeacherRepository teacherRepository)
         {
             _userRepository = userRepository;
             _teacherRepository = teacherRepository;
         }
 
-        public async Task<Result<TeacherResponse>> Handle(GetProfileTeacherCommand request, CancellationToken cancellationToken)
+        public async Task<Result<TeacherResponse>> Handle(GetProfileTeacherQuery request, CancellationToken cancellationToken)
         {
             Guid currentUserId = UserId;
-            var teacher = await _teacherRepository.GetByIdAsync(currentUserId, cancellationToken);
-            if (teacher is null)
-                return Result.Failure<TeacherResponse>(TeacherErrors.NotFound);
-            var user = teacher.User;
+            var user = await _userRepository.GetByIdAsync(currentUserId, cancellationToken);
             if (user is null)
                 return Result.Failure<TeacherResponse>(UserErorrs.NotFound);
+            var teacher = await _teacherRepository.GetByIdAsync(user.Id, cancellationToken);
+            if (teacher is null)
+                return Result.Failure<TeacherResponse>(TeacherErrors.NotFound);
             var response = new TeacherResponse(
                 user.FullName.Value,
                 user.Email.Value,
