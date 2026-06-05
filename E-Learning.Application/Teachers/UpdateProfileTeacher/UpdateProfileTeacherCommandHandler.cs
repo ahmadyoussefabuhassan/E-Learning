@@ -4,6 +4,7 @@ using E_Learning.Application.Abstractions.Services;
 using E_Learning.Domain.Abstractions;
 using E_Learning.Domain.Teachers;
 using E_Learning.Domain.User;
+using Microsoft.AspNetCore.Http;
 
 
 namespace E_Learning.Application.Teachers.UpdateProfileTeacher
@@ -14,7 +15,11 @@ namespace E_Learning.Application.Teachers.UpdateProfileTeacher
         private readonly IUserRepository _userRepository;
         private readonly ITeacherRepository _teacherRepository;
         private readonly IFileService _fileService;
-        public UpdateProfileTeacherCommandHandler(IUnitOfWork unitOfWork, IUserRepository userRepository, IFileService fileService, ITeacherRepository teacherRepository)
+        public UpdateProfileTeacherCommandHandler(IUnitOfWork unitOfWork, 
+            IUserRepository userRepository, 
+            IFileService fileService,
+            ITeacherRepository teacherRepository,
+            IHttpContextAccessor httpContextAccessor) : base(httpContextAccessor)
         {
             _unitOfWork = unitOfWork;
             _userRepository = userRepository;

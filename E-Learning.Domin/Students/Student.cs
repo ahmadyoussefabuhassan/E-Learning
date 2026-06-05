@@ -16,6 +16,7 @@ namespace E_Learning.Domain.Students
         }
         public SubjectStudent SubjectStudent { get; private set; }
         public ICollection<StudentSubscription.StudentSubscription> StudentSubscriptions { get; private set; } = new List<StudentSubscription.StudentSubscription>();
+        public User.User User { get; private set; } = null!;
         public static Student Create(Guid userId, SubjectStudent subjectStudent)
         {
             var student = new Student(userId, subjectStudent);

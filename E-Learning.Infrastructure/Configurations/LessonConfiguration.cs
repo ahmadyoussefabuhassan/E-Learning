@@ -3,11 +3,7 @@ using E_Learning.Domain.Lessons;
 using E_Learning.Domain.Units;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Metadata.Builders;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+
 
 namespace E_Learning.Infrastructure.Configurations
 {
@@ -34,9 +30,9 @@ namespace E_Learning.Infrastructure.Configurations
                .HasConversion(t => t.Value, t => new TitleUrl(t))
                .HasMaxLength(50);
 
-            builder.HasOne<Unit>()
-                .WithMany()
-                .HasForeignKey(lessons => lessons.UnitId)
+            builder.HasOne(l => l.Unit)
+                .WithMany(u => u.Lessons)
+                .HasForeignKey(l => l.UnitId)
                 .OnDelete(DeleteBehavior.Cascade);
         }
     }

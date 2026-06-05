@@ -3,14 +3,15 @@ using E_Learning.Application.Abstractions.Services;
 using E_Learning.Domain.Abstractions;
 using E_Learning.Domain.Roles;
 using E_Learning.Domain.User;
+using Microsoft.AspNetCore.Http;
 
 namespace E_Learning.Application.Users.GetProfileUser
 {
     public sealed class GetProfileUserQueryHandler : BaseService, IQueryHandler<GetProfileUserQuery, UserResponse>
     {
         private readonly IUserRepository _userRepository;
-
-        public GetProfileUserQueryHandler(IUserRepository userRepository)
+ 
+        public GetProfileUserQueryHandler(IUserRepository userRepository, IHttpContextAccessor httpContextAccessor) : base(httpContextAccessor)
         {
             _userRepository = userRepository;
         }

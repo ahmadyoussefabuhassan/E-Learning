@@ -13,18 +13,19 @@ namespace E_Learning.Infrastructure.DateSeeds
             var adminEmail = "admin@ELearning.com";
             var adminPassword = "A@s$w0rd";
             var adminrole = await dbContext.Set<Role>()
-                 .FirstOrDefaultAsync(r => r.Name.Value == Name.Admin.Value && r.notType == NotType.Admin);
+                 .FirstOrDefaultAsync(r =>  r.notType == NotType.Admin);
             if (adminrole is null)
                 throw new ApplicationException("System Error: Admin role not found. Please run RoleSeed first.");
+            var adminEmailObject = new Email(adminEmail);
             var adminExists = await dbContext.Set<User>()
-           .AnyAsync(u => u.Email.Value == adminEmail);
+           .AnyAsync(u => u.Email == adminEmailObject);
             if (!adminExists)
             {
                 var adminUser = User.Create(
                     new FullName("Admin"),
                     new Email(adminEmail),
                     new Password(adminPassword),
-                    new PhoneNumber("+963 955920653"),
+                    new PhoneNumber("+963955920653"),
                     new Address("دمشق"),
                     null,
                     adminrole.Id);

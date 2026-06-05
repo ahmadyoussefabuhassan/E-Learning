@@ -1,11 +1,8 @@
-﻿using E_Learning.Domain.StudentSubscription;
+﻿using E_Learning.Domain.Students;
+using E_Learning.Domain.StudentSubscription;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Metadata.Builders;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+
 
 namespace E_Learning.Infrastructure.Configurations
 {
@@ -34,9 +31,14 @@ namespace E_Learning.Infrastructure.Configurations
                 .HasConversion(priceAtpurchase => priceAtpurchase.Value, value => new PriceAtPurchase(value))
                 .HasColumnType("decimal(18,2)")
                 .IsRequired();
+            // relationships
+            builder.HasOne(sp=>sp.Students)
+                .WithMany(student => student.StudentSubscriptions)
+                .HasForeignKey(studentsubscriptions => studentsubscriptions.StudentId)
+                .OnDelete(DeleteBehavior.Cascade);
         }
 
-            
-        
+
+
     }
 }

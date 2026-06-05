@@ -9,6 +9,7 @@ namespace E_Learning.Application.Users.LogOut
         private readonly IRefreshTokenRepository _refreshTokensRepository;
         private readonly IUnitOfWork _unitOfWork;
 
+
         public LogOutUserCommandHandler(IRefreshTokenRepository refreshTokensRepository, IUnitOfWork unitOfWork)
         {
             _refreshTokensRepository = refreshTokensRepository;

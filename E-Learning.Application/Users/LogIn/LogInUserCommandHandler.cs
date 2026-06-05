@@ -11,13 +11,13 @@ namespace E_Learning.Application.Users.LogIn
     public sealed class LogInUserCommandHandler : ICommandHandler<LogInUserCommand, AuthenticationResponse>
     {
         private readonly IUnitOfWork _unitOfWork;
-        private readonly IJwtService _jwtService;
+        private readonly IJwtTokenGenerator _jwtService;
         private readonly IUserRepository _userRepository;
         private readonly IRefreshTokenRepository _refreshTokenRepository;
         private readonly IRoleRepository _roleRepository;
         private readonly IDateTimeProvider _dateTimeProvider;
 
-        public LogInUserCommandHandler(IUnitOfWork unitOfWork, IJwtService jwtService, IUserRepository userRepository, IRefreshTokenRepository refreshTokenRepository, IRoleRepository roleRepository, IDateTimeProvider dateTimeProvider)
+        public LogInUserCommandHandler(IUnitOfWork unitOfWork, IJwtTokenGenerator jwtService, IUserRepository userRepository, IRefreshTokenRepository refreshTokenRepository, IRoleRepository roleRepository, IDateTimeProvider dateTimeProvider)
         {
             _unitOfWork = unitOfWork;
             _jwtService = jwtService;
@@ -35,15 +35,16 @@ namespace E_Learning.Application.Users.LogIn
             var role = await _roleRepository.GetByIdAsync(user.RoleId, cancellationToken);
             if(role is null)
                 return Result.Failure<AuthenticationResponse>(RoleErrors.NotFound);
-            if (role.Name != Name.Admin|| role.Name != Name.Teacher)
+            if (role.notType != NotType.Admin && role.notType != NotType.Teacher)
                 return Result.Failure<AuthenticationResponse>(UserErorrs.Unauthorized);
-            var token = _jwtService.GenerateToken(user.Id, user.Email.Value, role.Name.Value);
+            string jit = Guid.NewGuid().ToString();
+            var token = _jwtService.GenerateToken(user.Id, user.Email.Value,user.FullName.Value, role.Name.Value, jit);
             var refreshTokenText = Convert.ToBase64String(Guid.NewGuid().ToByteArray());
             var refreshToken = RefreshToken.Create(
                 refreshTokenText,
-                Guid.NewGuid().ToString(),
-                _dateTimeProvider.UtcNow,
-                _dateTimeProvider.UtcNow.AddDays(7),
+                jit,
+                _dateTimeProvider.Now,
+                _dateTimeProvider.Now.AddDays(7),
                 user.Id
             );
             await _refreshTokenRepository.AddSaveToken(refreshToken);

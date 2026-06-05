@@ -4,6 +4,7 @@ using E_Learning.Domain.Abstractions;
 using E_Learning.Domain.Roles;
 using E_Learning.Domain.Students;
 using E_Learning.Domain.User;
+using Microsoft.AspNetCore.Http;
 
 namespace E_Learning.Application.Students.GetProfileStudent
 {
@@ -12,7 +13,9 @@ namespace E_Learning.Application.Students.GetProfileStudent
         private readonly IUserRepository _userRepository;
         private readonly IStudentRepository _studentRepository;
 
-        public GetProfileStudentQueryHandler(IUserRepository userRepository, IStudentRepository studentRepository)
+        public GetProfileStudentQueryHandler(IUserRepository userRepository, 
+            IStudentRepository studentRepository,
+            IHttpContextAccessor httpContextAccessor) : base(httpContextAccessor)
         {
             _userRepository = userRepository;
             _studentRepository = studentRepository;

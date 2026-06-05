@@ -21,7 +21,7 @@ namespace E_Learning.Domain.Lessons
         public URL URL { get; private set; }
         public TitleUrl TitleUrl { get; private set; }
         public Guid UnitId { get; private set; }
-        public Unit? Unit { get; private set; }
+        public Unit Unit { get; private set; } = null!;
         public static Lesson Create(LessonTitle lessontitle, URL url, TitleUrl titleurl, Guid unitId)
         {
             var lesson = new Lesson(Guid.NewGuid(), lessontitle, url, titleurl, unitId);

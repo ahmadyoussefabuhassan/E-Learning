@@ -2,11 +2,7 @@
 using E_Learning.Domain.ExamVideos;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Metadata.Builders;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+
 
 namespace E_Learning.Infrastructure.Configurations
 {
@@ -27,8 +23,8 @@ namespace E_Learning.Infrastructure.Configurations
                 .HasConversion(year => year.Value, y => new Year(y))
                 .IsRequired();
             //
-            builder.HasOne<ExamExplanation>()
-            .WithMany()
+            builder.HasOne(e => e.ExamExplanation)
+            .WithMany(e => e.ExamExplanationVideos)
             .HasForeignKey(i => i.ExamExplanationId)
             .OnDelete(DeleteBehavior.Cascade);
         }

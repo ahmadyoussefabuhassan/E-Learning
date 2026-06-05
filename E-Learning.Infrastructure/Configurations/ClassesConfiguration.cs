@@ -1,12 +1,7 @@
 ﻿using E_Learning.Domain.Classes;
-using E_Learning.Domain.Roles;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Metadata.Builders;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+
 
 namespace E_Learning.Infrastructure.Configurations
 {

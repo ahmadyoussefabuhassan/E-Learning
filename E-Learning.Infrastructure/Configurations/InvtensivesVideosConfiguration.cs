@@ -1,13 +1,8 @@
-﻿using E_Learning.Domain.ExamVideos;
-using E_Learning.Domain.Invtensives;
+﻿using E_Learning.Domain.Invtensives;
 using E_Learning.Domain.InvtensivesVideos;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Metadata.Builders;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+
 
 namespace E_Learning.Infrastructure.Configurations
 {
@@ -25,7 +20,7 @@ namespace E_Learning.Infrastructure.Configurations
                 .HasMaxLength(50)
                 .IsRequired(); 
 
-            builder .HasOne(InvtensivesVideos => InvtensivesVideos.Invtensive)
+            builder.HasOne(inv => inv.Invtensive)
                 .WithMany(Invtensive => Invtensive.InvtensivesVideos)
                 .HasForeignKey(InvtensivesVideos => InvtensivesVideos.InvtensiveId)
                 .OnDelete(DeleteBehavior.Cascade);

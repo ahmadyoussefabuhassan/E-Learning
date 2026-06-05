@@ -13,13 +13,14 @@ namespace E_Learning.Infrastructure.Repositories
 
         public async Task DeleteToken(string token)
         {
-            var t = await _dbContext.Set<RefreshToken>().FindAsync(token);
+            var t = await _dbContext.Set<RefreshToken>()
+                 .FirstOrDefaultAsync(x => x.Token == token);
             if (t is not null)
                 _dbContext.Set<RefreshToken>().Remove(t);
         }
 
         public async Task<RefreshToken?> GetToken(string token)
             => await _dbContext.Set<RefreshToken>()
-                        .FirstOrDefaultAsync(x => x.Token == token);
+                        .FirstOrDefaultAsync(x => x.Token == token );
     }
 }

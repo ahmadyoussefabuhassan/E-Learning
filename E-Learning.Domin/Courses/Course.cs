@@ -35,7 +35,8 @@ namespace E_Learning.Domain.Courses
         public bool IsActive { get; private set; }
         public Guid ClassesId { get; private set; }
         public Guid TeacherId { get; private set; }
-        public Teacher? Teachers { get; private set; }
+        public Teacher Teachers { get; private set; } = null!;
+        public Classes.Classes Classes { get; private set; } = null!;
         public ICollection<Section> Sections { get; private set; } = new List<Section>();
         public ICollection<ExamExplanation> ExamExplanations { get; private set; } = new List<ExamExplanation>();
         public ICollection<Invtensives.Invtensives> Invtensives { get; private set; } = new List<Invtensives.Invtensives>();

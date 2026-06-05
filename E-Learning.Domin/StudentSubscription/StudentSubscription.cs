@@ -23,7 +23,7 @@ namespace E_Learning.Domain.StudentSubscription
         }
 
         public Guid StudentId { get; private set; }
-        public Student? Students { get; private set; }
+        public Student Students { get; private set; } = null!;
         public Guid TargetId { get; private set; }
         public TargetType TargetType { get; private set; }
         public ReceiptImageUrl ReceiptImageUrl { get; private set; }

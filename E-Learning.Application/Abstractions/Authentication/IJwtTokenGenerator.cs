@@ -6,8 +6,8 @@ using System.Threading.Tasks;
 
 namespace E_Learning.Application.Abstractions.Authentication
 {
-    public interface IJwtService
+    public interface IJwtTokenGenerator
     {
-        string GenerateToken(Guid userId, string email, string rolename);
+        string GenerateToken(Guid userId, string email, string FullName , string rolename , string jit);
     }
 }

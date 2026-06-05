@@ -14,16 +14,10 @@ namespace E_Learning.Infrastructure.Configurations
             // Primary key
             builder.HasKey(r => r.Id);
             // Properties
-            builder.OwnsOne(r => r.Name, nameBuilder =>
-            {
-                nameBuilder.Property(name => name.Value)
-                    .HasColumnName("Name")
-                    .HasMaxLength(50)
-                    .IsRequired();
-            });
-
-            builder.Navigation(r => r.Name)
-                .IsRequired();
+            builder.Property(r => r.Name)
+                .IsRequired()
+                .HasMaxLength(255)
+                .HasConversion(n => n.Value , valu => new Name(valu));
 
             builder.Property(r => r.notType)
                 .HasMaxLength(10)

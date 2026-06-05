@@ -24,6 +24,7 @@ namespace E_Learning.Domain.RefreshTokens
         public bool IsUsed { get; private set; }
         public bool IsRevoked { get; private set; }
         public Guid UserId { get; private set; }
+        public User.User User { get; private set; } = null!;
         public bool IsExpired => DateTime.UtcNow >= Expires;
         public static RefreshToken Create(string token, string jWTId, DateTime createdAt, DateTime expires, Guid userId)
         {

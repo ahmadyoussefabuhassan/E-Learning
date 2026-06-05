@@ -10,4 +10,5 @@ namespace E_Learning.Application.Students.GetProfileStudent
         string Education,
         string RoleName
     );
+    
 }

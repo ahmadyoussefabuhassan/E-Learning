@@ -20,7 +20,7 @@ namespace E_Learning.Domain.Units
         public UnitTitle UnitTitle { get; private set; }
         public Description Description { get; private set; }
         public Guid SectionId { get; private set; }
-        public Section? Section { get; private set; }
+        public Section Section { get; private set; } = null!;
         public ICollection<Lesson> Lessons { get; private set; } = new List<Lesson>();  
         public static Unit Create(Guid id, UnitTitle UnitTitle, Description description, Guid sectionId)
         {

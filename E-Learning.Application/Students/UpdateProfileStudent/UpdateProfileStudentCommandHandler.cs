@@ -5,6 +5,7 @@ using E_Learning.Domain.Abstractions;
 using E_Learning.Domain.Students;
 using E_Learning.Domain.Teachers;
 using E_Learning.Domain.User;
+using Microsoft.AspNetCore.Http;
 
 
 namespace E_Learning.Application.Students.UpdateProfileStudent
@@ -19,7 +20,8 @@ namespace E_Learning.Application.Students.UpdateProfileStudent
         public UpdateProfileStudentCommandHandler(IStudentRepository studentRepository,
             IUnitOfWork unitOfWork, 
             IUserRepository userRepository, 
-            IFileService fileService)
+            IFileService fileService,
+            IHttpContextAccessor httpContextAccessor) : base(httpContextAccessor)
         {
             _studentRepository = studentRepository;
             _unitOfWork = unitOfWork;
@@ -35,7 +37,7 @@ namespace E_Learning.Application.Students.UpdateProfileStudent
                 return Result.Failure<Guid>(UserErorrs.NotFound);
             var student = await _studentRepository.GetByIdAsync(user.Id, cancellationToken);
             if (student is null)
-                return Result.Failure<Guid>(TeacherErrors.NotFound);
+                return Result.Failure<Guid>(StudentErrors.NotFound);
 
             if (request.Email != user.Email.Value)
             {

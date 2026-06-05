@@ -1,11 +1,8 @@
 ﻿using E_Learning.Domain.Students;
+using E_Learning.Domain.User;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Metadata.Builders;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+
 
 namespace E_Learning.Infrastructure.Configurations
 {
@@ -23,10 +20,10 @@ namespace E_Learning.Infrastructure.Configurations
                 .HasMaxLength(50)
                 .IsRequired();
             // Relationships
-            builder.HasMany(student => student.StudentSubscriptions)
-                .WithOne(subscription => subscription.Students)
-                .HasForeignKey(subscription => subscription.StudentId)
-                .OnDelete(DeleteBehavior.Cascade);
+            builder.HasOne(s => s.User)
+                .WithOne(user => user.Student)
+                .HasForeignKey<Student>(student => student.Id)
+                .OnDelete(DeleteBehavior.Restrict);
         }
     }
 }

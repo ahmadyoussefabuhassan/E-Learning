@@ -1,4 +1,5 @@
 ﻿using E_Learning.Domain.Teachers;
+using E_Learning.Domain.User;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Metadata.Builders;
 
@@ -22,10 +23,10 @@ namespace E_Learning.Infrastructure.Configurations
                 .HasConversion(url => url != null ? url.Value : null, value => value != null ?  new UrlShamCash(value) : null)
                 .IsRequired(false);
             // Relationships
-              builder.HasMany(teacher => teacher.Courses)
-                   .WithOne(course => course.Teachers)
-                    .HasForeignKey(course => course.TeacherId)
-                    .OnDelete(DeleteBehavior.Cascade);
+            builder.HasOne(t => t.User)
+                .WithOne(user => user.Teacher)
+                .HasForeignKey<Teacher>(teacher => teacher.Id)
+                .OnDelete(DeleteBehavior.Restrict);
 
 
         }

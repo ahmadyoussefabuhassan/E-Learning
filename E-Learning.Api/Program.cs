@@ -1,3 +1,8 @@
+using E_Learning.Infrastructure;
+using E_Learning.Infrastructure.Notifications;
+using E_Learning.Application;
+using E_Learning.Api.Extensions;
+using System.IdentityModel.Tokens.Jwt;
 
 namespace E_Learning.Api
 {
@@ -5,14 +10,14 @@ namespace E_Learning.Api
     {
         public static void Main(string[] args)
         {
+           JwtSecurityTokenHandler.DefaultInboundClaimTypeMap.Clear();
             var builder = WebApplication.CreateBuilder(args);
-
-            // Add services to the container.
-
+            // Add Dependencies
+            builder.Services.AddInfrastructure(builder.Configuration);
+            builder.Services.AddApplication();
+            builder.Services.AddPresentation(builder.Configuration);
+            builder.Services.AddHttpContextAccessor();
             builder.Services.AddControllers();
-            // Learn more about configuring Swagger/OpenAPI at https://aka.ms/aspnetcore/swashbuckle
-            builder.Services.AddEndpointsApiExplorer();
-            builder.Services.AddSwaggerGen();
 
             var app = builder.Build();
 
@@ -22,11 +27,15 @@ namespace E_Learning.Api
                 app.UseSwagger();
                 app.UseSwaggerUI();
             }
-
+            app.ApplyMigrations();
+            app.UseCustomExceptionHandler();
+            app.UseStaticFiles();
+            app.UseCors("AllowAll");
             app.UseHttpsRedirection();
-
+            app.UseAuthentication();
+            app.UseTokenCheck();
             app.UseAuthorization();
-
+            app.MapHub<NotificationHub>("/notificationHub");
 
             app.MapControllers();
 

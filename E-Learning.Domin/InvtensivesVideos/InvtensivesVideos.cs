@@ -19,7 +19,7 @@ namespace E_Learning.Domain.InvtensivesVideos
         }
 
         public Guid InvtensiveId { get; private set; }
-        public Invtensives.Invtensives? Invtensive { get; private set; }
+        public Invtensives.Invtensives Invtensive { get; private set; } = null!;
         public InvtensivesVideosVideoUrl VideoUrl { get; private set; }
 
         public static InvtensivesVideos Create(Guid invtensiveId, InvtensivesVideosVideoUrl videoUrl)

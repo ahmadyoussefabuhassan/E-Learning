@@ -9,14 +9,16 @@ namespace E_Learning.Infrastructure.Repositories
         {
 
         }
-
+        public override async Task<User?> GetByIdAsync(Guid id, CancellationToken cancellationToken = default)
+            => await _dbContext.Set<User>().Include(u => u.Role)
+                        .FirstOrDefaultAsync(x => x.Id == id, cancellationToken);
         public async Task<User?> GetByEmailAsync(Email email, CancellationToken cancellationToken)
                  => await _dbContext.Set<User>()
-            .FirstOrDefaultAsync(x => x.Email.Value == email.Value, cancellationToken);
+            .FirstOrDefaultAsync(x => x.Email == email, cancellationToken);
 
         public async Task<User?> IsEmailUniqueAsync(Email email, CancellationToken cancellationToken)
             => await _dbContext.Set<User>()
             .AsNoTracking()
-            .FirstOrDefaultAsync(user => user.Email.Value == email.Value, cancellationToken);
+            .FirstOrDefaultAsync(user => user.Email == email, cancellationToken);
     }
 }

@@ -23,7 +23,7 @@ namespace E_Learning.Domain.ExamExplanations
         public Description Description { get; private set; }
         public Price Price { get; private set; }
         public Guid CourseId { get; private set; }
-        public Course? Course { get; private set; } 
+        public Course Course { get; private set; } = null!; 
         public ICollection<ExamVideo> ExamExplanationVideos { get; private set; } = new List<ExamVideo>();
 
         public static ExamExplanation Create(Title title, Description description, Price price, Guid courseId)

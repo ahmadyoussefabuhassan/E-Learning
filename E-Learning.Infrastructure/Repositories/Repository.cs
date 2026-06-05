@@ -4,7 +4,7 @@ using Microsoft.EntityFrameworkCore;
 
 namespace E_Learning.Infrastructure.Repositories
 {
-    internal abstract class Repository<T> : IRepository<T>  where T : Entity
+    internal  class Repository<T> : IRepository<T>  where T : Entity
     {
         protected readonly ApplicationDbContext _dbContext;
         protected Repository(ApplicationDbContext dbContext)
@@ -24,7 +24,7 @@ namespace E_Learning.Infrastructure.Repositories
 
         public async Task<IEnumerable<T>> GetAllAsync(CancellationToken cancellationToken = default)
             => await _dbContext.Set<T>().AsNoTracking().ToListAsync(cancellationToken);
-        public async Task<T?> GetByIdAsync(Guid id, CancellationToken cancellationToken = default)
+        public virtual async Task<T?> GetByIdAsync(Guid id, CancellationToken cancellationToken = default)
             => await _dbContext.Set<T>()
                         .FirstOrDefaultAsync(x => x.Id == id, cancellationToken);
 

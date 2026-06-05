@@ -4,6 +4,7 @@ using E_Learning.Domain.Abstractions;
 using E_Learning.Domain.Roles;
 using E_Learning.Domain.Teachers;
 using E_Learning.Domain.User;
+using Microsoft.AspNetCore.Http;
 
 
 namespace E_Learning.Application.Teachers.GetProfileTeacher
@@ -13,7 +14,9 @@ namespace E_Learning.Application.Teachers.GetProfileTeacher
         private readonly IUserRepository _userRepository;
         private readonly ITeacherRepository _teacherRepository;
 
-        public GetProfileTeacherQueryHandler(IUserRepository userRepository, ITeacherRepository teacherRepository)
+        public GetProfileTeacherQueryHandler(IUserRepository userRepository, 
+            ITeacherRepository teacherRepository,
+            IHttpContextAccessor httpContextAccessor): base(httpContextAccessor)
         {
             _userRepository = userRepository;
             _teacherRepository = teacherRepository;

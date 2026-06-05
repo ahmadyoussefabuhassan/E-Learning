@@ -1,4 +1,5 @@
 ﻿using E_Learning.Domain.RefreshTokens;
+using E_Learning.Domain.User;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Metadata.Builders;
 
@@ -31,6 +32,11 @@ namespace E_Learning.Infrastructure.Configurations
                 .HasDefaultValue(false); 
             // Indexes
             builder.HasIndex(x => x.Token).IsUnique();
+            // Relationships
+            builder.HasOne(r => r.User)
+                .WithMany(u => u.RefreshTokens)
+                .HasForeignKey(x => x.UserId)
+                .OnDelete(DeleteBehavior.Cascade);
 
 
         }

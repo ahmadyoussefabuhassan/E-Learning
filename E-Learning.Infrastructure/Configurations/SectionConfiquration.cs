@@ -24,9 +24,9 @@ namespace E_Learning.Infrastructure.Configurations
                  .IsRequired()
                  .HasColumnType("decimal(18,2)");
 
-            builder.HasOne<Course>()
-                 .WithMany()
-                 .HasForeignKey(s => s.CourseId)
+            builder.HasOne(s => s.Course) 
+                   .WithMany(c => c.Sections)
+                   .HasForeignKey(s => s.CourseId)
                  .OnDelete(DeleteBehavior.Cascade);
         }
     }

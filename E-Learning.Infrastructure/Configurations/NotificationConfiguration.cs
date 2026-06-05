@@ -1,11 +1,8 @@
 ﻿using E_Learning.Domain.Notification;
+using E_Learning.Domain.User;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Metadata.Builders;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+
 
 namespace E_Learning.Infrastructure.Configurations
 {
@@ -36,6 +33,10 @@ namespace E_Learning.Infrastructure.Configurations
             builder.Property(n => n.IsRead)
                 .HasDefaultValue(true)
                 .IsRequired();
+            builder.HasOne( n => n.User)
+                .WithMany(u => u.Notification)
+                .HasForeignKey(n => n.UserId)
+                .OnDelete(DeleteBehavior.Cascade);
         }
     }
 }

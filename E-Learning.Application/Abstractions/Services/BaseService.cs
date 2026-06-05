@@ -1,4 +1,5 @@
 ﻿using Microsoft.AspNetCore.Http;
+using System.IdentityModel.Tokens.Jwt;
 using System.Security.Claims;
 
 namespace E_Learning.Application.Abstractions.Services
@@ -8,23 +9,21 @@ namespace E_Learning.Application.Abstractions.Services
         protected Guid UserId => GetUserId();
 
 
-        protected readonly HttpContext? _httpContext;
+        protected readonly IHttpContextAccessor _accessor;
+        public BaseService(IHttpContextAccessor httpContextAccessor)
+        {
+            _accessor = httpContextAccessor;
+        }
         private Guid GetUserId()
         {
-            var id = Guid.Empty;
-            try
-            {
-                if (_httpContext?.User?.Identity is { IsAuthenticated: true })
-                {
-                    id = Guid.Parse(_httpContext.User.FindFirst(ClaimTypes.NameIdentifier)?.Value ?? string.Empty);
-                }
-            }
-            catch (Exception)
-            {
-                id = Guid.Empty;
-            }
+            var user = _accessor.HttpContext?.User;
 
-            return id;
+            // البحث عن sub بكل مسمياته (المختصر والطويل) لضمان إنه ما يضيع
+            var claimValue = user?.FindFirst(JwtRegisteredClaimNames.Sub)?.Value
+                          ?? user?.FindFirst(ClaimTypes.NameIdentifier)?.Value
+                          ?? user?.FindFirst("sub")?.Value;
+
+            return Guid.TryParse(claimValue, out var id) ? id : Guid.Empty;
         }
     }
 }

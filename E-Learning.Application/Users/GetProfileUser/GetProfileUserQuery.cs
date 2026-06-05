@@ -2,5 +2,5 @@
 
 namespace E_Learning.Application.Users.GetProfileUser
 {
-    public sealed record GetProfileUserQuery(Guid userId) : IQuery<UserResponse>;
+    public sealed record GetProfileUserQuery() : IQuery<UserResponse>;
 }

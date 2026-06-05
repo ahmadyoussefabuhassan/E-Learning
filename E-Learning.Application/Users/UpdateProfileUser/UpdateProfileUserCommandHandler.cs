@@ -3,6 +3,7 @@ using E_Learning.Application.Abstractions.Messaging;
 using E_Learning.Application.Abstractions.Services;
 using E_Learning.Domain.Abstractions;
 using E_Learning.Domain.User;
+using Microsoft.AspNetCore.Http;
 
 
 namespace E_Learning.Application.Users.UpdateProfileUser
@@ -16,7 +17,8 @@ namespace E_Learning.Application.Users.UpdateProfileUser
         public UpdateProfileUserCommandHandler(
             IUnitOfWork unitOfWork,
             IUserRepository userRepository,
-            IFileService fileService)
+            IFileService fileService,
+            IHttpContextAccessor httpContextAccessor) : base(httpContextAccessor)
         {
             _unitOfWork = unitOfWork;
             _userRepository = userRepository;

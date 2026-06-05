@@ -3,5 +3,5 @@
 
 namespace E_Learning.Application.Students.GetProfileStudent
 {
-    public record GetProfileStudentQuery(Guid userId) : IQuery<StudentResponse>;
+    public record GetProfileStudentQuery() : IQuery<StudentResponse>;
 }

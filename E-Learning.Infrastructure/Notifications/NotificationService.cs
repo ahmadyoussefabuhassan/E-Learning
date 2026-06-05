@@ -1,0 +1,63 @@
+﻿using E_Learning.Application.Abstractions.Notifications;
+using E_Learning.Domain.Abstractions;
+using E_Learning.Domain.Notification;
+using Microsoft.AspNetCore.SignalR;
+
+
+namespace E_Learning.Infrastructure.Notifications
+{
+    public sealed class NotificationService : INotificationService
+    {
+        private readonly IHubContext<NotificationHub> _hubContext;
+        private readonly INotificationRepositry _notificationRepository;
+        private readonly IUnitOfWork _unitOfWork;
+
+        public NotificationService(
+            IHubContext<NotificationHub> hubContext,
+            INotificationRepositry notificationRepository,
+            IUnitOfWork unitOfWork)
+        {
+            _hubContext = hubContext;
+            _notificationRepository = notificationRepository;
+            _unitOfWork = unitOfWork;
+        }
+        public async Task SendToAllAsync(string title, string message, CancellationToken cancellation = default)
+        {
+            await _hubContext.Clients.All.SendAsync("ReceiveNotification", new
+            {
+                Title = title,
+                Message = message,
+                CreatedAt = DateTime.UtcNow
+            }, cancellation);
+        }
+        
+
+        public async Task SendToGroupAsync(string groupName, string title, string message, CancellationToken cancellation = default)
+        {
+            await _hubContext.Clients.Group(groupName).SendAsync("ReceiveNotification", new
+            {
+                Title = title,
+                Message = message,
+                CreatedAt = DateTime.UtcNow
+            }, cancellation);
+        }
+
+        public async Task SendToUserAsync(Guid userId, string title, string message, CancellationToken cancellation = default)
+        {
+            var notification = Notification.Create(
+                userId,
+                new Message(message),
+                new Title(title),
+                new UrlRedirect("")
+            );
+            await _notificationRepository.AddAsync(notification, cancellation);
+            await _unitOfWork.SaveChangesAsync(cancellation);
+            await _hubContext.Clients.User(userId.ToString()).SendAsync("ReceiveNotification", new
+            {
+                Title = title,
+                Message = message,
+                CreatedAt = DateTime.UtcNow
+            }, cancellation);
+        }
+    }
+}

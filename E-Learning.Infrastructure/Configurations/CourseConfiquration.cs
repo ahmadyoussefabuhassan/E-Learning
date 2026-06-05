@@ -41,10 +41,15 @@ namespace E_Learning.Infrastructure.Configurations
                 .IsRequired()
                 .HasColumnType("decimal(18,2)");
 
-            builder.HasOne<Classes>()
-                .WithMany()
-                .HasForeignKey(c => c.ClassesId)
-                .OnDelete(DeleteBehavior.Restrict);
+            builder.HasOne(c => c.Classes) 
+                  .WithMany(cl => cl.Courses)
+                 .HasForeignKey(c => c.ClassesId)
+                .OnDelete(DeleteBehavior.Cascade);
+
+            builder.HasOne(c => c.Teachers) 
+                   .WithMany(t => t.Courses)
+                   .HasForeignKey(c => c.TeacherId)
+                   .OnDelete(DeleteBehavior.Cascade);
         }
     }
 }

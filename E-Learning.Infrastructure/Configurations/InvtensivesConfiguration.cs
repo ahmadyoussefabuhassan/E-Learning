@@ -1,12 +1,9 @@
-﻿using E_Learning.Domain.Invtensives;
+﻿using E_Learning.Domain.Courses;
+using E_Learning.Domain.Invtensives;
 using E_Learning.Domain.Shared;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Metadata.Builders;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+
 
 namespace E_Learning.Infrastructure.Configurations
 {
@@ -32,7 +29,7 @@ namespace E_Learning.Infrastructure.Configurations
                 .IsRequired();
 
             //
-            builder .HasOne (Invtensives => Invtensives.Course)
+            builder.HasOne(e=> e.Course)
                 .WithMany (course => course.Invtensives)
                 .HasForeignKey(Invtensives => Invtensives.CourseID) 
                 .OnDelete(DeleteBehavior.Cascade);

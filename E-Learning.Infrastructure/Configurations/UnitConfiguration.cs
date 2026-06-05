@@ -3,11 +3,6 @@ using E_Learning.Domain.Shared;
 using E_Learning.Domain.Units;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Metadata.Builders;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace E_Learning.Infrastructure.Configurations
 {
@@ -31,10 +26,10 @@ namespace E_Learning.Infrastructure.Configurations
             .IsRequired()
             .HasMaxLength(255);
 
-            builder.HasOne<Section>()
-            .WithMany()
-            .HasForeignKey(u => u.SectionId)
-            .OnDelete(DeleteBehavior.Cascade);
+            builder.HasOne(u => u.Section)
+                   .WithMany(s => s.Units)
+                   .HasForeignKey(u => u.SectionId)
+                  .OnDelete(DeleteBehavior.Cascade);
         }
     }
 }

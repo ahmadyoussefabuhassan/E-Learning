@@ -19,12 +19,12 @@ namespace E_Learning.Domain.ExamVideos
         public ExamVideosVideoUrl VideoUrl { get; private set; }
         public Year Year { get; private set; }
         public Guid ExamExplanationId { get; private set; }
-        public ExamExplanation? ExamExplanation { get; private set; }
+        public ExamExplanation ExamExplanation { get; private set; } = null!;
 
-        public static ExamVideo Create(Guid id, ExamVideosVideoUrl videoUrl, Year year, Guid examExplanationId)
+        public static ExamVideo Create( ExamVideosVideoUrl videoUrl, Year year, Guid examExplanationId)
         {
             
-            var examVideo = new ExamVideo(id, videoUrl, year, examExplanationId);
+            var examVideo = new ExamVideo(Guid.NewGuid(), videoUrl, year, examExplanationId);
             examVideo.RaiseDomainEvent(new ExamVideoCreatedDomainEvent(examVideo.Id, examVideo.VideoUrl.Value, examVideo.Year.Value, examVideo.ExamExplanationId));
             return examVideo;
         }

@@ -31,9 +31,9 @@ namespace E_Learning.Domain.User
         public ImageUrl? ImageUrl { get; private set; }
         public DateTime CreatedAt { get; private set; }
         public Guid RoleId { get; private set; }
-        public Role? Role { get; private set; } 
-        public Student? Student { get; private set; } 
-        public Teacher? Teacher { get; private set; }
+        public Role Role { get; private set; } = null!;
+        public Student Student { get; private set; } = null!;
+        public Teacher Teacher { get; private set; } = null!;
         public ICollection<RefreshToken> RefreshTokens { get; private set; } = new List<RefreshToken>();
         public ICollection<Notification.Notification> Notification { get; private set; } = new List<Notification.Notification>();
         public static User Create(FullName fullName, Email email, Password password, PhoneNumber phoneNumber, Address address, ImageUrl imageUrl, Guid roleId)

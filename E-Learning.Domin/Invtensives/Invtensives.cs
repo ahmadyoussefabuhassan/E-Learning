@@ -20,7 +20,7 @@ namespace E_Learning.Domain.Invtensives
         public Description Description { get; private set; }
         public Price Price { get; private set; }
         public Guid CourseID { get; private set; }
-        public Course? Course { get; private set; }
+        public Course Course { get; private set; } = null!;
         public ICollection<InvtensivesVideos.InvtensivesVideos> InvtensivesVideos { get; private set; } = new List<InvtensivesVideos.InvtensivesVideos>();
 
         public static Invtensives Create(InvtensivesTitle title, Description description, Price price, Guid courseID)
