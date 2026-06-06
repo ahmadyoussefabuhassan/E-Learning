@@ -36,16 +36,14 @@ namespace E_Learning.Application.Students.RegisterStudent
             var existingUser = await _userRepository.GetByEmailAsync(new Email(request.Email), cancellationToken);
             if (existingUser != null)
                 return Result.Failure<Guid>(UserErorrs.EmailAlreadyExists);
-            string? image = null;
-            if (request.ImageUrl is not null)
-                image = await _fileService.UploadImageAsync(request.ImageUrl, "Users", cancellationToken);
+     
             var user = User.Create(
                 new FullName(request.FullName),
                 new Email(request.Email),
                 new Password(request.Password),
                 new PhoneNumber(request.PhoneNumber),
                 new Address(request.Address),
-                new ImageUrl(image),
+                new ImageUrl("/uploads/users/default-profile.png"),
                 role.Id
             );
             await _userRepository.AddAsync(user, cancellationToken);

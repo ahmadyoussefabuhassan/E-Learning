@@ -1,6 +1,6 @@
 ﻿namespace E_Learning.Api.Controllers.User
 {
-    public record LoginUserRequest(
+    public sealed record LoginUserRequest(
         string Email,
         string Password
     );

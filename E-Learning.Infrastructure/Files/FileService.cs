@@ -7,15 +7,20 @@ namespace E_Learning.Infrastructure.Files
     internal sealed class FileService : IFileService
     {
         private readonly IWebHostEnvironment _environment;
+
         public FileService(IWebHostEnvironment environment)
         {
             _environment = environment;
         }
+
         public void DeleteImage(string imagePath)
         {
             if (string.IsNullOrEmpty(imagePath))
                 return;
-            string fullPath = Path.Combine(_environment.WebRootPath, imagePath.TrimStart('/'));
+
+            string webRootPath = _environment.WebRootPath ?? Path.Combine(Directory.GetCurrentDirectory(), "wwwroot");
+            string fullPath = Path.Combine(webRootPath, imagePath.TrimStart('/'));
+
             if (File.Exists(fullPath))
                 File.Delete(fullPath);
         }
@@ -24,25 +29,33 @@ namespace E_Learning.Infrastructure.Files
         {
             if (file is null || file.Length == 0)
                 return null;
-            string uploadsFolder = Path.Combine(_environment.WebRootPath, "uploads", folderName);
+
+            string webRootPath = _environment.WebRootPath ?? Path.Combine(Directory.GetCurrentDirectory(), "wwwroot");
+            string uploadsFolder = Path.Combine(webRootPath, "uploads", folderName);
+
             if (!Directory.Exists(uploadsFolder))
                 Directory.CreateDirectory(uploadsFolder);
+
             string uniqueFileName = Guid.NewGuid().ToString() + Path.GetExtension(file.FileName);
             string filePath = Path.Combine(uploadsFolder, uniqueFileName);
+
             using (var fileStream = new FileStream(filePath, FileMode.Create))
             {
                 await file.CopyToAsync(fileStream, cancellationToken);
             }
-            return Path.Combine("uploads", folderName, uniqueFileName).Replace("\\", "/");
 
+            return Path.Combine("uploads", folderName, uniqueFileName).Replace("\\", "/");
         }
+
         public async Task<string> UploadVideoAsync(IFormFile file, string folderName, CancellationToken ct = default)
         {
-            if (file == null || file.Length == 0) return null;
+            if (file == null || file.Length == 0)
+                return null;
 
             string baseFolder = Path.Combine(Directory.GetCurrentDirectory(), "AppData", "Videos", folderName);
 
-            if (!Directory.Exists(baseFolder)) Directory.CreateDirectory(baseFolder);
+            if (!Directory.Exists(baseFolder))
+                Directory.CreateDirectory(baseFolder);
 
             string fileName = $"{Guid.NewGuid()}{Path.GetExtension(file.FileName)}";
             string filePath = Path.Combine(baseFolder, fileName);
@@ -57,7 +70,8 @@ namespace E_Learning.Infrastructure.Files
 
         public FileStream GetVideoProvider(string path)
         {
-            if (!File.Exists(path)) throw new FileNotFoundException();
+            if (!File.Exists(path))
+                throw new FileNotFoundException();
 
             return new FileStream(path, FileMode.Open, FileAccess.Read, FileShare.Read);
         }

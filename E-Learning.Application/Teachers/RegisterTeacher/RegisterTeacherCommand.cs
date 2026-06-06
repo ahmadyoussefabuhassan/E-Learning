@@ -9,7 +9,6 @@ namespace E_Learning.Application.Teachers.RegisterTeacher
         string Password,
         string PhoneNumber,
         string Address,
-        IFormFile ImageUrl,
         string Education,
         string SahmCash
 

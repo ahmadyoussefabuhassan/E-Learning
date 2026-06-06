@@ -1,4 +1,4 @@
 ﻿namespace E_Learning.Api.Controllers.User
 {
-    public record LogOutUserRequest(string RefreshToken);
+    public sealed record LogOutUserRequest(string RefreshToken);
 }

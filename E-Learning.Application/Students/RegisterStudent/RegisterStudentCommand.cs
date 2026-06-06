@@ -14,7 +14,7 @@ namespace E_Learning.Application.Students.RegisterStudent
         string Password,
         string PhoneNumber,
         string Address,
-        IFormFile ImageUrl,
+       
         string Education
     ) : ICommand<Guid>;
 }

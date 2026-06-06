@@ -1,6 +1,7 @@
 ﻿using E_Learning.Application.Users.GetProfileUser;
 using E_Learning.Application.Users.LogIn;
 using E_Learning.Application.Users.LogOut;
+using E_Learning.Application.Users.UpdateProfileUser;
 using MediatR;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Http;
@@ -15,7 +16,7 @@ namespace E_Learning.Api.Controllers.User
         private readonly ISender _sender;
         public UserController(ISender sender)
             => _sender = sender;
-        [HttpPost("login/Admin")]
+        [HttpPost("login/Admin/Teacher")]
         public async Task<IActionResult> LoginAdman([FromBody] LoginUserRequest request, CancellationToken cancellation)
         {
             var command = new LogInUserCommand(request.Email, request.Password);
@@ -38,6 +39,21 @@ namespace E_Learning.Api.Controllers.User
             var query = new GetProfileUserQuery();
             var result = await _sender.Send(query, cancellation);
             return result.IsSuccess ? Ok(result.Value) : BadRequest(result.Error);
+        }
+        [HttpPut("UpdateProfile/Admin")]
+        [Authorize(Roles = "Admin")]
+        public async Task<IActionResult> UpdateProfileAdman([FromForm] UpdateProfileUserRequest request, CancellationToken cancellation)
+        {
+            var command = new UpdateProfileUserCommand(
+                request.FullName,
+                request.Email,
+                request.PhoneNumber,
+                request.Address,
+                request.ImageUrl
+            );
+            var result = await _sender.Send(command, cancellation);
+            return result.IsSuccess ? Ok(result.Value) : BadRequest(result.Error);
+
         }
     }
 }
