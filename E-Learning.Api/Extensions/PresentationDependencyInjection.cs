@@ -10,7 +10,8 @@ namespace E_Learning.Api.Extensions
             {
                 options.AddPolicy("AllowAll", policy =>
                 {
-                    var allowedOrigins = configuration.GetSection("AllowedOrigins").Get<string[]>();
+                    var allowedOrigins = configuration.GetSection("AllowedOrigins")
+                    .Get<string[]>();
                     policy.WithOrigins(allowedOrigins!)
                           .AllowAnyHeader()
                           .AllowAnyMethod()
@@ -21,11 +22,10 @@ namespace E_Learning.Api.Extensions
             services.AddEndpointsApiExplorer();
             services.AddSwaggerGen(options =>
             {
-                // إعداد الحماية باستخدام JWT
+                
                 options.AddSecurityDefinition("Bearer", new OpenApiSecurityScheme
                 {
                     Name = "Authorization",
-                    // النوع Http مع Scheme Bearer يضمن أن سواجر يضيف كلمة Bearer تلقائياً
                     Type = SecuritySchemeType.Http,
                     Scheme = "Bearer",
                     BearerFormat = "JWT",

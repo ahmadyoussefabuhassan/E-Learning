@@ -7,7 +7,7 @@ namespace E_Learning.Domain.Classes
 {
     public sealed class Classes : Entity
     {
-        private Classes () : base (Guid.Empty)
+        private Classes() : base (Guid.Empty)
         { }
         private Classes (Guid id, ClassesName name) : base (id)=> Name = name;
            
@@ -20,5 +20,7 @@ namespace E_Learning.Domain.Classes
             classes.RaiseDomainEvent(new ClassesCreatedEvent(classes.Id, classes.Name.Value));
             return classes;
         }
+        public void UpdateName(ClassesName name)
+            => Name = name;
     }
 }

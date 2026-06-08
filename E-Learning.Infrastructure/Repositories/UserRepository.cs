@@ -13,7 +13,7 @@ namespace E_Learning.Infrastructure.Repositories
             => await _dbContext.Set<User>().Include(u => u.Role)
                         .FirstOrDefaultAsync(x => x.Id == id, cancellationToken);
         public async Task<User?> GetByEmailAsync(Email email, CancellationToken cancellationToken)
-                 => await _dbContext.Set<User>()
+                 => await _dbContext.Set<User>().Include(u => u.Role)
             .FirstOrDefaultAsync(x => x.Email == email, cancellationToken);
 
         public async Task<User?> IsEmailUniqueAsync(Email email, CancellationToken cancellationToken)

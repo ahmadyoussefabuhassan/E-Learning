@@ -17,10 +17,6 @@
   </ItemGroup>
 
   <ItemGroup>
-    <Folder Include="Controllers\Student\" />
-  </ItemGroup>
-
-  <ItemGroup>
     <ProjectReference Include="..\E-Learning.Application\E-Learning.Application.csproj" />
     <ProjectReference Include="..\E-Learning.Domin\E-Learning.Domain.csproj" />
     <ProjectReference Include="..\E-Learning.Infrastructure\E-Learning.Infrastructure.csproj" />

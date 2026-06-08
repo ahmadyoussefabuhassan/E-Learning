@@ -30,15 +30,14 @@ namespace E_Learning.Application.Users.LogIn
         public async Task<Result<AuthenticationResponse>> Handle(LogInUserCommand request, CancellationToken cancellationToken)
         {
             var user = await _userRepository.GetByEmailAsync(new Email(request.Email), cancellationToken);
-            if (user is null)
+            if (user is null || user.Password.Value != request.Password)
                 return Result.Failure<AuthenticationResponse>(UserErorrs.InvalidCredentials);
-            var role = await _roleRepository.GetByIdAsync(user.RoleId, cancellationToken);
-            if(role is null)
+            if(user.Role is null)
                 return Result.Failure<AuthenticationResponse>(RoleErrors.NotFound);
-            if (role.notType != NotType.Admin && role.notType != NotType.Teacher)
+            if (user.Role.notType != NotType.Admin && user.Role.notType != NotType.Teacher)
                 return Result.Failure<AuthenticationResponse>(UserErorrs.Unauthorized);
             string jit = Guid.NewGuid().ToString();
-            var token = _jwtService.GenerateToken(user.Id, user.Email.Value,user.FullName.Value, role.Name.Value, jit);
+            var token = _jwtService.GenerateToken(user.Id, user.Email.Value,user.FullName.Value, user.Role.Name.Value, jit);
             var refreshTokenText = Convert.ToBase64String(Guid.NewGuid().ToByteArray());
             var refreshToken = RefreshToken.Create(
                 refreshTokenText,

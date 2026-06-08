@@ -1,9 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using E_Learning.Domain.Abstractions;
+﻿using E_Learning.Domain.Abstractions;
 
 namespace E_Learning.Domain.Classes
 {
@@ -11,8 +6,10 @@ namespace E_Learning.Domain.Classes
     {
         public static readonly Error NotFound = new(
             "Classes.not found" , "لم يتم العثور على الفئة المحددة.");
-        public static readonly Error Success = new(
-                        "Classes.success" , "تمت العملية بنجاح.");
+        public static readonly Error AlreadyExists = new(
+            "Class.AlreadyExists", "هذا الصف موجود مسبقاً، يرجى اختيار اسم آخر.");
+        public static readonly Error HasRelatedData = new(
+           "Class.HasRelatedData", "لا يمكن حذف هذا الصف لوجود بيانات مرتبطة به.");
 
     }
 }

@@ -9,11 +9,6 @@
 
   <ItemGroup>
     <Folder Include="Abstractions\Email\" />
-    <Folder Include="Classes\AddClass\" />
-    <Folder Include="Classes\GetAllClass\" />
-    <Folder Include="Classes\DeleteClass\" />
-    <Folder Include="Classes\GetClassById\" />
-    <Folder Include="Classes\UpdateClass\" />
     <Folder Include="StudentSubscriptions\" />
     <Folder Include="Sections\" />
     <Folder Include="Courses\" />

@@ -6,7 +6,6 @@
         string Password,
         string PhoneNumber,
         string Address,
-        
         string Education,
         string SahmCash
     );
