@@ -1,12 +1,12 @@
-﻿using MediatR;
+﻿using E_Learning.Application.Classes.Commands.AddClass;
+using E_Learning.Application.Classes.Commands.DeleteClass;
+using E_Learning.Application.Classes.Commands.UpdateClass;
+using E_Learning.Application.Classes.Queries.GetAllClass;
+using E_Learning.Application.Classes.Queries.GetClassById;
+using MediatR;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
-using E_Learning.Application.Classes.GetClassById;
-using E_Learning.Application.Classes.GetAllClass;
-using E_Learning.Application.Classes.AddClass;
-using E_Learning.Application.Classes.UpdateClass;
-using E_Learning.Application.Classes.DeleteClass;
 
 namespace E_Learning.Api.Controllers.Classes
 {

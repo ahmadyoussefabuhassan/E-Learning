@@ -1,7 +1,7 @@
-﻿using E_Learning.Application.Students.GetProfileStudent;
-using E_Learning.Application.Students.LogInStudent;
-using E_Learning.Application.Students.RegisterStudent;
-using E_Learning.Application.Students.UpdateProfileStudent;
+﻿using E_Learning.Application.Students.Commands.LogInStudent;
+using E_Learning.Application.Students.Commands.RegisterStudent;
+using E_Learning.Application.Students.Commands.UpdateProfileStudent;
+using E_Learning.Application.Students.Queries.GetProfileStudent;
 using MediatR;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Http;

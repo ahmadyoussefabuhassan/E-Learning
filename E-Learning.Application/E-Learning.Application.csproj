@@ -9,9 +9,14 @@
 
   <ItemGroup>
     <Folder Include="Abstractions\Email\" />
+    <Folder Include="Courses\Commands\DeleteCourse\" />
+    <Folder Include="Courses\Queries\GetCourseById\" />
+    <Folder Include="Courses\Queries\GetAllCourses\" />
+    <Folder Include="Courses\Queries\GetAllCoursesFilterByEducation\" />
+    <Folder Include="Courses\Queries\" />
+    <Folder Include="Courses\Commands\UpdateCourse\" />
     <Folder Include="StudentSubscriptions\" />
     <Folder Include="Sections\" />
-    <Folder Include="Courses\" />
     <Folder Include="ExamExplanations\" />
     <Folder Include="ExamVideos\" />
     <Folder Include="Invtensives\" />

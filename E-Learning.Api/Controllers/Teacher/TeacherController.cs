@@ -1,6 +1,6 @@
-﻿using E_Learning.Application.Teachers.GetProfileTeacher;
-using E_Learning.Application.Teachers.RegisterTeacher;
-using E_Learning.Application.Teachers.UpdateProfileTeacher;
+﻿using E_Learning.Application.Teachers.Commands.RegisterTeacher;
+using E_Learning.Application.Teachers.Commands.UpdateProfileTeacher;
+using E_Learning.Application.Teachers.Queries.GetProfileTeacher;
 using MediatR;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Http;

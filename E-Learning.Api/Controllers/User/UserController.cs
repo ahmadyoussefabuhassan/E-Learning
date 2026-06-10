@@ -1,10 +1,9 @@
-﻿using E_Learning.Application.Users.GetProfileUser;
-using E_Learning.Application.Users.LogIn;
-using E_Learning.Application.Users.LogOut;
-using E_Learning.Application.Users.UpdateProfileUser;
+﻿using E_Learning.Application.Users.Commands.LogIn;
+using E_Learning.Application.Users.Commands.LogOut;
+using E_Learning.Application.Users.Commands.UpdateProfileUser;
+using E_Learning.Application.Users.Queries.GetProfileUser;
 using MediatR;
 using Microsoft.AspNetCore.Authorization;
-using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 
 namespace E_Learning.Api.Controllers.User
