@@ -1,5 +1,5 @@
 ﻿using E_Learning.Application.Abstractions.Notifications;
-using E_Learning.Domain.Classes;
+using E_Learning.Domain.Courses;
 using E_Learning.Domain.Courses.Events;
 using E_Learning.Domain.Teachers;
 using E_Learning.Domain.User;
@@ -23,8 +23,8 @@ namespace E_Learning.Application.Courses.Events
             var teacher = await _userRepository.GetByIdAsync(notification.TeacherId, cancellationToken);
             var body = string.Format(
               CourseNotifications.CourseCreated.Description,
-              notification.Name,  // {0}
-              teacher?.FullName?.Value ?? "أستاذنا القدير"    // {1}
+              notification.Name,  
+              teacher?.FullName?.Value ?? "أستاذنا القدير"    
             );
             await _notificationService.SendToAllAsync(CourseNotifications.CourseCreated.Title, body, cancellationToken);
         }

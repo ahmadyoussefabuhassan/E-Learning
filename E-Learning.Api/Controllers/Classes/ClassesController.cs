@@ -18,7 +18,7 @@ namespace E_Learning.Api.Controllers.Classes
 
         public ClassesController(ISender sender)
             => _sender = sender;
-        [HttpGet("{id:guid}")]
+        [HttpGet("GetById")]
         [Authorize]
         public async Task<IActionResult> GetClassById( [FromQuery]Guid id , CancellationToken cancellation)
         {
@@ -42,7 +42,7 @@ namespace E_Learning.Api.Controllers.Classes
             var result = await _sender.Send(command, cancellation);
             return result.IsSuccess ? Ok(result.Value) : BadRequest(result.Error);
         }
-        [HttpPut("UpdateClass/{id:guid}")]
+        [HttpPut("UpdateClass")]
         [Authorize(Roles = "Admin")]
         public async Task<IActionResult> UpdateClass([FromQuery] Guid id,[FromBody] UpdateClassRequest request, CancellationToken cancellation)
         {
@@ -50,7 +50,7 @@ namespace E_Learning.Api.Controllers.Classes
             var result = await _sender.Send(command, cancellation);
             return result.IsSuccess ? Ok(result.Value) : BadRequest(result.Error);
         }
-        [HttpDelete("DeleteClass/{id:guid}")]
+        [HttpDelete("DeleteClass")]
         [Authorize(Roles ="Admin")]
         public async Task<IActionResult> DeleteClass([FromQuery] Guid Id,CancellationToken cancellation = default)
         {

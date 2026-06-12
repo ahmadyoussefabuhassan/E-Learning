@@ -12,7 +12,7 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace E_Learning.Infrastructure.Migrations
 {
     [DbContext(typeof(ApplicationDbContext))]
-    [Migration("20260603090432_InitialCreate")]
+    [Migration("20260610131637_InitialCreate")]
     partial class InitialCreate
     {
         /// <inheritdoc />
@@ -505,7 +505,7 @@ namespace E_Learning.Infrastructure.Migrations
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 
-                    b.HasOne("E_Learning.Domain.Teachers.Teacher", "Teachers")
+                    b.HasOne("E_Learning.Domain.User.User", "Teachers")
                         .WithMany("Courses")
                         .HasForeignKey("TeacherId")
                         .OnDelete(DeleteBehavior.Cascade)
@@ -698,11 +698,6 @@ namespace E_Learning.Infrastructure.Migrations
                     b.Navigation("StudentSubscriptions");
                 });
 
-            modelBuilder.Entity("E_Learning.Domain.Teachers.Teacher", b =>
-                {
-                    b.Navigation("Courses");
-                });
-
             modelBuilder.Entity("E_Learning.Domain.Units.Unit", b =>
                 {
                     b.Navigation("Lessons");
@@ -710,6 +705,8 @@ namespace E_Learning.Infrastructure.Migrations
 
             modelBuilder.Entity("E_Learning.Domain.User.User", b =>
                 {
+                    b.Navigation("Courses");
+
                     b.Navigation("Notification");
 
                     b.Navigation("RefreshTokens");

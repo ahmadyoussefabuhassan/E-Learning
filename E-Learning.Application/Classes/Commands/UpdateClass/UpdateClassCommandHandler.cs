@@ -25,6 +25,7 @@ namespace E_Learning.Application.Classes.Commands.UpdateClass
                 return Result.Failure<Guid>(ClassesErrors.AlreadyExists);
 
             classToUpdate.UpdateName(new ClassesName(request.Name));
+            await _classesRepositry.UpdateAsync(classToUpdate , cancellationToken);
             await _unitOfWork.SaveChangesAsync(cancellationToken);
             return Result.Success(classToUpdate.Id);
         }

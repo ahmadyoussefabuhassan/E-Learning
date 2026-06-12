@@ -24,6 +24,11 @@ namespace E_Learning.Domain.Abstractions
         public static Result<T> Failure<T>(Error error) => new(default, false, error);
         public static Result<T> Create<T>(T value) => value is not null ?
               Success(value) : Failure<T>(Error.NullValue);
+
+        public static Result<T> Failure<T>(object notFound)
+        {
+            throw new NotImplementedException();
+        }
     }
 
     public class Result<T> : Result

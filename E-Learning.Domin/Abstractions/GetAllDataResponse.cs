@@ -1,4 +1,4 @@
-﻿namespace Syrian_Platform.Domain.Abstractions;
+﻿namespace E_Learning.Domain.Abstractions;
 public class GetAllDataResponse<T>
 {
     public GetAllDataResponse()
@@ -10,4 +10,5 @@ public class GetAllDataResponse<T>
     public int TotalPages { get; set; }
     public int TotalDataCount { get; set; }
     public List<T> Data { get; set; }
+
 }

@@ -3,7 +3,6 @@ using E_Learning.Domain.Abstractions;
 using E_Learning.Domain.Notification;
 using Microsoft.AspNetCore.SignalR;
 
-
 namespace E_Learning.Infrastructure.Notifications
 {
     public sealed class NotificationService : INotificationService
@@ -58,6 +57,29 @@ namespace E_Learning.Infrastructure.Notifications
                 Message = message,
                 CreatedAt = DateTime.UtcNow
             }, cancellation);
+        }
+
+        public async Task SendToUsersAsync(IEnumerable<Guid> userIds, string title, string message, CancellationToken cancellation = default)
+        {
+            foreach (var userId in userIds)
+            {
+                var notification = Notification.Create(
+                    userId,
+                    new Message(message),
+                    new Title(title),
+                    new UrlRedirect("")
+                );
+                await _notificationRepository.AddAsync(notification, cancellation);
+            }
+
+            await _unitOfWork.SaveChangesAsync(cancellation);
+            var userIdsStrings = userIds.Select(id => id.ToString()).ToList();
+            await _hubContext.Clients.Users(userIdsStrings).SendAsync("ReceiveNotification", new
+            {
+                Title = title,
+                Message = message,
+                CreatedAt = DateTime.UtcNow
+            });
         }
     }
 }

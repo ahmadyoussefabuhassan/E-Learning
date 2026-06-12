@@ -1,7 +1,6 @@
 ﻿using E_Learning.Domain.Abstractions;
 using Microsoft.EntityFrameworkCore;
 
-
 namespace E_Learning.Infrastructure.Repositories
 {
     internal  class Repository<T> : IRepository<T>  where T : Entity
@@ -22,8 +21,12 @@ namespace E_Learning.Infrastructure.Repositories
             }
         }
 
-        public async Task<IEnumerable<T>> GetAllAsync(CancellationToken cancellationToken = default)
+        public virtual async Task<IEnumerable<T>> GetAllAsync(CancellationToken cancellationToken = default)
             => await _dbContext.Set<T>().AsNoTracking().ToListAsync(cancellationToken);
+
+        public IQueryable<T> GetAllQueryableAsync(CancellationToken cancellationToken = default)
+            => _dbContext.Set<T>().AsNoTracking();
+
         public virtual async Task<T?> GetByIdAsync(Guid id, CancellationToken cancellationToken = default)
             => await _dbContext.Set<T>()
                         .FirstOrDefaultAsync(x => x.Id == id, cancellationToken);

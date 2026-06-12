@@ -36,6 +36,7 @@ namespace E_Learning.Domain.User
         public Teacher Teacher { get; private set; } = null!;
         public ICollection<RefreshToken> RefreshTokens { get; private set; } = new List<RefreshToken>();
         public ICollection<Notification.Notification> Notification { get; private set; } = new List<Notification.Notification>();
+        public ICollection<Courses.Course> Courses { get; private set; } = new List<Courses.Course>();
         public static User Create(FullName fullName, Email email, Password password, PhoneNumber phoneNumber, Address address, ImageUrl imageUrl, Guid roleId)
         {
             var user = new User(Guid.NewGuid(), fullName, email, password, phoneNumber, address, imageUrl, roleId);

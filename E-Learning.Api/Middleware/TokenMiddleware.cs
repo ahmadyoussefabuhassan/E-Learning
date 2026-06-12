@@ -19,7 +19,6 @@ namespace E_Learning.Api.Middleware
                 await _next(context);
                 return;
             }
-
             var jti = context.User.FindFirst(JwtRegisteredClaimNames.Jti)?.Value
                         ?? context.User.FindFirst("jti")?.Value;
             if (string.IsNullOrWhiteSpace(jti))

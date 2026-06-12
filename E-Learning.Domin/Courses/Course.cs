@@ -4,6 +4,7 @@ using E_Learning.Domain.ExamExplanations;
 using E_Learning.Domain.Sections;
 using E_Learning.Domain.Shared;
 using E_Learning.Domain.Teachers;
+using E_Learning.Domain.User;
 
 namespace E_Learning.Domain.Courses
 {
@@ -35,7 +36,7 @@ namespace E_Learning.Domain.Courses
         public bool IsActive { get; private set; }
         public Guid ClassesId { get; private set; }
         public Guid TeacherId { get; private set; }
-        public Teacher Teachers { get; private set; } = null!;
+        public User.User Teachers { get; private set; } = null!;
         public Classes.Classes Classes { get; private set; } = null!;
         public ICollection<Section> Sections { get; private set; } = new List<Section>();
         public ICollection<ExamExplanation> ExamExplanations { get; private set; } = new List<ExamExplanation>();
@@ -48,6 +49,16 @@ namespace E_Learning.Domain.Courses
             course.RaiseDomainEvent(new CourseCreatedDomainEvent(course.Id, course.CourseName.Value, course.Price.Value, course.TeacherId, course.ClassesId));
             return course;
         }
+        public void Update(CourseName name, ImageUrl imageUrl, Description description, Price price, Guid classesId)
+        {
+            CourseName = name;
+            ImageUrl = imageUrl;
+            Description = description;
+            Price = price;
+            ClassesId = classesId;
+            RaiseDomainEvent(new CourseUpdatedDomainEvent(Id, CourseName.Value, Price.Value,  ClassesId));
+        }
         public void ToggleStatus() => IsActive = !IsActive;
+       
     }
 }

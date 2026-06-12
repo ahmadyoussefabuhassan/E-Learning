@@ -1,6 +1,4 @@
-﻿
-
-namespace E_Learning.Domain.User
+﻿namespace E_Learning.Domain.User
 {
     public sealed record Email
     {
