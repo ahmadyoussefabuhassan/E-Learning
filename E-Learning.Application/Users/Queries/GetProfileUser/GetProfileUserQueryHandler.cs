@@ -21,7 +21,7 @@ namespace E_Learning.Application.Users.Queries.GetProfileUser
             Guid currentUserId = UserId;
             var user = await _userRepository.GetByIdAsync(currentUserId, cancellationToken);
             if(user is null)
-                return Result.Failure<UserResponse>(UserErorrs.NotFound);
+                return Result.Failure<UserResponse>(UserErrors.NotFound);
             var response = new UserResponse(
                 user.FullName.Value,
                 user.Email.Value,

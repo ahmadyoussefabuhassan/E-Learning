@@ -1,11 +1,11 @@
 ﻿using E_Learning.Application.Abstractions.Authentication;
-using E_Learning.Domain.JWT;
 using Microsoft.Extensions.Options;
 using System.IdentityModel.Tokens.Jwt;
 using System.Security.Claims;
 using Microsoft.IdentityModel.Tokens;
 using System.Text;
 using E_Learning.Application.Abstractions.Clock;
+using E_Learning.Domain.Abstractions.JWT;
 
 namespace E_Learning.Infrastructure.Authentication
 {

@@ -34,7 +34,7 @@ namespace E_Learning.Application.Students.Commands.UpdateProfileStudent
             var currentUserId = UserId;
             var user = await _userRepository.GetByIdAsync(currentUserId, cancellationToken);
             if (user is null)
-                return Result.Failure<Guid>(UserErorrs.NotFound);
+                return Result.Failure<Guid>(UserErrors.NotFound);
             var student = await _studentRepository.GetByIdAsync(user.Id, cancellationToken);
             if (student is null)
                 return Result.Failure<Guid>(StudentErrors.NotFound);
@@ -42,7 +42,7 @@ namespace E_Learning.Application.Students.Commands.UpdateProfileStudent
             if (request.Email != user.Email.Value)
             {
                 if (await _userRepository.IsEmailUniqueAsync(new Email(request.Email), cancellationToken) is not null)
-                    return Result.Failure<Guid>(UserErorrs.EmailAlreadyExists);
+                    return Result.Failure<Guid>(UserErrors.EmailAlreadyExists);
             }
             string? image = user.ImageUrl?.Value;
             if (request.ImageUrl is not null)

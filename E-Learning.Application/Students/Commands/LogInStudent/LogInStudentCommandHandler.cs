@@ -37,11 +37,11 @@ namespace E_Learning.Application.Students.Commands.LogInStudent
         {
             var user = await _userRepository.GetByEmailAsync(new Email(request.Email), cancellationToken);
             if (user is null || user.Password.Value != request.Password)
-                return Result.Failure<AuthenticationResponse>(UserErorrs.InvalidCredentials);
+                return Result.Failure<AuthenticationResponse>(UserErrors.InvalidCredentials);
             if (user.Role is null)
                 return Result.Failure<AuthenticationResponse>(RoleErrors.NotFound);
             if (user.Role.notType != NotType.Student)
-                return Result.Failure<AuthenticationResponse>(UserErorrs.Unauthorized);
+                return Result.Failure<AuthenticationResponse>(UserErrors.Unauthorized);
             var jit = Guid.NewGuid().ToString();
             var token = _jwtService.GenerateToken(user.Id, user.Email.Value, user.FullName.Value, user.Role.Name.Value, jit);
             var refreshTokenText = Convert.ToBase64String(Guid.NewGuid().ToByteArray());

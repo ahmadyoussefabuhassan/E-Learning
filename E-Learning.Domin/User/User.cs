@@ -37,6 +37,8 @@ namespace E_Learning.Domain.User
         public ICollection<RefreshToken> RefreshTokens { get; private set; } = new List<RefreshToken>();
         public ICollection<Notification.Notification> Notification { get; private set; } = new List<Notification.Notification>();
         public ICollection<Courses.Course> Courses { get; private set; } = new List<Courses.Course>();
+        public PasswordResetCode? PasswordResetCode { get; private set; }
+        public DateTime? PasswordResetCodeExpiresAt { get; private set; }
         public static User Create(FullName fullName, Email email, Password password, PhoneNumber phoneNumber, Address address, ImageUrl imageUrl, Guid roleId)
         {
             var user = new User(Guid.NewGuid(), fullName, email, password, phoneNumber, address, imageUrl, roleId);
@@ -44,10 +46,7 @@ namespace E_Learning.Domain.User
             return user;
         }
         public void ChangePassword(Password newPassword)
-        {
-            Password = newPassword;
-            RaiseDomainEvent(new UserPasswordChangedDomainEvent(Id, Email.Value));
-        }
+            => Password = newPassword;
         public void UpdateProfile(FullName fullName, PhoneNumber phoneNumber, Email email, Address address, ImageUrl? imageUrl)
         {
             FullName = fullName;
@@ -56,7 +55,17 @@ namespace E_Learning.Domain.User
             Address = address;
             ImageUrl = imageUrl;
         }
- 
-        
+        public void GenerateResetCode()
+        {
+            PasswordResetCode = PasswordResetCode.Generate();
+            PasswordResetCodeExpiresAt = DateTime.UtcNow.AddMinutes(15);
+        }
+        public void ClearResetCode()
+        {
+            PasswordResetCode = null;
+            PasswordResetCodeExpiresAt = null;
+        }
+
+
     }
 }

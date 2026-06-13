@@ -2,7 +2,7 @@
 
 namespace E_Learning.Domain.User
 {
-    public static class UserErorrs
+    public static class UserErrors
     {
         public static readonly Error NotFound = new(
           "User.NotFound", "المستخدم المطلوب غير موجود في النظام");
@@ -19,5 +19,12 @@ namespace E_Learning.Domain.User
             "البريد الإلكتروني غير صالح");
         public static Error InvalidPassword = new Error("User.InvalidPassword", 
             "كلمة المرور غير صالحة");
+        public static readonly Error InvalidOldPassword = new(
+              "User.InvalidOldPassword", "كلمة المرور القديمة التي أدخلتها غير صحيحة.");
+        public static readonly Error InvalidResetCode = new(
+            "User.InvalidResetCode", "رمز التحقق الذي أدخلته غير صحيح.");
+
+        public static readonly Error ResetCodeExpired = new(
+            "User.ResetCodeExpired", "انتهت صلاحية هذا الرمز، يرجى طلب رمز جديد.");
     }
 }

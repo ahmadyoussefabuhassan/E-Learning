@@ -35,7 +35,7 @@ namespace E_Learning.Application.Students.Commands.RegisterStudent
                 return Result.Failure<Guid>(RoleErrors.NotFound);
             var existingUser = await _userRepository.GetByEmailAsync(new Email(request.Email), cancellationToken);
             if (existingUser != null)
-                return Result.Failure<Guid>(UserErorrs.EmailAlreadyExists);
+                return Result.Failure<Guid>(UserErrors.EmailAlreadyExists);
      
             var user = User.Create(
                 new FullName(request.FullName),

@@ -26,7 +26,7 @@ namespace E_Learning.Application.Students.Queries.GetProfileStudent
             var currentUserId = UserId;
             var user = await _userRepository.GetByIdAsync(currentUserId, cancellationToken);
             if (user is null)
-                return Result.Failure<StudentResponse>(UserErorrs.NotFound);
+                return Result.Failure<StudentResponse>(UserErrors.NotFound);
             var student = await _studentRepository.GetByIdAsync(user.Id, cancellationToken);
             if (student is null)
                 return Result.Failure<StudentResponse>(StudentErrors.NotFound);

@@ -1,10 +1,12 @@
 ﻿using E_Learning.Application.Teachers.Commands.RegisterTeacher;
 using E_Learning.Application.Teachers.Commands.UpdateProfileTeacher;
+using E_Learning.Application.Teachers.Queries.GetCountTeachers;
 using E_Learning.Application.Teachers.Queries.GetProfileTeacher;
 using MediatR;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
+using static Microsoft.EntityFrameworkCore.DbLoggerCategory.Database;
 
 namespace E_Learning.Api.Controllers.Teacher
 {
@@ -54,6 +56,14 @@ namespace E_Learning.Api.Controllers.Teacher
                request.SahmCash
             );
             var result = await _sender.Send(command, cancellation);
+            return result.IsSuccess ? Ok(result.Value) : BadRequest(result.Error);
+        }
+        [HttpGet("Count")]
+        [Authorize(Roles ="Admin")]
+        public async Task<IActionResult> GetCountTeachers(CancellationToken cancellation)
+        {
+            var query = new GetCountTeachersQuery();
+            var result = await _sender.Send(query, cancellation);
             return result.IsSuccess ? Ok(result.Value) : BadRequest(result.Error);
         }
 

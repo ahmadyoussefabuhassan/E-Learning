@@ -30,12 +30,12 @@ namespace E_Learning.Application.Users.Commands.UpdateProfileUser
             var currentUserId = UserId;
             var user = await _userRepository.GetByIdAsync(currentUserId, cancellationToken);
             if (user is null)
-                return Result.Failure<Guid>(UserErorrs.NotFound);
+                return Result.Failure<Guid>(UserErrors.NotFound);
 
             if (request.Email != user.Email.Value)
             {
                 if (await _userRepository.IsEmailUniqueAsync(new Email(request.Email), cancellationToken) is not null)
-                    return Result.Failure<Guid>(UserErorrs.EmailAlreadyExists);
+                    return Result.Failure<Guid>(UserErrors.EmailAlreadyExists);
             }
 
             string? image = user.ImageUrl?.Value;

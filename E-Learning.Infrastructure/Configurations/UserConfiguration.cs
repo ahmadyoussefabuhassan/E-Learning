@@ -1,9 +1,4 @@
-﻿using E_Learning.Domain.Roles;
-using E_Learning.Domain.Students;
-using E_Learning.Domain.Teachers;
-using E_Learning.Domain.User;
-using E_Learning.Domain.RefreshTokens;
-using E_Learning.Domain.Notification;
+﻿using E_Learning.Domain.User;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Metadata.Builders;
 
@@ -23,7 +18,7 @@ namespace E_Learning.Infrastructure.Configurations
 
             builder.Property(user => user.Email)
                 .HasMaxLength(150)
-                .HasConversion(email => email.Value, value => new Email(value))
+                .HasConversion(email => email.Value, value => new Domain.User.Email(value))
                 .IsRequired();
 
             builder.Property(user => user.Password)
@@ -45,6 +40,17 @@ namespace E_Learning.Infrastructure.Configurations
                 .HasMaxLength(500)
                 .HasConversion(img => img != null ? img.Value : null, v => v != null ? new ImageUrl(v) : null)
                 .IsRequired(false);
+            builder.Property(user => user.PasswordResetCode)
+                    .HasMaxLength(4)
+                    .HasConversion(
+                        code => code != null ? code.Value : null,
+                         value => !string.IsNullOrEmpty(value) ? new PasswordResetCode(value) : null
+                    )
+                    .IsRequired(false)
+                    .HasDefaultValue(null);
+            builder.Property(user => user.PasswordResetCodeExpiresAt)
+                .IsRequired(false)
+                .HasDefaultValue(null);
 
             builder.Property(user => user.CreatedAt)
                 .IsRequired();

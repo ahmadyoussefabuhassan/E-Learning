@@ -1,6 +1,11 @@
-﻿using E_Learning.Application.Users.Commands.LogIn;
+﻿using E_Learning.Application.Users.Commands.ChangePassword;
+using E_Learning.Application.Users.Commands.ChangePasswordResetCode;
+using E_Learning.Application.Users.Commands.ForgotPassword;
+using E_Learning.Application.Users.Commands.LogIn;
 using E_Learning.Application.Users.Commands.LogOut;
 using E_Learning.Application.Users.Commands.UpdateProfileUser;
+using E_Learning.Application.Users.Commands.VerifyResetCode;
+using E_Learning.Application.Users.Queries.GetCountUsers;
 using E_Learning.Application.Users.Queries.GetProfileUser;
 using MediatR;
 using Microsoft.AspNetCore.Authorization;
@@ -52,7 +57,46 @@ namespace E_Learning.Api.Controllers.User
             );
             var result = await _sender.Send(command, cancellation);
             return result.IsSuccess ? Ok(result.Value) : BadRequest(result.Error);
-
+        }
+        [HttpPut("UpdatePassword")]
+        [Authorize]
+        public async Task<IActionResult> UpdatePassword([FromBody] ChangePasswordRequest  request, CancellationToken cancellation)
+        {
+            var command = new ChangePasswordCommand(request.OldPassword, request.NewPassword, request.ChekPassword);
+            var result = await _sender.Send(command, cancellation);
+            return result.IsSuccess ? Ok(result.Value) : BadRequest(result.Error);
+        }
+        [HttpGet("Count")]
+        [Authorize(Roles ="Admin,Teacher")]
+        public async Task<IActionResult> GetAllUsers(CancellationToken cancellation)
+        {
+            var query = new GetCountUsersQuery();
+            var result = await _sender.Send(query, cancellation);
+            return result.IsSuccess ? Ok(result.Value) : BadRequest(result.Error);
+        }
+        [AllowAnonymous]
+        [HttpPost("forgot-password")]
+        public async Task<IActionResult> ForgotPassword([FromBody]SendResetCodeRequest request, CancellationToken cancellation)
+        {
+            var command = new SendResetCodeCommand(request.Email);
+            var result = await _sender.Send(command, cancellation);
+            return result.IsSuccess ? Ok(result) : BadRequest(result.Error);
+        }
+        [AllowAnonymous]
+        [HttpPost("verify-reset-code")]
+        public async Task<IActionResult> VerifyCode([FromBody] VerifyResetCodeRequest request , CancellationToken cancellation)
+        {
+            var command = new VerifyResetCodeCommand(request.Email ,request.Code);
+            var result = await _sender.Send(command, cancellation);
+            return result.IsSuccess ? Ok(result.Value) : BadRequest(result.Error);
+        }
+        [AllowAnonymous]
+        [HttpPost("reset-password")]
+        public async Task<IActionResult> ResetPassword([FromBody] ChangePasswordResetCodeRequest request , CancellationToken cancellation)
+        {
+            var command = new ChangePasswordResetCodeCommand(request.code, request.Password);
+            var result = await _sender.Send(command, cancellation);
+            return result.IsSuccess ? Ok(result.Value) : BadRequest(result.Error);
         }
     }
 }

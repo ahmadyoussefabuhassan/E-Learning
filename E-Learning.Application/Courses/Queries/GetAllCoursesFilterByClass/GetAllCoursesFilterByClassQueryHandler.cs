@@ -32,7 +32,7 @@ namespace E_Learning.Application.Courses.Queries.GetAllCoursesFilterByClass
             var studentId = UserId;
             var student = await _studentRepository.GetByIdAsync(studentId, cancellationToken);
             if(student is null)
-                return Result.Failure<IEnumerable<CourseResponse>>(UserErorrs.Unauthorized);
+                return Result.Failure<IEnumerable<CourseResponse>>(UserErrors.Unauthorized);
             var classes = await _classesRepositry.GetClassesByNameAsync(new ClassesName(student.SubjectStudent.Value),
                 cancellationToken);
             if(classes is null)

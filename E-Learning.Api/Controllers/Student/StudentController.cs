@@ -1,6 +1,7 @@
 ﻿using E_Learning.Application.Students.Commands.LogInStudent;
 using E_Learning.Application.Students.Commands.RegisterStudent;
 using E_Learning.Application.Students.Commands.UpdateProfileStudent;
+using E_Learning.Application.Students.Queries.GetCountStudents;
 using E_Learning.Application.Students.Queries.GetProfileStudent;
 using MediatR;
 using Microsoft.AspNetCore.Authorization;
@@ -50,11 +51,11 @@ namespace E_Learning.Api.Controllers.Student
             var result = await _sender.Send(query, cancellation);
             return result.IsSuccess ? Ok(result.Value) : BadRequest(result.Error);
        }
-      [HttpPut("UpdateProfile")]
-      [Authorize(Roles = "Student")]
-      public async Task<IActionResult> UpdateProfile([FromForm] UpdateProfileStudentRequest request, CancellationToken cancellation)
-      {
-         var command = new UpdateProfileStudentCommand(
+       [HttpPut("UpdateProfile")]
+       [Authorize(Roles = "Student")]
+         public async Task<IActionResult> UpdateProfile([FromForm] UpdateProfileStudentRequest request, CancellationToken cancellation)
+         {
+             var command = new UpdateProfileStudentCommand(
                 request.FullName,
                 request.Email,
                 request.PhoneNumber,
@@ -62,10 +63,18 @@ namespace E_Learning.Api.Controllers.Student
                 request.ImageUrl,
                 request.Education
 
-         );
-         var result = await _sender.Send(command, cancellation);
-         return result.IsSuccess ? Ok(result.Value) : BadRequest(result.Error);
-      }
+             );
+             var result = await _sender.Send(command, cancellation);
+             return result.IsSuccess ? Ok(result.Value) : BadRequest(result.Error);
+         }
+        [HttpGet("Counts")]
+        [Authorize(Roles ="Admin")]
+        public async Task<IActionResult> GetCountStudents(CancellationToken cancellation)
+        {
+            var query = new GetCountStudentsQuery();
+            var result =  await _sender.Send(query, cancellation);
+            return result.IsSuccess ? Ok(result.Value) : BadRequest(result.Error);
+        }
 
     }
 

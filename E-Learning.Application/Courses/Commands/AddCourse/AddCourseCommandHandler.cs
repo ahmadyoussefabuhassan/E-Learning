@@ -38,9 +38,9 @@ namespace E_Learning.Application.Courses.Commands.AddCourse
             Guid currentUserId = UserId;
             var user = await _userRepository.GetByIdAsync(currentUserId, cancellationToken);
             if (user is null)
-                return Result.Failure<Guid>(UserErorrs.NotFound);
+                return Result.Failure<Guid>(UserErrors.NotFound);
             if (user.Role.notType != NotType.Teacher && user.Role.notType != NotType.Admin)
-                return Result.Failure<Guid>(UserErorrs.Unauthorized);
+                return Result.Failure<Guid>(UserErrors.Unauthorized);
             var classes = await _classesRepository.GetClassesByNameAsync(new ClassesName(request.ClassroomName), cancellationToken);
             if (classes is null)
                 return Result.Failure<Guid>(ClassesErrors.NotFound);

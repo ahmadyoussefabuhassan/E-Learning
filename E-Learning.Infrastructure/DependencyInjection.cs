@@ -1,15 +1,17 @@
 ﻿using E_Learning.Application.Abstractions.Authentication;
 using E_Learning.Application.Abstractions.Clock;
+using E_Learning.Application.Abstractions.Email;
 using E_Learning.Application.Abstractions.Files;
 using E_Learning.Application.Abstractions.Notifications;
 using E_Learning.Domain.Abstractions;
+using E_Learning.Domain.Abstractions.JWT;
+using E_Learning.Domain.Abstractions.Settings;
 using E_Learning.Domain.Classes;
 using E_Learning.Domain.Courses;
 using E_Learning.Domain.ExamExplanations;
 using E_Learning.Domain.ExamVideos;
 using E_Learning.Domain.Invtensives;
 using E_Learning.Domain.InvtensivesVideos;
-using E_Learning.Domain.JWT;
 using E_Learning.Domain.Lessons;
 using E_Learning.Domain.Notification;
 using E_Learning.Domain.RefreshTokens;
@@ -22,6 +24,7 @@ using E_Learning.Domain.Units;
 using E_Learning.Domain.User;
 using E_Learning.Infrastructure.Authentication;
 using E_Learning.Infrastructure.Clock;
+using E_Learning.Infrastructure.Email;
 using E_Learning.Infrastructure.Files;
 using E_Learning.Infrastructure.Notifications;
 using E_Learning.Infrastructure.Repositories;
@@ -51,6 +54,12 @@ namespace E_Learning.Infrastructure
                 options.UseSqlServer(connection);
             });
             services.Configure<JwtSettings>(configuration.GetSection("JWT"));
+            // Bind Mile settings
+            services.Configure<MailSettings>(configuration.GetSection("MailSettings"));
+            // Bind JWT settings
+            var jwtSection = configuration.GetSection("JWT");
+            var jwtSettings = jwtSection.Get<JwtSettings>()
+                ?? throw new InvalidOperationException("JWT settings are not configured in appsettings.json");
             // Register repositories
             services.AddScoped(typeof(IRepository<>), typeof(Repository<>));
             services.AddScoped<IUserRepository, UserRepository>();
@@ -76,12 +85,10 @@ namespace E_Learning.Infrastructure
             services.AddSingleton<IJwtTokenGenerator, JwtTokenGenerator>();
             services.AddSingleton<IDateTimeProvider, DateTimeProvider>();
             services.AddScoped<INotificationService, NotificationService>();
+            services.AddTransient<IEmailService, EmailService>();
             // Register SignalR
             services.AddSignalR();
-            // Bind JWT settings
-            var jwtSection = configuration.GetSection("JWT");
-            var jwtSettings = jwtSection.Get<JwtSettings>()
-                ?? throw new InvalidOperationException("JWT settings are not configured in appsettings.json");
+        
             services.Configure<JwtSettings>(jwtSection);
             services.AddAuthentication(options =>
             {

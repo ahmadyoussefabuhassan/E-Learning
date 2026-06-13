@@ -27,7 +27,7 @@ namespace E_Learning.Application.Teachers.Queries.GetProfileTeacher
             Guid currentUserId = UserId;
             var user = await _userRepository.GetByIdAsync(currentUserId, cancellationToken);
             if (user is null)
-                return Result.Failure<TeacherResponse>(UserErorrs.NotFound);
+                return Result.Failure<TeacherResponse>(UserErrors.NotFound);
             var teacher = await _teacherRepository.GetByIdAsync(user.Id, cancellationToken);
             if (teacher is null)
                 return Result.Failure<TeacherResponse>(TeacherErrors.NotFound);

@@ -7,5 +7,7 @@ namespace E_Learning.Domain.User
         Task<User?> GetByEmailAsync(Email email, CancellationToken cancellationToken);
        
         Task<User?> IsEmailUniqueAsync(Email email, CancellationToken cancellationToken);
+        Task<User?> GetResetCodeAsync(string  resetCode, CancellationToken cancellationToken);
+        Task<int> GetCountUserssAsync(CancellationToken cancellation);
     }
 }

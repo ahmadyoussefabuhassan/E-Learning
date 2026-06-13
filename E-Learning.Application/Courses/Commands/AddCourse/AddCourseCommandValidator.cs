@@ -1,10 +1,10 @@
 ﻿using FluentValidation;
 
-namespace E_Learning.Application.Courses.Commands.UpdateCourse
+namespace E_Learning.Application.Courses.Commands.AddCourse
 {
-    internal sealed class UpdateCourseCommandValidtor : AbstractValidator<UpdateCourseCommand>
+    internal sealed class AddCourseCommandValidator : AbstractValidator<AddCourseCommand>
     {
-        public UpdateCourseCommandValidtor()
+        public AddCourseCommandValidator()
         {
             RuleFor(command => command.Title)
                 .NotEmpty().WithMessage("اسم الدورة مطلوب")
@@ -14,7 +14,7 @@ namespace E_Learning.Application.Courses.Commands.UpdateCourse
                 .MaximumLength(1000).WithMessage("وصف الدورة لا يجب أن يتجاوز 1000 حرف");
             RuleFor(command => command.Price)
                 .GreaterThanOrEqualTo(0).WithMessage("السعر يجب أن يكون أكبر من أو يساوي 0");
-            RuleFor(command => command.ImageFile)
+            RuleFor(command => command.ImageUrl)
                 .NotNull().WithMessage("صورة الدورة مطلوبة")
                 .Must(file => file.ContentType.StartsWith("image/")).WithMessage("الملف يجب أن يكون صورة");
             RuleFor(command => command.ClassroomName)

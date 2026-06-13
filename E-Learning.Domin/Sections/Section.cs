@@ -24,9 +24,9 @@ namespace E_Learning.Domain.Sections
         public Guid CourseId { get; private set; }
         public Course Course { get; private set; } = null!;
         public ICollection<Units.Unit> Units { get; private set; } = new List<Units.Unit>();
-        public static Section Create(Guid id, SectionTitle title, Price price, Guid courseId)
+        public static Section Create( SectionTitle title, Price price, Guid courseId)
         {
-            var section = new Section(id, title, price, courseId);
+            var section = new Section(Guid.NewGuid(), title, price, courseId);
             section.RaiseDomainEvent(new SectionCreatedDomainEvent(section.Id, section.SectionTitle.Value, section.Price.Value, section.CourseId));
             return section;
         }

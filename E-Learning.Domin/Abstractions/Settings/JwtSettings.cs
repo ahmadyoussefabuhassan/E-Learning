@@ -1,6 +1,4 @@
-﻿
-
-namespace E_Learning.Domain.JWT
+﻿namespace E_Learning.Domain.Abstractions.JWT
 {
     public sealed class JwtSettings
     {
