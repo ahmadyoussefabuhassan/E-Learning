@@ -22,4 +22,8 @@
     <ProjectReference Include="..\E-Learning.Infrastructure\E-Learning.Infrastructure.csproj" />
   </ItemGroup>
 
+  <ItemGroup>
+    <Folder Include="Controllers\Sections\" />
+  </ItemGroup>
+
 </Project>

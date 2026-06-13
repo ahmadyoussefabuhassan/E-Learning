@@ -11,5 +11,7 @@ namespace E_Learning.Domain.Sections
     {
         public static readonly Error NotFound = new(
             "Section.NotFound", "القسم المطلوب غير موجود في النظام");
+        public static readonly Error HasRelatedData = new(
+            "Section.HasRelatedData", "لا يمكن حذف هذا قسم لوجود بيانات مرتبطة به.");
     }
 }

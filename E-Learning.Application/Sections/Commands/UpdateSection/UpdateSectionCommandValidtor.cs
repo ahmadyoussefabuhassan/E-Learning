@@ -1,10 +1,10 @@
 ﻿using FluentValidation;
 
-namespace E_Learning.Application.Sections.Commands.AddSection
+namespace E_Learning.Application.Sections.Commands.UpdateSection
 {
-    internal sealed class AddSectionCommandValidtor : AbstractValidator<AddSectionCommand>
+    internal sealed class UpdateSectionCommandValidtor : AbstractValidator<UpdateSectionCommand>
     {
-        public AddSectionCommandValidtor() 
+        public UpdateSectionCommandValidtor()
         {
             RuleFor(command => command.Title)
                 .NotEmpty().WithMessage("اسم قسم مطلوب")

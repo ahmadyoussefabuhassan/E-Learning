@@ -2,11 +2,13 @@
 using E_Learning.Application.Courses.Commands.DeleteCourse;
 using E_Learning.Application.Courses.Commands.UpdateCourse;
 using E_Learning.Application.Courses.Queries.GetAllCourses;
+using E_Learning.Application.Courses.Queries.GetAllCoursesByTeacher;
 using E_Learning.Application.Courses.Queries.GetAllCoursesFilterByClass;
 using E_Learning.Application.Courses.Queries.GetCourseById;
 using MediatR;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
+using System.Threading;
 
 namespace E_Learning.Api.Controllers.Courses
 {
@@ -76,12 +78,20 @@ namespace E_Learning.Api.Controllers.Courses
             var result = await _sender.Send(query, cancellation);
             return result.IsSuccess ? Ok(result.Value) : BadRequest(result.Error);
         }
-        [HttpGet("GetById")]
+        [HttpGet("Get-By-Id")]
         [Authorize]
         public async Task<IActionResult> GetById([FromQuery] Guid id, CancellationToken cancellationToken)
         {
             var query = new GetCourseByIdQuery(id);
             var result = await _sender.Send(query, cancellationToken);
+            return result.IsSuccess ? Ok(result.Value) : BadRequest(result.Error);
+        }
+        [HttpGet("GetAllFilter/Teacher")]
+        [Authorize(Roles ="Teacher")]
+        public async Task<IActionResult> GetAllByTeacher(CancellationToken cancellation)
+        {
+            var query = new GetAllCoursesByTeacherQuery();
+            var result = await _sender.Send(query, cancellation);
             return result.IsSuccess ? Ok(result.Value) : BadRequest(result.Error);
         }
 

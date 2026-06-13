@@ -24,7 +24,7 @@ namespace E_Learning.Infrastructure.Repositories
         public async Task<User?> GetResetCodeAsync(string resetCode, CancellationToken cancellationToken)
             => await _dbContext.Set<User>()
             .AsNoTracking()
-            .FirstOrDefaultAsync(user => user.PasswordResetCode.Value == resetCode, cancellationToken);
+            .FirstOrDefaultAsync(user => user.PasswordResetCode == new PasswordResetCode(resetCode), cancellationToken);
 
         public async Task<int> GetCountUserssAsync(CancellationToken cancellation)
             => await _dbContext.Set<User>()

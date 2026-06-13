@@ -1,10 +1,10 @@
 ﻿using FluentValidation;
 
-namespace E_Learning.Application.Classes.Commands.UpdateClass
+namespace E_Learning.Application.Classes.Commands.AddClass
 {
-    internal sealed class UpdateClassCommandValidtor : AbstractValidator<UpdateClassCommand>
+    internal sealed class AddClassCommandValidator : AbstractValidator<AddClassCommand>
     {
-        public UpdateClassCommandValidtor()
+        public AddClassCommandValidator()
         {
             RuleFor(command => command.Name)
                 .NotEmpty().WithMessage("اسم الصف مطلوب")

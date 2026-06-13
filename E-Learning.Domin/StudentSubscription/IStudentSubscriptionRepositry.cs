@@ -6,6 +6,8 @@ namespace E_Learning.Domain.StudentSubscription
     public interface IStudentSubscriptionRepositry : IRepository<StudentSubscription>
     {
         Task<List<Guid>> GetSubscribedStudentIdsAsync(Guid courseId, CancellationToken cancellation);
+        Task<List<Guid>> GetSectionOrCourseSubscribersAsync(Guid sectionId, Guid courseId, CancellationToken cancellation);
+        Task<List<Guid>> GetAllStudentIdsAsync(CancellationToken cancellation);
     }
 }
 

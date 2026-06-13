@@ -42,7 +42,7 @@ namespace E_Learning.Application.Users.Commands.ForgotPassword
                     <p>إذا لم تطلب هذا الرمز، يرجى تجاهل هذا الإيميل.</p>
                 </div>"
             ;
-            await _emailService.SendEmailAsync(user.Email.Value ,subject,body , cancellationToken);
+            //await _emailService.SendEmailAsync(user.Email.Value ,subject,body , cancellationToken);
             return Result.Success();
         }
     }

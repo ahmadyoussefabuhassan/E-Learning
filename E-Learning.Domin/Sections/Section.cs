@@ -30,5 +30,11 @@ namespace E_Learning.Domain.Sections
             section.RaiseDomainEvent(new SectionCreatedDomainEvent(section.Id, section.SectionTitle.Value, section.Price.Value, section.CourseId));
             return section;
         }
+        public void UpdateSeciton(SectionTitle title, Price price)
+        {
+            SectionTitle = title;
+            Price = price;
+            RaiseDomainEvent(new SectionUpdatedDomainEvent(Id, title.Value, price.Value, CourseId));
+        }
     }
 }

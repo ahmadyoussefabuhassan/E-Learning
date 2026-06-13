@@ -35,7 +35,7 @@ namespace E_Learning.Application.Sections.Commands.AddSection
             if(user is null)
                 return Result.Failure<Guid>(UserErrors.NotFound);
             var cuorse = await _courseRepository.GetByIdAsync(request.CourseId , cancellationToken);
-            if(cuorse?.TeacherId != user.Id)
+            if(cuorse?.TeacherId != user.Id && user.Role.notType != Domain.Roles.NotType.Admin)
                 return Result.Failure<Guid>(UserErrors.Unauthorized);
             var section = Section.Create(
                 new SectionTitle(request.Title),
