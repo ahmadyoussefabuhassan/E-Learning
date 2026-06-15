@@ -75,5 +75,15 @@ namespace E_Learning.Infrastructure.Files
 
             return new FileStream(path, FileMode.Open, FileAccess.Read, FileShare.Read);
         }
+
+        public void DeleteVideo(string videoPath)
+        {
+            if (string.IsNullOrEmpty(videoPath))
+                return;
+            if (File.Exists(videoPath))
+            {
+                File.Delete(videoPath);
+            }
+        }
     }
 }

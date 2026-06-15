@@ -22,11 +22,13 @@ namespace E_Learning.Domain.Units
         public Guid SectionId { get; private set; }
         public Section Section { get; private set; } = null!;
         public ICollection<Lesson> Lessons { get; private set; } = new List<Lesson>();  
-        public static Unit Create(Guid id, UnitTitle UnitTitle, Description description, Guid sectionId)
+        public static Unit Create( UnitTitle UnitTitle, Description description, Guid sectionId)
         {
-            var unit = new Unit(id, UnitTitle, description, sectionId);
-            unit.RaiseDomainEvent(new UnitCreatedDomainEvent(id, UnitTitle.Value, description.Value , sectionId));
+            var unit = new Unit(Guid.NewGuid(), UnitTitle, description, sectionId);
+            unit.RaiseDomainEvent(new UnitCreatedDomainEvent(unit.Id, UnitTitle.Value, description.Value , sectionId));
             return unit;
         }
+        public void UpdateUnit(UnitTitle title, Description description)
+            => (UnitTitle,Description) = (title,description);
     }
 }

@@ -16,14 +16,15 @@
     <Folder Include="InvtensivesVideos\Queries\" />
     <Folder Include="Invtensives\Commands\" />
     <Folder Include="Invtensives\Queries\" />
-    <Folder Include="Lessons\Commands\" />
+    <Folder Include="Lessons\Commands\AddLesson\" />
+    <Folder Include="Lessons\Commands\DeleteLesson\" />
+    <Folder Include="Lessons\Commands\UpdateLesson\" />
     <Folder Include="Lessons\Events\" />
     <Folder Include="Lessons\Queries\" />
     <Folder Include="StudentSubscriptions\Commands\" />
+    <Folder Include="StudentSubscriptions\Events\" />
     <Folder Include="StudentSubscriptions\Queries\" />
-    <Folder Include="Units\Commands\" />
     <Folder Include="Units\Events\" />
-    <Folder Include="Units\Queries\" />
   </ItemGroup>
 
   <ItemGroup>

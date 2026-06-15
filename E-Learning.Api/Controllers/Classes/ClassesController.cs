@@ -18,9 +18,9 @@ namespace E_Learning.Api.Controllers.Classes
 
         public ClassesController(ISender sender)
             => _sender = sender;
-        [HttpGet("GetById")]
+        [HttpGet("GetById/{id:guid}")]
         [Authorize]
-        public async Task<IActionResult> GetClassById( [FromQuery]Guid id , CancellationToken cancellation)
+        public async Task<IActionResult> GetClassById( Guid id , CancellationToken cancellation)
         {
             var query = new GetClassByIdQuery(id);
             var result = await _sender.Send(query, cancellation);
@@ -42,17 +42,17 @@ namespace E_Learning.Api.Controllers.Classes
             var result = await _sender.Send(command, cancellation);
             return result.IsSuccess ? Ok(result.Value) : BadRequest(result.Error);
         }
-        [HttpPut("UpdateClass")]
+        [HttpPut("UpdateClass/{id:guid}")]
         [Authorize(Roles = "Admin")]
-        public async Task<IActionResult> UpdateClass([FromQuery] Guid id,[FromBody] UpdateClassRequest request, CancellationToken cancellation)
+        public async Task<IActionResult> UpdateClass(Guid id,[FromBody] UpdateClassRequest request, CancellationToken cancellation)
         {
             var command = new UpdateClassCommand(id, request.Name);
             var result = await _sender.Send(command, cancellation);
             return result.IsSuccess ? Ok(result.Value) : BadRequest(result.Error);
         }
-        [HttpDelete("DeleteClass")]
+        [HttpDelete("DeleteClass/{id:guid}")]
         [Authorize(Roles ="Admin")]
-        public async Task<IActionResult> DeleteClass([FromQuery] Guid Id,CancellationToken cancellation = default)
+        public async Task<IActionResult> DeleteClass(Guid Id,CancellationToken cancellation = default)
         {
             var command = new DeleteClassCommand(Id);
             var result = await _sender.Send(command, cancellation);

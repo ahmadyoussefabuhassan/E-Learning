@@ -33,9 +33,9 @@ namespace E_Learning.Api.Controllers.Courses
             var result = await _sender.Send(command, cancellationToken);
             return result.IsSuccess ? Ok(result.Value) : BadRequest(result.Error);
         }
-        [HttpPut("UpdateCourse")]
+        [HttpPut("UpdateCourse/{id:guid}")]
         [Authorize(Roles = "Teacher,Admin")]
-        public async Task<IActionResult> UpdateCourse([FromQuery]Guid id,[FromForm]UpdateCourseRequest request, CancellationToken cancellationToken)
+        public async Task<IActionResult> UpdateCourse(Guid id,[FromForm]UpdateCourseRequest request, CancellationToken cancellationToken)
         {
             var command = new UpdateCourseCommand(
                 id,
@@ -48,9 +48,9 @@ namespace E_Learning.Api.Controllers.Courses
             var result = await _sender.Send(command, cancellationToken);
             return result.IsSuccess ? Ok(result.Value) : BadRequest(result.Error);
         }
-        [HttpDelete("DeleteCourse")]
+        [HttpDelete("DeleteCourse/{id:guid}")]
         [Authorize(Roles = "Teacher,Admin")]
-        public async Task<IActionResult> DeleteCourse([FromRoute] Guid id, CancellationToken cancellationToken)
+        public async Task<IActionResult> DeleteCourse( Guid id, CancellationToken cancellationToken)
         {
             var command = new DeleteCourseCommand(id);
             var result = await _sender.Send(command, cancellationToken);
@@ -78,9 +78,9 @@ namespace E_Learning.Api.Controllers.Courses
             var result = await _sender.Send(query, cancellation);
             return result.IsSuccess ? Ok(result.Value) : BadRequest(result.Error);
         }
-        [HttpGet("Get-By-Id")]
+        [HttpGet("GetById/{id:guid}")]
         [Authorize]
-        public async Task<IActionResult> GetById([FromQuery] Guid id, CancellationToken cancellationToken)
+        public async Task<IActionResult> GetById(Guid id, CancellationToken cancellationToken)
         {
             var query = new GetCourseByIdQuery(id);
             var result = await _sender.Send(query, cancellationToken);
