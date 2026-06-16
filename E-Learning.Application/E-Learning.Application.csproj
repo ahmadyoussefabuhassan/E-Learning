@@ -8,23 +8,20 @@
   </PropertyGroup>
 
   <ItemGroup>
-    <Folder Include="ExamExplanations\Commands\" />
-    <Folder Include="ExamExplanations\Queries\" />
+    <Folder Include="ExamExplanations\Commands\AddExamExplanation\" />
+    <Folder Include="ExamExplanations\Commands\DeleteExamExplanation\" />
+    <Folder Include="ExamExplanations\Commands\UpdateExamExplanation\" />
+    <Folder Include="ExamExplanations\Queries\GetAllExamExplanationByCourse\" />
+    <Folder Include="ExamExplanations\Queries\GetExamExplanationById\" />
     <Folder Include="ExamVideos\Commands\" />
     <Folder Include="ExamVideos\Queries\" />
     <Folder Include="InvtensivesVideos\Commands\" />
     <Folder Include="InvtensivesVideos\Queries\" />
     <Folder Include="Invtensives\Commands\" />
     <Folder Include="Invtensives\Queries\" />
-    <Folder Include="Lessons\Commands\AddLesson\" />
-    <Folder Include="Lessons\Commands\DeleteLesson\" />
-    <Folder Include="Lessons\Commands\UpdateLesson\" />
-    <Folder Include="Lessons\Events\" />
-    <Folder Include="Lessons\Queries\" />
     <Folder Include="StudentSubscriptions\Commands\" />
     <Folder Include="StudentSubscriptions\Events\" />
     <Folder Include="StudentSubscriptions\Queries\" />
-    <Folder Include="Units\Events\" />
   </ItemGroup>
 
   <ItemGroup>

@@ -1,6 +1,4 @@
-﻿
-
-using E_Learning.Application.Abstractions.Notifications;
+﻿using E_Learning.Application.Abstractions.Notifications;
 using E_Learning.Domain.Sections;
 using E_Learning.Domain.Sections.Events;
 using E_Learning.Domain.StudentSubscription;

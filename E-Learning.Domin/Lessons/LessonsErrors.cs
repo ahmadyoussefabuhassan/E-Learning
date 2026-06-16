@@ -11,5 +11,7 @@ namespace E_Learning.Domain.Lessons
     {
         public static readonly Error NotFound = new(
          "Lesson.NotFound", "الدرس المطلوب غير موجود في النظام");
+        public static readonly Error FileNotFoundOnServer = new
+            ("FileNotFoundOnServer.NotFound", "الفيديو غير موجود في النظام");
     }
 }

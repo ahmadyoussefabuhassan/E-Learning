@@ -28,5 +28,11 @@ namespace E_Learning.Domain.Lessons
             lesson.RaiseDomainEvent(new LessonCreatedDomainEvent(lesson.Id, lesson.LessonTitle.Value, lesson.URL.Value, lesson.TitleUrl.Value, lesson.UnitId));
             return lesson;
         }
+        public void UpdateLesson(LessonTitle title , URL uRL , TitleUrl titleUrl)
+        {
+            LessonTitle = title;
+            URL = uRL;
+            TitleUrl = titleUrl;
+        }
     }
 }
