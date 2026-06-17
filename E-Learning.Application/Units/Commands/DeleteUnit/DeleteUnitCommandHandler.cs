@@ -42,7 +42,7 @@ namespace E_Learning.Application.Units.Commands.DeleteUnit
                 return Result.Failure<bool>(UnitsErrors.NotFound);
             if (user.Role.notType != Domain.Roles.NotType.Admin)
                 return Result.Failure<bool>(UserErrors.Unauthorized);
-            var lessons = await _lessonRepository.GetLessonsAsyncByUnit(unit.Id, cancellationToken);
+            var lessons = await _lessonRepository.GetLessonsByUnitAsync(unit.Id, cancellationToken);
             if(!lessons.Any() && lessons is not null)
             {
                 foreach (var lesson in lessons)

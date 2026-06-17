@@ -21,7 +21,7 @@ namespace E_Learning.Application.Lessons.Queries.GetAllLessonsByUnit
             var unit = await _unitRepository.GetByIdAsync(request.unitId, cancellationToken);
             if (unit is null)
                 return Result.Failure<IEnumerable<LessonResponse>>(UnitsErrors.NotFound);
-            var lessons = await _lessonRepository.GetLessonsAsyncByUnitAsync(unit.Id, cancellationToken);
+            var lessons = await _lessonRepository.GetLessonsByUnitAsync(unit.Id, cancellationToken);
             if(!lessons.Any())
                 return Result.Failure<IEnumerable<LessonResponse>>(LessonsErrors.NotFound);
             var response = lessons.Select(lesson => new LessonResponse(

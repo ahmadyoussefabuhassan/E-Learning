@@ -28,5 +28,10 @@ namespace E_Learning.Domain.ExamVideos
             examVideo.RaiseDomainEvent(new ExamVideoCreatedDomainEvent(examVideo.Id, examVideo.VideoUrl.Value, examVideo.Year.Value, examVideo.ExamExplanationId));
             return examVideo;
         }
+        public void UpdateVidoe(ExamVideosVideoUrl videoUrl , Year year)
+        {
+            VideoUrl = videoUrl;
+            Year = year;
+        }
     }
 }

@@ -2,9 +2,9 @@
 
 namespace E_Learning.Application.Sections.Commands.UpdateSection
 {
-    internal sealed class UpdateSectionCommandValidtor : AbstractValidator<UpdateSectionCommand>
+    internal sealed class UpdateSectionCommandValidator : AbstractValidator<UpdateSectionCommand>
     {
-        public UpdateSectionCommandValidtor()
+        public UpdateSectionCommandValidator()
         {
             RuleFor(command => command.Title)
                 .NotEmpty().WithMessage("اسم قسم مطلوب")

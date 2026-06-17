@@ -49,7 +49,7 @@ namespace E_Learning.Api.Controllers.Lessons
             var result = await _sender.Send(command, cancellation);
             return result.IsSuccess ? Ok(result.Value) : BadRequest(result.Error);
         }
-        [HttpDelete("{lessonId: guid}")]
+        [HttpDelete("{lessonId:guid}")]
         [Authorize(Roles = "Admin,Teacher")]
         public async Task<IActionResult> DeleteLesson(Guid lessonId , CancellationToken cancellation)
         {

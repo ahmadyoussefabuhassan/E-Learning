@@ -33,5 +33,11 @@ namespace E_Learning.Domain.ExamExplanations
             examExplanation.RaiseDomainEvent(new ExamExplanationCreatedEvent(examExplanation.Id, examExplanation.Title.Value, examExplanation.Description.Value, examExplanation.Price.Value, examExplanation.CourseId));
             return examExplanation;
         }
+        public void UpdateExam(Title title , Description description, Price price)
+        {
+            Title = title;
+            Description = description;
+            Price = price;
+        }
     }
 }

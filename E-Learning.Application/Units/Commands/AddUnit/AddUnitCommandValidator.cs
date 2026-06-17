@@ -3,9 +3,9 @@
 
 namespace E_Learning.Application.Units.Commands.AddUnit
 {
-    internal sealed class AddUnitCommandValidtor : AbstractValidator<AddUnitCommand>
+    internal sealed class AddUnitCommandValidator : AbstractValidator<AddUnitCommand>
     {
-        public AddUnitCommandValidtor()
+        public AddUnitCommandValidator()
         {
             RuleFor(command => command.Title)
               .NotEmpty().WithMessage("اسم الوحدة مطلوب")

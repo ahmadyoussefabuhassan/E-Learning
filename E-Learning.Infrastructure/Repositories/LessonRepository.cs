@@ -9,7 +9,7 @@ namespace E_Learning.Infrastructure.Repositories
         {
         }
 
-        public async Task<IEnumerable<Lesson>> GetLessonsAsyncByUnitAsync(Guid unitId, CancellationToken cancellationToken)
+        public async Task<IEnumerable<Lesson>> GetLessonsByUnitAsync(Guid unitId, CancellationToken cancellationToken)
             => await _dbContext.Set<Lesson>()
             .AsNoTracking()
             .Where(u => u.UnitId == unitId)
