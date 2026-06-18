@@ -29,5 +29,11 @@ namespace E_Learning.Domain.Invtensives
             invtensive.RaiseDomainEvent(new InvtensivesCreatedEvent(invtensive.Id, invtensive.Title.Value, invtensive.Description.Value, invtensive.Price.Value, invtensive.CourseID));
             return invtensive;
         }
+        public void UpdateInvtensives(InvtensivesTitle title, Description description, Price price)
+        {
+            Title = title;
+            Description = description;
+            Price = price;
+        }
     }
 }

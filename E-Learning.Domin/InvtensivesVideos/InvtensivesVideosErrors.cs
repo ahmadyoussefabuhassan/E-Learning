@@ -11,5 +11,7 @@ namespace E_Learning.Domain.InvtensivesVideos
     {
                 public static readonly Error NotFound = new(
                   "InvtensivesVideos.not found" , "لم يتم العثور على فيديو الدورة المكثفة المحدد.");
+        public static readonly Error FileNotFoundOnServer = new
+            ("FileNotFoundOnServer.NotFound", "الفيديو غير موجود في النظام");
     }
 }

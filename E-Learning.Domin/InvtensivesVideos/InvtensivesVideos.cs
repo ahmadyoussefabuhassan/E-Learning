@@ -28,5 +28,7 @@ namespace E_Learning.Domain.InvtensivesVideos
             invtensivesVideo.RaiseDomainEvent(new InvtensivesVideosCreatedEvent(invtensivesVideo.Id, invtensivesVideo.InvtensiveId, invtensivesVideo.VideoUrl.Value));
             return invtensivesVideo;
         }
+        public void UpdateVideo(InvtensivesVideosVideoUrl videoUrl)
+            => VideoUrl = videoUrl;
     }
 }

@@ -8,10 +8,7 @@
   </PropertyGroup>
 
   <ItemGroup>
-    <Folder Include="InvtensivesVideos\Commands\" />
-    <Folder Include="InvtensivesVideos\Queries\" />
-    <Folder Include="Invtensives\Commands\" />
-    <Folder Include="Invtensives\Queries\" />
+    <Folder Include="Invtensives\Events\" />
     <Folder Include="StudentSubscriptions\Commands\" />
     <Folder Include="StudentSubscriptions\Events\" />
     <Folder Include="StudentSubscriptions\Queries\" />
