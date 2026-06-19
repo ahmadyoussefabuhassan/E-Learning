@@ -14,11 +14,11 @@ namespace E_Learning.Infrastructure.Configurations
             builder .ToTable("Notifications");
             builder.Property(notification => notification.Title)
                 .HasConversion(title => title.Value , value => new Title(value))
-                    .HasMaxLength(50)
+                    .HasMaxLength(200)
                     .IsRequired();
             builder.Property(notification => notification.Message)
                 .HasConversion(message => message.Value , value => new Message(value))
-                    .HasMaxLength(50)
+                    .HasMaxLength(1000)
                     .IsRequired();
             builder.Property(notification => notification.UrlRedirect)
                 .HasConversion(urlRedirect => urlRedirect.Value , value => new UrlRedirect(value))

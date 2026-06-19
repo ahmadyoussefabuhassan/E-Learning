@@ -12,5 +12,6 @@ namespace E_Learning.Domain.User
         Task<int> GetCountUserssAsync(CancellationToken cancellation);
         Task<List<Guid>> GetUserIdsByRoleAsync(NotType roleType, CancellationToken cancellationToken);
         Task<List<Guid>> GetAllUsersExceptAdminAsync(CancellationToken cancellationToken);
+        Task<IEnumerable<Guid>> GetAllUserIdsAsync(CancellationToken cancellation);
     }
 }

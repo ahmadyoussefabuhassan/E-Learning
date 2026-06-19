@@ -42,5 +42,10 @@ namespace E_Learning.Infrastructure.Repositories
                 .Where(u => u.Role.notType != NotType.Admin)
                 .Select(u => u.Id)
                 .ToListAsync(cancellationToken);
+
+        public async Task<IEnumerable<Guid>> GetAllUserIdsAsync(CancellationToken cancellation)
+            => await _dbContext.Set<User>()
+            .Select(u => u.Id)
+            .ToListAsync(cancellation);
     }
 }
