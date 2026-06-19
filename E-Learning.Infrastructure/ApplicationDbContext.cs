@@ -25,20 +25,32 @@ namespace E_Learning.Infrastructure
         {
 
             await base.SaveChangesAsync(cancellationToken);
-            await PublishDomainEventsAsync(cancellationToken);
         }
-        private async Task PublishDomainEventsAsync(CancellationToken cancellationToken = default)
+        public override async Task<int> SaveChangesAsync(CancellationToken cancellationToken = default)
         {
-            var domainEvents = ChangeTracker.Entries<Entity>()
-                .Select(e => e.Entity)
-                .SelectMany(e =>
-                {
-                    var events = e.GetDomainEvents();
-                    e.ClearDomainEvents();
-                    return events;
-                });
+            var result = await base.SaveChangesAsync(cancellationToken);
+
+            await PublishDomainEventsAsync(cancellationToken);
+
+            return result;
+        }
+
+        private async Task PublishDomainEventsAsync(CancellationToken cancellationToken)
+        {
+            var domainEntries = ChangeTracker.Entries<Entity>()
+                .Where(x => x.Entity.GetDomainEvents().Any())
+                .ToList();
+
+            var domainEvents = domainEntries
+                .SelectMany(x => x.Entity.GetDomainEvents())
+                .ToList(); 
+
+            domainEntries.ForEach(x => x.Entity.ClearDomainEvents());
+
             foreach (var domainEvent in domainEvents)
+            {
                 await _publisher.Publish(domainEvent, cancellationToken);
+            }
         }
     }
 }

@@ -9,9 +9,6 @@
 
   <ItemGroup>
     <Folder Include="Invtensives\Events\" />
-    <Folder Include="StudentSubscriptions\Commands\" />
-    <Folder Include="StudentSubscriptions\Events\" />
-    <Folder Include="StudentSubscriptions\Queries\" />
   </ItemGroup>
 
   <ItemGroup>

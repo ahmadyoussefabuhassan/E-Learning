@@ -8,6 +8,7 @@ namespace E_Learning.Domain.StudentSubscription
         Task<List<Guid>> GetSubscribedStudentIdsAsync(Guid courseId, CancellationToken cancellation);
         Task<List<Guid>> GetSectionOrCourseSubscribersAsync(Guid sectionId, Guid courseId, CancellationToken cancellation);
         Task<List<Guid>> GetAllStudentIdsAsync(CancellationToken cancellation);
+        Task<bool> IsAlreadySubscribedAsync(Guid studentId, Guid targetId, CancellationToken cancellationToken);
     }
 }
 

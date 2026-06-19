@@ -31,7 +31,21 @@ namespace E_Learning.Infrastructure.Repositories
             => await _dbContext.Set<Student>()
                     .Select(s => s.Id)
                     .ToListAsync(cancellation);
+        public async Task<bool> IsAlreadySubscribedAsync(Guid studentId, Guid targetId, CancellationToken cancellationToken)
+        {
+            return await _dbContext.Set<StudentSubscription>()
+                .AnyAsync(s => s.StudentId == studentId &&
+                               s.TargetId == targetId &&
+                               s.Status != SubscriptionStatus.Rejected, 
+                          cancellationToken
+                );
+        }
 
+        public override async Task<StudentSubscription?> GetByIdAsync(Guid id, CancellationToken cancellationToken = default)
+            => await _dbContext.Set<StudentSubscription>()
+            .Include(s => s.Students)
+            .ThenInclude(u => u.User)
+            .FirstOrDefaultAsync(sp => sp.Id == id, cancellationToken);
 
     }
 }

@@ -1,4 +1,5 @@
-﻿using E_Learning.Domain.User;
+﻿using E_Learning.Domain.Roles;
+using E_Learning.Domain.User;
 using Microsoft.EntityFrameworkCore;
 
 namespace E_Learning.Infrastructure.Repositories
@@ -29,5 +30,17 @@ namespace E_Learning.Infrastructure.Repositories
         public async Task<int> GetCountUserssAsync(CancellationToken cancellation)
             => await _dbContext.Set<User>()
             .CountAsync(cancellation);
+
+        public async Task<List<Guid>> GetUserIdsByRoleAsync(NotType roleType, CancellationToken cancellationToken)
+            => await _dbContext.Set<User>()
+                .Where(u => u.Role.notType == roleType)
+                .Select(u => u.Id)
+                .ToListAsync(cancellationToken);
+
+        public async Task<List<Guid>> GetAllUsersExceptAdminAsync(CancellationToken cancellationToken)
+            => await _dbContext.Set<User>()
+                .Where(u => u.Role.notType != NotType.Admin)
+                .Select(u => u.Id)
+                .ToListAsync(cancellationToken);
     }
 }

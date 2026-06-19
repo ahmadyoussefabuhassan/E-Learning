@@ -38,6 +38,16 @@ namespace E_Learning.Domain.StudentSubscription
             subscription.RaiseDomainEvent(new StudentSubscriptionCreatedEvent(subscription.Id, subscription.StudentId, subscription.TargetId, subscription.TargetType.Value, subscription.ReceiptImageUrl.Value, subscription.Status, subscription.PriceAtPurchase.Value, subscription.CreatedAt));
             return subscription;
         }
+
+        public void Reject()
+        {
+            if (Status == SubscriptionStatus.Pending)
+            {
+                Status = SubscriptionStatus.Rejected;
+
+                RaiseDomainEvent(new SubscriptionRejectedDomainEvent(Id, StudentId));
+            }
+        }
         public void Confirm()
         {
             if (Status == SubscriptionStatus.Pending)
