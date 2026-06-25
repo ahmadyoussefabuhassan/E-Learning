@@ -100,10 +100,4 @@ erDiagram
 
 ---
 
-## 📧 Contact & Support
-Developed by **Ahmad Youssef Abu Hassan**.  
-Feel free to reach out if you have any questions!
-
-```
-
 د إضاف
