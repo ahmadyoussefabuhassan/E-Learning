@@ -1,6 +1,4 @@
 
-
-```markdown
 # 🎓 Ta'leem Pro - E-Learning Management System (Backend)
 
 [![.NET 8](https://img.shields.io/badge/.NET-8.0-blue.svg)](https://dotnet.microsoft.com/download/dotnet/8.0)
