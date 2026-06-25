@@ -106,4 +106,4 @@ Feel free to reach out if you have any questions!
 
 ```
 
-د إضافته؟
+د إضاف
