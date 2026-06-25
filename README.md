@@ -105,8 +105,3 @@ Developed by **Ahmad Youssef Abu Hassan**.
 Feel free to reach out if you have any questions!
 
 ```
-
-
-
-
-**بهذا الملف، مشروعك أصبح جاهزاً للعرض أمام أي لجنة تقييم أو شركة تقنية!** هل هناك أي تفصيل آخر تريد إضافته؟
