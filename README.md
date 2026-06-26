@@ -1,107 +1,99 @@
 
-# 🎓 Ta'leem Pro - E-Learning Management System (Backend)
+# 🎓 Learnova (Taleem Pro) - Advanced E-Learning System Backend
 
 [![.NET 8](https://img.shields.io/badge/.NET-8.0-blue.svg)](https://dotnet.microsoft.com/download/dotnet/8.0)
 [![Clean Architecture](https://img.shields.io/badge/Architecture-Clean-green.svg)]()
-[![JWT Auth](https://img.shields.io/badge/Auth-JWT-orange.svg)]()
-[![SignalR](https://img.shields.io/badge/Notifications-SignalR-red.svg)]()
+[![MediatR](https://img.shields.io/badge/Pattern-CQRS%20%7C%20MediatR-orange.svg)]()
+[![SignalR](https://img.shields.io/badge/Real--time-SignalR-red.svg)]()
 
-**Ta'leem Pro** is a robust and scalable backend system for an Educational Management Platform. Built with modern enterprise patterns, it provides a seamless experience for Admins, Teachers, and Students.
+**Learnova** is a high-performance, scalable backend built with **.NET 8** and **Clean Architecture**. It manages a complex hierarchy of educational content including Courses, Intensives, and Exam Explanations with a secure subscription-based access model.
 
-🚀 **Live Demo:** [http://learnovaapi.runasp.net/](http://learnovaapi.runasp.net/)
-
----
-
-## 🛠 Tech Stack
-
-*   **Framework:** .NET 8 Web API
-*   **Architecture:** Clean Architecture & Domain-Driven Design (DDD)
-*   **Pattern:** CQRS with MediatR
-*   **Database:** SQL Server with Entity Framework Core
-*   **Authentication:** JWT (JSON Web Tokens) & Google OAuth (Ready)
-*   **Real-time:** SignalR for Instant Notifications
-*   **Validation:** FluentValidation
-*   **Email Service:** MailKit (Smtp Integration)
 
 ---
 
-## 🏗 Architecture Overview
+## 🏛 Clean Architecture Layers
 
-The project follows the **Clean Architecture** principles to ensure decoupling and maintainability:
-1.  **Domain:** Core entities, value objects, domain events, and repository interfaces.
-2.  **Application:** Use cases (Commands/Queries), Handlers, DTOs, and Business Logic.
-3.  **Infrastructure:** Data access (EF Core), File storage, Identity, and External services.
-4.  **Api:** Controllers, Middlewares, and Program configuration.
+The system is strictly decoupled into four layers:
+1.  **Domain:** Core Entities (User, Course, etc.), Value Objects, and Domain Events.
+2.  **Application:** Use cases (Commands/Queries), MediatR Handlers, and DTOs.
+3.  **Infrastructure:** EF Core Data Access, Identity, Email (MailKit), and File Services.
+4.  **Api:** Controllers, Middlewares, and Swagger Configuration.
 
 ---
 
 ## 📊 Database Schema & UML (ERD)
 
-Below is the entity-relationship representation of the system:
+The following diagram represents the full relational structure as implemented in the database:
 
 ```mermaid
 erDiagram
-    USER ||--o{ REFRESH_TOKEN : has
-    USER ||--o{ NOTIFICATION : receives
-    USER ||--|| TEACHER : "is a"
-    USER ||--|| STUDENT : "is a"
-    ROLE ||--o{ USER : assigns
+    ROLES ||--o{ USERS : "has many"
+    USERS ||--o{ REFRESH_TOKEN : "owns"
+    USERS ||--o{ NOTIFICATIONS : "receives"
+    USERS ||--|| STUDENT : "extends"
+    USERS ||--|| TEACHER : "extends"
     
-    TEACHER ||--o{ COURSE : creates
-    CLASSES ||--o{ COURSE : contains
+    CLASSES ||--o{ COURSES : "belongs to"
+    TEACHER ||--o{ COURSES : "creates"
     
-    COURSE ||--o{ SECTION : has
-    SECTION ||--o{ UNIT : has
-    UNIT ||--o{ LESSON : has
+    COURSES ||--o{ SECTIONS : "contains"
+    COURSES ||--o{ EXAM_EXPLANATIONS : "includes"
+    COURSES ||--o{ INVTENSIVES : "includes"
     
-    STUDENT ||--o{ SUBSCRIPTION : requests
-    SUBSCRIPTION }o--|| COURSE : "targets"
+    SECTIONS ||--o{ UNITS : "has"
+    UNITS ||--o{ LESSONS : "contains"
+    
+    EXAM_EXPLANATIONS ||--o{ EXAM_VIDEOS : "has videos"
+    INVTENSIVES ||--o{ INVTENSIVE_VIDEOS : "has videos"
+    
+    STUDENT ||--o{ STUDENT_SUBSCRIPTIONS : "subscribes"
+    STUDENT_SUBSCRIPTIONS }o--|| COURSES : "targets"
 ```
 
-### 📋 Main Database Tables:
-*   **Users:** Stores core account info (Auth).
-*   **Roles:** Admin, Teacher, Student roles.
-*   **Courses:** Metadata for courses (Title, Price, Image, TeacherId).
-*   **Sections / Units / Lessons:** The educational hierarchy.
-*   **StudentSubscriptions:** Handles payment proof and course access approval.
-*   **Notifications:** System logs and real-time alerts.
-*   **RefreshTokens:** Manages long-lived sessions.
+### 🗄️ Tables Breakdown:
+*   **Identity:** `Users`, `Roles`, `RefreshTokens`.
+*   **Content Core:** `Classes`, `Courses`.
+*   **Curriculum:** `Sections` -> `Units` -> `Lessons`.
+*   **Specialized Content:** 
+    *   `ExamExplanations` & `ExamVideos` (Previous Years Exams).
+    *   `Invtensives` & `InvtensiveVideos` (Intensive Review Courses).
+*   **Business:** `StudentSubscriptions` (Handles receipts and Status: Pending/Completed).
+*   **System:** `Notifications` (Real-time SignalR logs).
 
 ---
 
-## ✨ Key Features
+## ✨ Advanced Features Implemented
 
--   **Authentication System:** Secure login/register, JWT management, and Password Reset flow via Email.
--   **Content Management:** Hierarchical structure for educational content (Course -> Section -> Unit -> Lesson).
--   **Subscription Lifecycle:** Students can request access by uploading receipts; Admins can Accept/Reject requests.
--   **Real-time Alerts:** Instant SignalR notifications when a course is added, updated, or an account is modified.
--   **File Management:** Specialized service for handling image and video uploads to protected directories.
--   **Streaming:** Protected video streaming to prevent unauthorized content downloading.
+-   **Domain Events:** Automatic notification triggers on course/section creation or subscription approval.
+-   **Security:** JWT-based Auth with **Refresh Token** rotation and Role-based access (Admin/Teacher/Student).
+-   **Password Recovery:** Full "Forgot Password" flow via Email OTP (MailKit).
+-   **Subscription Logic:** Manual payment verification (Receipt Image Upload) with Admin approval workflow.
+-   **Smart Pagination:** Custom `IQueryable` extensions for high-performance data retrieval.
+-   **Protected Streaming:** Video content is served via **FileStream** from non-public directories to prevent unauthorized downloads.
 
 ---
 
-## ⚙️ How to Run Locally
+## ⚙️ Development & Installation
 
-1.  **Clone the repository:**
+1.  **Clone:**
     ```bash
     git clone https://github.com/ahmadyoussefabuhassan/E-Learning.git
     ```
-2.  **Configure settings:**
-    *   Update `appsettings.json` with your **SQL Server Connection String**.
-    *   Add your **JWT Key** and **Email Settings**.
-3.  **Apply Migrations:**
+2.  **Configuration:** Update `appsettings.json` with your SQL Connection String and JWT Secrets.
+3.  **Database:**
     ```powershell
+    # In Package Manager Console
     Update-Database
     ```
-4.  **Run the project:**
+4.  **Run:**
     ```bash
     dotnet run --project E-Learning.Api
     ```
 
 ---
 
-## 📧 Contact & Support
-Developed by **Ahmad Youssef Abu Hassan**.  
-Feel free to reach out if you have any questions!
+## 👨‍💻 Author
+**Ahmad Youssef Abu Hassan**  
+*Backend Engineer specializing in .NET & Clean Architecture.*
 
 ```
