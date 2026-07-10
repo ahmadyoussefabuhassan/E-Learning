@@ -1,4 +1,6 @@
-﻿using E_Learning.Application.Notifications.Commands.SendBroadcastNotification.E_Learning.Application.Notifications.Commands.SendBroadcastNotification;
+﻿using E_Learning.Application.Notifications.Commands.DeleteAllNotifications;
+using E_Learning.Application.Notifications.Commands.DeleteNotification;
+using E_Learning.Application.Notifications.Commands.SendBroadcastNotification.E_Learning.Application.Notifications.Commands.SendBroadcastNotification;
 using E_Learning.Application.Notifications.Queries.GetMyNotifications;
 using E_Learning.Application.Notifications.Queries.GetNotificationById;
 using MediatR;
@@ -36,7 +38,23 @@ namespace E_Learning.Api.Controllers.Notifications
         {
             var command = new SendBroadcastNotificationCommand(request.Title, request.Message, request.Audience);
             var result = await _sender.Send(command , cancellation);
-            return result.IsSuccess ? Ok() : BadRequest(result.Error);
+            return result.IsSuccess ? Ok(result) : BadRequest(result.Error);
+        }
+        [HttpDelete("delete-all")]
+        [Authorize]
+        public async Task<IActionResult> DeleteAllNotification(CancellationToken cancellation)
+        {
+            var command = new DeleteAllNotificationsCommand();
+            var result = await _sender.Send(command, cancellation);
+            return result.IsSuccess ? Ok(result) : BadRequest(result.Error);
+        }
+        [HttpDelete("{id:guid}")]
+        [Authorize]
+        public async Task<IActionResult> DeleteNotificationById(Guid id,CancellationToken cancellation)
+        {
+            var command = new DeleteNotificationCommand(id);
+            var result = await _sender.Send(command, cancellation);
+            return result.IsSuccess ? Ok(result) : BadRequest(result.Error);
         }
     }
 }
