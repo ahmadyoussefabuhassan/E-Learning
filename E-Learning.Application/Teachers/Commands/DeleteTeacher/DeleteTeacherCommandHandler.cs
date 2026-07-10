@@ -28,16 +28,25 @@ namespace E_Learning.Application.Teachers.Commands.DeleteTeacher
 
         public async Task<Result<bool>> Handle(DeleteTeacherCommand request, CancellationToken cancellationToken)
         {
-            var user = await _userRepository.GetByIdAsync(request.TeacherId, cancellationToken);
-            if(user is null)
-                return Result.Failure<bool>(UserErrors.NotFound);
-            var teacher = await _teacherRepository.GetByIdAsync(user.Id, cancellationToken);
+    
+            var teacher = await _teacherRepository.GetByIdAsync(request.TeacherId, cancellationToken);
             if(teacher is null)
                 return Result.Failure<bool>(TeacherErrors.NotFound);
-            if (!string.IsNullOrEmpty(user.ImageUrl?.Value) && user.ImageUrl.Value != "/uploads/users/default-profile.png")
-                _fileService.DeleteImage(user.ImageUrl.Value);
-            await _userRepository.DeleteAsync(user.Id, cancellationToken);
+            bool hasCourses = await _teacherRepository.HasActiveCoursesAsync(teacher.Id, cancellationToken);
+            if (hasCourses)
+                return Result.Failure<bool>(TeacherErrors.HasRelatedData);
+            var user = await _userRepository.GetByIdAsync(request.TeacherId, cancellationToken);
+            if (user is not null && !string.IsNullOrEmpty(user.ImageUrl?.Value))
+            {
+                if (user.ImageUrl.Value != "/uploads/users/default-profile.png")
+                {
+                    _fileService.DeleteImage(user.ImageUrl.Value);
+                }
+            }
             await _teacherRepository.DeleteAsync(teacher.Id, cancellationToken);
+            if (user is not null)
+                await _userRepository.DeleteAsync(user.Id, cancellationToken);
+            await _unitOfWork.SaveChangesAsync(cancellationToken);
             return Result.Success(true);
         }
     }

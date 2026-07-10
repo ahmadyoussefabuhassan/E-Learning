@@ -5,5 +5,6 @@ namespace E_Learning.Domain.Teachers
     public interface ITeacherRepository : IRepository<Teacher>
     {
         Task<int> GetCountTeachersAsync(CancellationToken cancellation);
+        Task<bool> HasActiveCoursesAsync(Guid teacherId, CancellationToken cancellationToken);
     }
 }

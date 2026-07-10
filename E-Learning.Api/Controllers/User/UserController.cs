@@ -20,7 +20,7 @@ namespace E_Learning.Api.Controllers.User
         private readonly ISender _sender;
         public UserController(ISender sender)
             => _sender = sender;
-        [HttpPost("login/Admin/Teacher")]
+        [HttpPost("login/Admin")]
         public async Task<IActionResult> LoginAdman([FromBody] LoginUserRequest request, CancellationToken cancellation)
         {
             var command = new LogInUserCommand(request.Email, request.Password);
