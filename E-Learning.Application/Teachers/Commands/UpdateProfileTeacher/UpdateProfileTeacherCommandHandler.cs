@@ -63,6 +63,8 @@ namespace E_Learning.Application.Teachers.Commands.UpdateProfileTeacher
                 new UrlShamCash(request.SahmCash),
                 new SubjectTeacher(request.Education)
             );
+            await _userRepository.UpdateAsync(user, cancellationToken);
+            await _teacherRepository.UpdateAsync(teacher, cancellationToken);
             await _unitOfWork.SaveChangesAsync(cancellationToken);
             return Result.Success(user.Id);
         }

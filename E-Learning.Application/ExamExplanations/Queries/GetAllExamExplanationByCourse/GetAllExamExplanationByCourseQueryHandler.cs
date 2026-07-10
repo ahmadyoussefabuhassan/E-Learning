@@ -23,6 +23,8 @@ namespace E_Learning.Application.ExamExplanations.Queries.GetAllExamExplanationB
             if (course is null)
                 return Result.Failure<IEnumerable<ExamExplanationResponse>>(CourseErrors.NotFound);
             var exams = await _examExplanationRepository.GetAllByCourseAsync(course.Id, cancellationToken);
+            if(!exams.Any())
+                return Result.Success(Enumerable.Empty<ExamExplanationResponse>());
             var response = exams.Select(exam => new ExamExplanationResponse(
                 exam.Id,
                 exam.Title.Value,

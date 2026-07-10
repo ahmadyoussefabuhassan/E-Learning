@@ -25,7 +25,7 @@ namespace E_Learning.Application.InvtensivesVideos.Queries.GetAllInvtensivesVide
                 return Result.Failure<IEnumerable<InvtensiveVideoResponse>>(InvtensivesErrors.NotFound);
             var invtensivesvideos = await _invtensivesVideosRepo.GetAllByInvtensiveAsync(invtensive.Id, cancellationToken);
             if(!invtensivesvideos.Any())
-                return Result.Failure<IEnumerable<InvtensiveVideoResponse>>(InvtensivesVideosErrors.NotFound);
+                return Result.Success(Enumerable.Empty<InvtensiveVideoResponse>());
             var rsponse = invtensivesvideos.Select(invVideo => new InvtensiveVideoResponse(
                 invVideo.Id,
                 invVideo.VideoUrl.Value

@@ -1,14 +1,13 @@
 ﻿using E_Learning.Application.Abstractions.Messaging;
-using Microsoft.AspNetCore.Http;
 
-namespace E_Learning.Application.Teachers.Commands.UpdateProfileTeacher
+namespace E_Learning.Application.Teachers.Commands.AddTeacher
 {
-    public sealed record UpdateProfileTeacherCommand(
+    public sealed record  AddTeacherCommand(
         string FullName,
         string Email,
+        string Password,
         string PhoneNumber,
         string Address,
-        IFormFile? ImageUrl,
         string Education,
         string SahmCash
     ) : ICommand<Guid>;

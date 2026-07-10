@@ -21,7 +21,7 @@ namespace E_Learning.Infrastructure.Configurations
 
             builder.Property(Inv => Inv.Description)
                 .HasConversion(description => description.Value , value => new Description(value))
-                .HasMaxLength(50)
+                .HasMaxLength(500)
                 .IsRequired();
             builder.Property(Inv => Inv.Price)
                 .HasConversion(price => price.Value  , value => new Price(value))

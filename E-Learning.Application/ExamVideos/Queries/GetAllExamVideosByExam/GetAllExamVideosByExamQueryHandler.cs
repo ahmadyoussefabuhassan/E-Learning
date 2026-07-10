@@ -23,7 +23,7 @@ namespace E_Learning.Application.ExamVideos.Queries.GetAllExamVideosByExam
                 return Result.Failure<IEnumerable<ExamVidoeResponse>>(ExamExplanationsErrors.NotFound);
             var videos = await _videoRepository.GetAllByExamAsync(exam.Id, cancellationToken);
             if(!videos.Any())
-                return Result.Failure<IEnumerable<ExamVidoeResponse>>(ExamVideosErrors.NotFound);
+                return Result.Success(Enumerable.Empty<ExamVidoeResponse>());
             var response = videos.Select(video => new ExamVidoeResponse(
               video.Id,
               video.VideoUrl.Value,

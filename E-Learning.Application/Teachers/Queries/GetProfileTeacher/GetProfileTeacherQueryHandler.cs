@@ -37,8 +37,8 @@ namespace E_Learning.Application.Teachers.Queries.GetProfileTeacher
                 user.PhoneNumber.Value,
                 user.Address.Value,
                 user.ImageUrl?.Value ?? "/uploads/users/default-profile.png",
-                teacher.UrlShamCash?.Value ?? string.Empty,
                 teacher.SubjectTeacher.Value,
+                teacher.UrlShamCash?.Value ?? string.Empty,
                 user.Role?.notType.ToArabicString()?? string.Empty
             );
             return Result.Success(response);

@@ -9,6 +9,6 @@ namespace E_Learning.Application.Users.Commands.UpdateProfileUser
         string Email,
         string PhoneNumber,
         string Address,
-        IFormFile ImageUrl
+        IFormFile? ImageUrl
     ) : ICommand<Guid>;
 }

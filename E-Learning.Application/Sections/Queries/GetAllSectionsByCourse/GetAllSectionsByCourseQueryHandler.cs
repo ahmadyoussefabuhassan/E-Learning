@@ -23,7 +23,7 @@ namespace E_Learning.Application.Sections.Queries.GetAllSectionsByCourse
                 return Result.Failure<IEnumerable<SectionResponse>>(CourseErrors.NotFound);
             var sections = await _sectionRepository.GetAllByCourseAsync(request.courseId, cancellationToken);
             if (!sections.Any())
-                return Result.Failure<IEnumerable<SectionResponse>>(SectionErrors.NotFound);
+                return Result.Success(Enumerable.Empty<SectionResponse>());
             var response = sections.Select(section => new SectionResponse(
                 section.Id,
                 section.SectionTitle.Value,

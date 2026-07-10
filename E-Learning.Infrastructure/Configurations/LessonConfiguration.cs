@@ -28,7 +28,7 @@ namespace E_Learning.Infrastructure.Configurations
 
             builder.Property(lessons => lessons.TitleUrl)
                .HasConversion(t => t.Value, t => new TitleUrl(t))
-               .HasMaxLength(50);
+               .HasMaxLength(500);
 
             builder.HasOne(l => l.Unit)
                 .WithMany(u => u.Lessons)

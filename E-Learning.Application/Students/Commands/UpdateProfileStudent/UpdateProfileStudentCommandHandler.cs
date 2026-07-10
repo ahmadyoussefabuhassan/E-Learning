@@ -64,6 +64,8 @@ namespace E_Learning.Application.Students.Commands.UpdateProfileStudent
             student.UpdateProfile(
                 new SubjectStudent(request.Education)
             );
+            await _userRepository.UpdateAsync(user, cancellationToken);
+            await _studentRepository.UpdateAsync(student, cancellationToken);
             await _unitOfWork.SaveChangesAsync(cancellationToken);
             return Result.Success(student.Id);
         }

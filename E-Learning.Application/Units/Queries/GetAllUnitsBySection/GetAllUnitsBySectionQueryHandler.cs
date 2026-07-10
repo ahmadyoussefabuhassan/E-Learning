@@ -23,7 +23,7 @@ namespace E_Learning.Application.Units.Queries.GetAllUnitsBySection
                 return Result.Failure<IEnumerable<UnitResponse>>(SectionErrors.NotFound);
             var units =  await _unitRepository.GetAllBySectionAsync(request.sectionId, cancellationToken);
             if(!units.Any())
-                return Result.Failure<IEnumerable<UnitResponse>>(UnitsErrors.NotFound);
+                return Result.Success(Enumerable.Empty<UnitResponse>());
             var response = units.Select(unit => new UnitResponse(
                 unit.Id,
                 unit.UnitTitle.Value,

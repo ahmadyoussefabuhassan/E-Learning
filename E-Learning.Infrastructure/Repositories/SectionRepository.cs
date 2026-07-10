@@ -22,7 +22,7 @@ namespace E_Learning.Infrastructure.Repositories
             .FirstOrDefaultAsync(s => s.Id == id);
 
         public async Task<bool> HasRelatedDataAsync(Guid sectionId, CancellationToken cancellationToken)
-            => await _dbContext.Set<Section>()
-            .AnyAsync(s => s.Id != sectionId , cancellationToken);
+            => await _dbContext.Set<Domain.Units.Unit>()
+            .AnyAsync(u => u.SectionId == sectionId, cancellationToken);
     }
 }

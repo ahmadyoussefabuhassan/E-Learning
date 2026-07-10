@@ -55,7 +55,7 @@ namespace E_Learning.Application.Users.Commands.UpdateProfileUser
                 new Address(request.Address),
                 image is null ? null : new ImageUrl(image)
             );
-
+            await _userRepository.UpdateAsync(user, cancellationToken);
             await _unitOfWork.SaveChangesAsync(cancellationToken);
             return Result.Success(user.Id);
         }

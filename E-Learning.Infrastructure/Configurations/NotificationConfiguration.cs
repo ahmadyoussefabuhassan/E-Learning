@@ -22,7 +22,7 @@ namespace E_Learning.Infrastructure.Configurations
                     .IsRequired();
             builder.Property(notification => notification.UrlRedirect)
                 .HasConversion(urlRedirect => urlRedirect.Value , value => new UrlRedirect(value))
-                .HasMaxLength(50)
+                .HasMaxLength(500)
                  .IsRequired(false);
 
 

@@ -1,11 +1,10 @@
 ﻿using FluentValidation;
 
-
-namespace E_Learning.Application.Teachers.Commands.UpdateProfileTeacher
+namespace E_Learning.Application.Teachers.Commands.AddTeacher
 {
-    internal sealed class UpdateProfileTeacherCommandValidator : AbstractValidator<UpdateProfileTeacherCommand>
+    internal sealed class AddTeacherCommandValidator :  AbstractValidator<AddTeacherCommand>
     {
-        public UpdateProfileTeacherCommandValidator()
+        public AddTeacherCommandValidator()
         {
             RuleFor(command => command.FullName)
                 .NotEmpty().WithMessage("الاسم الكامل مطلوب")
@@ -13,18 +12,19 @@ namespace E_Learning.Application.Teachers.Commands.UpdateProfileTeacher
             RuleFor(command => command.Email)
                 .NotEmpty().WithMessage("البريد الإلكتروني مطلوب")
                 .EmailAddress().WithMessage("البريد الإلكتروني غير صالح");
+            RuleFor(command => command.Password)
+                .NotEmpty().WithMessage("كلمة المرور مطلوبة")
+                .MinimumLength(6).WithMessage("كلمة المرور يجب أن تكون على الأقل 6 أحرف");
             RuleFor(command => command.PhoneNumber)
                 .NotEmpty().WithMessage("رقم الهاتف مطلوب")
-                .Matches(@"^\+?\d{10,15}$").WithMessage("رقم الهاتف غير صالح");
+                .Matches(@"^\+?[1-9]\d{1,14}$").WithMessage("رقم الهاتف غير صالح");
             RuleFor(command => command.Address)
                 .NotEmpty().WithMessage("العنوان مطلوب")
                 .MaximumLength(200).WithMessage("العنوان لا يجب أن يتجاوز 200 حرف");
-            RuleFor(command => command.SahmCash)
-                .NotEmpty().WithMessage("شام كاش مطلوب")
-                .MaximumLength(200).WithMessage("شام كاش لا يجب أن يتجاوز 200 حرف");
             RuleFor(command => command.Education)
                 .NotEmpty().WithMessage("المؤهل العلمي مطلوب");
-
+            RuleFor(command => command.SahmCash)
+                .NotEmpty().WithMessage("سهم الكاش مطلوب");
         }
     }
 }

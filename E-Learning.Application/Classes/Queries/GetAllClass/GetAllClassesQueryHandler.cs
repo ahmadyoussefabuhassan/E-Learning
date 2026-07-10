@@ -17,7 +17,7 @@ namespace E_Learning.Application.Classes.Queries.GetAllClass
         {
             var classes = await _classesRepositry.GetAllAsync(cancellationToken);
             if (classes is null || !classes.Any())
-                return Result.Failure<IEnumerable<ClassResponse>>(ClassesErrors.NotFound);
+                return Result.Success(Enumerable.Empty<ClassResponse>());
             var response = classes.Select(c => new ClassResponse(c.Id, c.Name.Value));
             return Result.Success(response);
         }

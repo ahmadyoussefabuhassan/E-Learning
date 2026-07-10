@@ -6,10 +6,9 @@ using E_Learning.Domain.RefreshTokens;
 using E_Learning.Domain.Roles;
 using E_Learning.Domain.User;
 
-
-namespace E_Learning.Application.Students.Commands.LogInStudent
+namespace E_Learning.Application.Teachers.Commands.LoginTeacher
 {
-    public sealed class LogInStudentCommandHandler : ICommandHandler<LogInStudentCommand, AuthenticationResponse>
+    public sealed class LogInTeacherCommandHandler : ICommandHandler<LogInTeacherCommand, AuthenticationResponse>
     {
         private readonly IUnitOfWork _unitOfWork;
         private readonly IJwtTokenGenerator _jwtService;
@@ -17,9 +16,8 @@ namespace E_Learning.Application.Students.Commands.LogInStudent
         private readonly IRefreshTokenRepository _refreshTokenRepository;
         private readonly IDateTimeProvider _dateTimeProvider;
 
-        public LogInStudentCommandHandler(IUnitOfWork unitOfWork,
-            IJwtTokenGenerator jwtService,
-            IUserRepository userRepository, 
+        public LogInTeacherCommandHandler(IUnitOfWork unitOfWork, IJwtTokenGenerator jwtService,
+            IUserRepository userRepository,
             IRefreshTokenRepository refreshTokenRepository,
             IDateTimeProvider dateTimeProvider)
         {
@@ -30,14 +28,14 @@ namespace E_Learning.Application.Students.Commands.LogInStudent
             _dateTimeProvider = dateTimeProvider;
         }
 
-        public async Task<Result<AuthenticationResponse>> Handle(LogInStudentCommand request, CancellationToken cancellationToken)
+        public async Task<Result<AuthenticationResponse>> Handle(LogInTeacherCommand request, CancellationToken cancellationToken)
         {
             var user = await _userRepository.GetByEmailAsync(new Email(request.Email), cancellationToken);
             if (user is null || user.Password.Value != request.Password)
                 return Result.Failure<AuthenticationResponse>(UserErrors.InvalidCredentials);
             if (user.Role is null)
                 return Result.Failure<AuthenticationResponse>(RoleErrors.NotFound);
-            var jit = Guid.NewGuid().ToString();
+            string jit = Guid.NewGuid().ToString();
             var token = _jwtService.GenerateToken(user.Id, user.Email.Value, user.FullName.Value, user.Role.Name.Value, jit);
             var refreshTokenText = Convert.ToBase64String(Guid.NewGuid().ToByteArray());
             var refreshToken = RefreshToken.Create(

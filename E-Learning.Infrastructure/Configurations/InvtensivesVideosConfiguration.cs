@@ -17,7 +17,7 @@ namespace E_Learning.Infrastructure.Configurations
 
             builder.Property(IntV => IntV.VideoUrl)
                 .HasConversion(videourl => videourl.Value , value => new InvtensivesVideosVideoUrl(value))
-                .HasMaxLength(50)
+                .HasMaxLength(500)
                 .IsRequired(); 
 
             builder.HasOne(inv => inv.Invtensive)

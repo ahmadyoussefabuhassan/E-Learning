@@ -5,6 +5,6 @@
         string Email,
         string PhoneNumber,
         string Address,
-        IFormFile ImageUrl
+        IFormFile? ImageUrl
     );
 }
