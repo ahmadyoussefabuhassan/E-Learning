@@ -4,6 +4,7 @@ using E_Learning.Application.Courses.Commands.UpdateCourse;
 using E_Learning.Application.Courses.Queries.GetAllCourses;
 using E_Learning.Application.Courses.Queries.GetAllCoursesByTeacher;
 using E_Learning.Application.Courses.Queries.GetAllCoursesFilterByClass;
+using E_Learning.Application.Courses.Queries.GetAllCoursesForStudent;
 using E_Learning.Application.Courses.Queries.GetCourseById;
 using MediatR;
 using Microsoft.AspNetCore.Authorization;
@@ -35,7 +36,7 @@ namespace E_Learning.Api.Controllers.Courses
         }
         [HttpPut("UpdateCourse/{id:guid}")]
         [Authorize(Roles = "Teacher,Admin")]
-        public async Task<IActionResult> UpdateCourse(Guid id,[FromForm]UpdateCourseRequest request, CancellationToken cancellationToken)
+        public async Task<IActionResult> UpdateCourse(Guid id, [FromForm] UpdateCourseRequest request, CancellationToken cancellationToken)
         {
             var command = new UpdateCourseCommand(
                 id,
@@ -50,7 +51,7 @@ namespace E_Learning.Api.Controllers.Courses
         }
         [HttpDelete("DeleteCourse/{id:guid}")]
         [Authorize(Roles = "Teacher,Admin")]
-        public async Task<IActionResult> DeleteCourse( Guid id, CancellationToken cancellationToken)
+        public async Task<IActionResult> DeleteCourse(Guid id, CancellationToken cancellationToken)
         {
             var command = new DeleteCourseCommand(id);
             var result = await _sender.Send(command, cancellationToken);
@@ -87,13 +88,24 @@ namespace E_Learning.Api.Controllers.Courses
             return result.IsSuccess ? Ok(result.Value) : BadRequest(result.Error);
         }
         [HttpGet("GetAllFilter/Teacher")]
-        [Authorize(Roles ="Teacher")]
+        [Authorize(Roles = "Teacher")]
         public async Task<IActionResult> GetAllByTeacher(CancellationToken cancellation)
         {
             var query = new GetAllCoursesByTeacherQuery();
             var result = await _sender.Send(query, cancellation);
             return result.IsSuccess ? Ok(result.Value) : BadRequest(result.Error);
         }
-
+        [HttpGet("GetAllFor/Search/Student")]
+        [Authorize(Roles = "Student")]
+        public async Task<IActionResult> GetAllForStudent(
+            [FromQuery] int pageNumber = 1,
+            [FromQuery] int pageSize = 100,
+            [FromQuery] string? searchTerm = null,
+            CancellationToken cancellationToken = default)
+        {
+            var query = new GetAllCoursesForStudentQuery(pageNumber, pageSize, searchTerm);
+            var result = await _sender.Send(query, cancellationToken);
+            return result.IsSuccess ? Ok(result.Value) : BadRequest(result.Error);
+        }
     }
 }

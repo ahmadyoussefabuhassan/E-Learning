@@ -1,6 +1,4 @@
-﻿
-
-using E_Learning.Application.Abstractions.Extensions;
+﻿using E_Learning.Application.Abstractions.Extensions;
 using E_Learning.Application.Abstractions.Messaging;
 using E_Learning.Application.Courses.Queries.SherdResponses;
 using E_Learning.Domain.Abstractions;
