@@ -19,7 +19,10 @@ namespace E_Learning.Infrastructure.Configurations
                 .HasConversion(videourl => videourl.Value , value => new InvtensivesVideosVideoUrl(value))
                 .HasMaxLength(500)
                 .IsRequired(); 
-
+            builder.Property(IntV => IntV.TitleVideoUrl)
+                .HasConversion(titleVideoUrl => titleVideoUrl.Value , value => new TitleVideoUrl(value))
+                .HasMaxLength(500)
+                .IsRequired();
             builder.HasOne(inv => inv.Invtensive)
                 .WithMany(Invtensive => Invtensive.InvtensivesVideos)
                 .HasForeignKey(InvtensivesVideos => InvtensivesVideos.InvtensiveId)

@@ -14,13 +14,14 @@ namespace E_Learning.Domain.Courses
         {
         }
 
-        private Course(Guid id, CourseName name, ImageUrl imageUrl, Description description, Price price, bool isActive, Guid classesId, Guid teacherId) : base(id)
+        private Course(Guid id, CourseName name, ImageUrl imageUrl, Description description, Price price, bool isActive, bool islocked, Guid classesId, Guid teacherId) : base(id)
         {
             CourseName = name;
             ImageUrl = imageUrl;
             Description = description;
             Price = price;
             IsActive = isActive;
+            IsLocked = islocked;
             ClassesId = classesId;
             TeacherId = teacherId;
         }
@@ -34,6 +35,7 @@ namespace E_Learning.Domain.Courses
         public Price Price { get; private set; }
 
         public bool IsActive { get; private set; }
+        public bool IsLocked { get; private set; }
         public Guid ClassesId { get; private set; }
         public Guid TeacherId { get; private set; }
         public User.User Teachers { get; private set; } = null!;
@@ -45,7 +47,7 @@ namespace E_Learning.Domain.Courses
         public static Course Create(CourseName name, ImageUrl imageUrl, Description description, Price price, Guid classesId, Guid teacherId)
         {
 
-            var course = new Course(Guid.NewGuid(), name, imageUrl, description, price, true, classesId, teacherId);
+            var course = new Course(Guid.NewGuid(), name, imageUrl, description, price, true, true, classesId, teacherId);
             course.RaiseDomainEvent(new CourseCreatedDomainEvent(course.Id, course.CourseName.Value, course.Price.Value, course.TeacherId, course.ClassesId));
             return course;
         }
@@ -59,6 +61,7 @@ namespace E_Learning.Domain.Courses
             RaiseDomainEvent(new CourseUpdatedDomainEvent(Id, CourseName.Value, Price.Value,  ClassesId));
         }
         public void ToggleStatus() => IsActive = !IsActive;
-       
+        public void ToggleLock() => IsLocked = !IsLocked;
+
     }
 }

@@ -16,7 +16,7 @@ public sealed class GetAllStudentSubscriptionsQueryHandler : IQueryHandler<GetAl
 
     public async Task<Result<GetAllDataResponse<StudentSubscriptionResponse>>> Handle(GetAllStudentSubscriptionsQuery request, CancellationToken cancellationToken)
     {
-        var query = _subscriptionRepo.GetAllQueryableAsync()
+        var query = _subscriptionRepo.GetAllQueryable()
             .Include(s => s.Students)
                 .ThenInclude(st => st.User)
                 .AsQueryable(); 

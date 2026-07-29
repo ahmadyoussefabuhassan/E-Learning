@@ -12,23 +12,25 @@ namespace E_Learning.Domain.InvtensivesVideos
     {
         private InvtensivesVideos(): base(Guid.Empty) { }
 
-        private InvtensivesVideos(Guid id, Guid invtensiveId, InvtensivesVideosVideoUrl videoUrl) : base(id)
+        private InvtensivesVideos(Guid id, Guid invtensiveId, InvtensivesVideosVideoUrl videoUrl , TitleVideoUrl titleVideoUrl) : base(id)
         {
             InvtensiveId = invtensiveId;
-            VideoUrl = videoUrl;   
+            VideoUrl = videoUrl;
+            TitleVideoUrl = titleVideoUrl;
         }
 
         public Guid InvtensiveId { get; private set; }
         public Invtensives.Invtensives Invtensive { get; private set; } = null!;
         public InvtensivesVideosVideoUrl VideoUrl { get; private set; }
+        public TitleVideoUrl TitleVideoUrl { get; private set; } = null!;
 
-        public static InvtensivesVideos Create(Guid invtensiveId, InvtensivesVideosVideoUrl videoUrl)
+        public static InvtensivesVideos Create(Guid invtensiveId, InvtensivesVideosVideoUrl videoUrl , TitleVideoUrl titleVideoUrl)
         {
-            var invtensivesVideo = new InvtensivesVideos(Guid.NewGuid(), invtensiveId, videoUrl);
+            var invtensivesVideo = new InvtensivesVideos(Guid.NewGuid(), invtensiveId, videoUrl , titleVideoUrl);
             invtensivesVideo.RaiseDomainEvent(new InvtensivesVideosCreatedEvent(invtensivesVideo.Id, invtensivesVideo.InvtensiveId, invtensivesVideo.VideoUrl.Value));
             return invtensivesVideo;
         }
-        public void UpdateVideo(InvtensivesVideosVideoUrl videoUrl)
-            => VideoUrl = videoUrl;
+        public void UpdateVideo(InvtensivesVideosVideoUrl videoUrl , TitleVideoUrl titleVideoUrl)
+            =>(VideoUrl, TitleVideoUrl) = (videoUrl, titleVideoUrl);
     }
 }

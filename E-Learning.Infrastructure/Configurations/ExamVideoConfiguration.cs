@@ -19,6 +19,10 @@ namespace E_Learning.Infrastructure.Configurations
                 .HasConversion(examvideosvideourl => examvideosvideourl.Value, v => new ExamVideosVideoUrl(v))
                 .HasMaxLength(500)
                 .IsRequired();
+            builder.Property(examvideo => examvideo.TitleVideoUrl)
+                .HasConversion(titleVideoUrl => titleVideoUrl.Value, v => new TitleVideoUrl(v))
+                .HasMaxLength(500)
+                .IsRequired();
 
             builder.Property(examvideo => examvideo.Year)
                 .HasConversion(year => year.Value, y => new Year(y))

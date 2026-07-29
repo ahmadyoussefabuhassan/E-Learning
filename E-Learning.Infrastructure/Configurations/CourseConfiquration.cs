@@ -35,7 +35,9 @@ namespace E_Learning.Infrastructure.Configurations
             builder.Property(c => c.IsActive)
                 .HasDefaultValue(true)
                 .IsRequired();
-
+            builder.Property(c => c.IsLocked)
+                .HasDefaultValue(true)
+                .IsRequired();
             builder.Property(p => p.Price)
                 .HasConversion(p => p.Value, p => new Price(p))
                 .IsRequired()

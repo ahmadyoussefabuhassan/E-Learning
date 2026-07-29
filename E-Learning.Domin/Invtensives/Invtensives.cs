@@ -9,23 +9,25 @@ namespace E_Learning.Domain.Invtensives
     {
         private Invtensives() : base(Guid.Empty)
         { }
-        private Invtensives(Guid id, InvtensivesTitle title, Description description, Price price, Guid courseID) : base(id)
+        private Invtensives(Guid id, InvtensivesTitle title, Description description, Price price , bool islocked, Guid courseID) : base(id)
         {
             Title = title;
             Description = description;
             Price = price;
+            IsLocked = islocked;
             CourseID = courseID ;
         }
         public InvtensivesTitle Title { get; private set; }
         public Description Description { get; private set; }
         public Price Price { get; private set; }
+        public bool IsLocked { get; private set; }
         public Guid CourseID { get; private set; }
         public Course Course { get; private set; } = null!;
         public ICollection<InvtensivesVideos.InvtensivesVideos> InvtensivesVideos { get; private set; } = new List<InvtensivesVideos.InvtensivesVideos>();
 
         public static Invtensives Create(InvtensivesTitle title, Description description, Price price, Guid courseID)
         {
-            var invtensive = new Invtensives(Guid.NewGuid(), title, description, price, courseID);
+            var invtensive = new Invtensives(Guid.NewGuid(), title, description, price, true, courseID);
             invtensive.RaiseDomainEvent(new InvtensivesCreatedEvent(invtensive.Id, invtensive.Title.Value, invtensive.Description.Value, invtensive.Price.Value, invtensive.CourseID));
             return invtensive;
         }
@@ -35,5 +37,7 @@ namespace E_Learning.Domain.Invtensives
             Description = description;
             Price = price;
         }
+        public void ToggleLock() => IsLocked = !IsLocked;
+
     }
 }

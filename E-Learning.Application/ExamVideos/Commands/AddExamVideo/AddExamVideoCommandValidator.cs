@@ -7,6 +7,9 @@ namespace E_Learning.Application.ExamVideos.Commands.AddExamVideo
     {
         public AddExamVideoCommandValidator()
         {
+            RuleFor(command => command.TitleUrl)
+                .NotEmpty().WithMessage("يجب إدخال عنوان الفيديو.")
+                .MaximumLength(500).WithMessage("عنوان الفيديو يجب ألا يتجاوز 500 حرف.");
             RuleFor(command => command.VidoUrl)
                 .NotNull().WithMessage("يجب رفع ملف الفيديو الخاص بالدرس.")
                 .Must(file => file.Length > 0).WithMessage("ملف الفيديو المرفق فارغ.")

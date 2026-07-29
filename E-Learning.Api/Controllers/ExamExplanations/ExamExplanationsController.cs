@@ -3,6 +3,7 @@ using E_Learning.Application.ExamExplanations.Commands.DeleteExamExplanation;
 using E_Learning.Application.ExamExplanations.Commands.UpdateExamExplanation;
 using E_Learning.Application.ExamExplanations.Queries.GetAllExamExplanationByCourse;
 using E_Learning.Application.ExamExplanations.Queries.GetExamExplanationById;
+using E_Learning.Application.ExamExplanations.Queries.GetExamExplanationByIdForStudent;
 using MediatR;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
@@ -60,10 +61,18 @@ namespace E_Learning.Api.Controllers.ExamExplanations
             return result.IsSuccess ? Ok(result.Value) : BadRequest(result.Error);
         }
         [HttpGet("GetById/{examId:guid}")]
-        [Authorize]
+        [Authorize(Roles = "Admin,Teacher")]
         public async Task<IActionResult> GetExamExplanationById(Guid examId , CancellationToken cancellation)
         {
             var query = new GetExamExplanationByIdQuery(examId);
+            var result = await _sender.Send(query, cancellation);
+            return result.IsSuccess ? Ok(result.Value) : BadRequest(result.Error);
+        }
+        [HttpGet("GetById/ForStudent{examId:guid}")]
+        [Authorize(Roles = "Student")]
+        public async Task<IActionResult> GetExamExplanationByIdForStudent(Guid examId, CancellationToken cancellation)
+        {
+            var query = new GetExamExplanationByIdForStudentQuery(examId);
             var result = await _sender.Send(query, cancellation);
             return result.IsSuccess ? Ok(result.Value) : BadRequest(result.Error);
         }

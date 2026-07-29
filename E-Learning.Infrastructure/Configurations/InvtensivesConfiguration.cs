@@ -27,6 +27,9 @@ namespace E_Learning.Infrastructure.Configurations
                 .HasConversion(price => price.Value  , value => new Price(value))
                 .HasColumnType("decimal(18,2)")
                 .IsRequired();
+            builder.Property(Inv => Inv.IsLocked)
+                .HasDefaultValue(true)
+                .IsRequired();
 
             //
             builder.HasOne(e=> e.Course)

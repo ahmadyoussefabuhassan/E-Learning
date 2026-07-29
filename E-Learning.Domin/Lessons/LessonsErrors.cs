@@ -9,5 +9,7 @@ namespace E_Learning.Domain.Lessons
          "Lesson.NotFound", "الدرس المطلوب غير موجود في النظام");
         public static readonly Error FileNotFoundOnServer = new
             ("FileNotFoundOnServer.NotFound", "الفيديو غير موجود في النظام");
+        public static readonly Error AccessDenied = new(
+            "Lesson.AccessDenied", "لا يمكن تشغيل الفيديو، يرجى الاشتراك أولاً لتتمكن من مشاهدة هذا المحتوى.");
     }
 }

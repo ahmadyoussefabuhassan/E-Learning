@@ -3,6 +3,7 @@ using E_Learning.Application.Invtensives.Commands.DeleteInvtensive;
 using E_Learning.Application.Invtensives.Commands.UpdateInvtensive;
 using E_Learning.Application.Invtensives.Queries.GetAllInvtensivesByCourse;
 using E_Learning.Application.Invtensives.Queries.GetInvtensivesById;
+using E_Learning.Application.Invtensives.Queries.GetInvtensivesByIdForStudent;
 using MediatR;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Http;
@@ -62,10 +63,18 @@ namespace E_Learning.Api.Controllers.Invtensives
             return result.IsSuccess ? Ok(result.Value) : BadRequest(result.Error);
         }
         [HttpGet("GetById/{invtensiveId:guid}")]
-        [Authorize]
+        [Authorize(Roles = "Admin,Teacher")]
         public async Task<IActionResult> GetInvtensive(Guid invtensiveId, CancellationToken cancellation)
         {
             var query = new GetInvtensivesByIdQuery(invtensiveId);
+            var result = await _sender.Send(query, cancellation);
+            return result.IsSuccess ? Ok(result.Value) : BadRequest(result.Error);
+        }
+        [HttpGet("GetById/ForStudent{invtensiveId:guid}")]
+        [Authorize(Roles = "Student")]
+        public async Task<IActionResult> GetInvtensiveForStudent(Guid invtensiveId, CancellationToken cancellation)
+        {
+            var query = new GetInvtensivesByIdForStudentQuery(invtensiveId);
             var result = await _sender.Send(query, cancellation);
             return result.IsSuccess ? Ok(result.Value) : BadRequest(result.Error);
         }

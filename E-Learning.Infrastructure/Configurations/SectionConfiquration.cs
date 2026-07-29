@@ -24,6 +24,11 @@ namespace E_Learning.Infrastructure.Configurations
                  .IsRequired()
                  .HasColumnType("decimal(18,2)");
 
+            builder.Property(s => s.IsLocked)
+                   .HasDefaultValue(true)
+                   .IsRequired();
+
+
             builder.HasOne(s => s.Course) 
                    .WithMany(c => c.Sections)
                    .HasForeignKey(s => s.CourseId)

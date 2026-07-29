@@ -27,7 +27,9 @@ namespace E_Learning.Application.ExamVideos.Queries.GetAllExamVideosByExam
             var response = videos.Select(video => new ExamVidoeResponse(
               video.Id,
               video.VideoUrl.Value,
-              video.Year.Value
+              video.Year.Value,
+              video.TitleVideoUrl.Value
+              
             ));
             return Result.Success(response);
         }

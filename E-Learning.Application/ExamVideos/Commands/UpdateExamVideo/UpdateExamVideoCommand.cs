@@ -4,5 +4,5 @@ using Microsoft.AspNetCore.Http;
 
 namespace E_Learning.Application.ExamVideos.Commands.UpdateExamVideo
 {
-    public sealed record UpdateExamVideoCommand(Guid Id , IFormFile VidoUrl , int Year) : ICommand<Guid>;
+    public sealed record UpdateExamVideoCommand(Guid Id , IFormFile VidoUrl ,string TitleUrl, int Year) : ICommand<Guid>;
 }

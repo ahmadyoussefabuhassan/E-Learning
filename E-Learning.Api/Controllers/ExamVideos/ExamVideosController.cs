@@ -37,6 +37,7 @@ namespace E_Learning.Api.Controllers.ExamVideos
             var command = new AddExamVideoCommand(
                 examId,
                 request.VidoUrl,
+                request.TitleUrl,
                 request.Year
             );
             var result = await _sender.Send(command, cancellation);
@@ -49,6 +50,7 @@ namespace E_Learning.Api.Controllers.ExamVideos
             var command = new UpdateExamVideoCommand(
                 examvidoeId,
                 request.VidoUrl,
+                request.TitleUrl,
                 request.Year
             );
             var result = await _sender.Send(command, cancellation);

@@ -19,8 +19,8 @@ namespace E_Learning.Api.Controllers.Teacher
         public TeacherController(ISender sender)
             => _sender = sender;
         [AllowAnonymous]
-        [HttpPost("LogIn/Teacher")]
-        public async Task<IActionResult> LogInTeacher([FromBody] LogInTeacherRequest request , CancellationToken cancellation)
+        [HttpPost("LogIn")]
+        public async Task<IActionResult> LogInTeacher([FromBody] LogInTeacherRequest request, CancellationToken cancellation)
         {
             var command = new LogInTeacherCommand(request.Email, request.Password);
             var result = await _sender.Send(command, cancellation);
@@ -67,7 +67,7 @@ namespace E_Learning.Api.Controllers.Teacher
             return result.IsSuccess ? Ok(result.Value) : BadRequest(result.Error);
         }
         [HttpGet("Count")]
-        [Authorize(Roles ="Admin")]
+        [Authorize(Roles = "Admin")]
         public async Task<IActionResult> GetCountTeachers(CancellationToken cancellation)
         {
             var query = new GetCountTeachersQuery();
@@ -76,21 +76,37 @@ namespace E_Learning.Api.Controllers.Teacher
         }
         [HttpDelete("{Id:guid}")]
         [Authorize(Roles = "Admin")]
-        public async Task<IActionResult> DeleteTeacher(Guid Id , CancellationToken cancellation)
+        public async Task<IActionResult> DeleteTeacher(Guid Id, CancellationToken cancellation)
         {
             var command = new DeleteTeacherCommand(Id);
             var result = await _sender.Send(command, cancellation);
             return result.IsSuccess ? Ok(result.Value) : BadRequest(result.Error);
         }
         [HttpGet("GetAll")]
-        [Authorize(Roles ="Admin")]
+        [Authorize(Roles = "Admin")]
         public async Task<IActionResult> GetAllTeachers(CancellationToken cancellation)
         {
             var query = new GetAllTeachersQuery();
             var result = await _sender.Send(query, cancellation);
             return result.IsSuccess ? Ok(result.Value) : BadRequest(result.Error);
         }
+        [HttpPost("Add")]
+        [Authorize(Roles = "Admin")]
+        public async Task<IActionResult> AddTeacher([FromForm] AddTeacherRequest request, CancellationToken cancellation)
+        {
+            var command = new RegisterTeacherCommand(
+                request.FullName,
+                request.Email,
+                request.Password,
+                request.PhoneNumber,
+                request.Address,
+                request.Education,
+                request.SahmCash
+            );
+            var result = await _sender.Send(command, cancellation);
+            return result.IsSuccess ? Ok(result.Value) : BadRequest(result.Error);
 
 
+        }
     }
 }

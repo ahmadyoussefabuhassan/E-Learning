@@ -6,6 +6,7 @@ using E_Learning.Application.Courses.Queries.GetAllCoursesByTeacher;
 using E_Learning.Application.Courses.Queries.GetAllCoursesFilterByClass;
 using E_Learning.Application.Courses.Queries.GetAllCoursesForStudent;
 using E_Learning.Application.Courses.Queries.GetCourseById;
+using E_Learning.Application.Courses.Queries.GetCourseByIdForStudent;
 using MediatR;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
@@ -58,7 +59,7 @@ namespace E_Learning.Api.Controllers.Courses
             return result.IsSuccess ? NoContent() : BadRequest(result.Error);
         }
         [HttpGet("GetAll")]
-        [Authorize]
+        [Authorize(Roles = "Admin")]
         public async Task<IActionResult> GetAll(
             [FromQuery] int pageNumber = 1,
             [FromQuery] int pageSize = 10,
@@ -80,7 +81,7 @@ namespace E_Learning.Api.Controllers.Courses
             return result.IsSuccess ? Ok(result.Value) : BadRequest(result.Error);
         }
         [HttpGet("GetById/{id:guid}")]
-        [Authorize]
+        [Authorize(Roles = "Teacher,Admin")]
         public async Task<IActionResult> GetById(Guid id, CancellationToken cancellationToken)
         {
             var query = new GetCourseByIdQuery(id);
@@ -104,6 +105,14 @@ namespace E_Learning.Api.Controllers.Courses
             CancellationToken cancellationToken = default)
         {
             var query = new GetAllCoursesForStudentQuery(pageNumber, pageSize, searchTerm);
+            var result = await _sender.Send(query, cancellationToken);
+            return result.IsSuccess ? Ok(result.Value) : BadRequest(result.Error);
+        }
+        [HttpGet("GetById/ForStudent/{id:guid}")]
+        [Authorize(Roles = "Student")]
+        public async Task<IActionResult> GetByIdForStudent(Guid id, CancellationToken cancellationToken)
+        {
+            var query = new GetCourseByIdForStudentQuery(id);
             var result = await _sender.Send(query, cancellationToken);
             return result.IsSuccess ? Ok(result.Value) : BadRequest(result.Error);
         }

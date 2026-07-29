@@ -11,22 +11,24 @@ namespace E_Learning.Domain.Sections
         {
         }
 
-        private Section(Guid id, SectionTitle title, Price price, Guid courseId) : base(id)
+        private Section(Guid id, SectionTitle title, Price price,bool islocked, Guid courseId) : base(id)
         {
             SectionTitle = title;
             Price = price;
             CourseId = courseId;
+            IsLocked = islocked;
         }
 
         public SectionTitle SectionTitle { get; private set; }
 
         public Price Price { get; private set; }
+        public bool IsLocked { get; private set; }
         public Guid CourseId { get; private set; }
         public Course Course { get; private set; } = null!;
         public ICollection<Units.Unit> Units { get; private set; } = new List<Units.Unit>();
         public static Section Create( SectionTitle title, Price price, Guid courseId)
         {
-            var section = new Section(Guid.NewGuid(), title, price, courseId);
+            var section = new Section(Guid.NewGuid(), title, price,true, courseId);
             section.RaiseDomainEvent(new SectionCreatedDomainEvent(section.Id, section.SectionTitle.Value, section.Price.Value, section.CourseId));
             return section;
         }
@@ -36,5 +38,7 @@ namespace E_Learning.Domain.Sections
             Price = price;
             RaiseDomainEvent(new SectionUpdatedDomainEvent(Id, title.Value, price.Value, CourseId));
         }
+        public void ToggleLock() => IsLocked = !IsLocked;
+
     }
 }

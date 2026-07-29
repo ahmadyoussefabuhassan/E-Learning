@@ -31,7 +31,7 @@ namespace E_Learning.Application.Courses.Queries.GetAllCoursesByTeacher
                 return Result.Failure<GetAllDataResponse<CoursesResponse>>(UserErrors.NotFound);
             if (user.Role.notType != Domain.Roles.NotType.Teacher)
                 return Result.Failure<GetAllDataResponse<CoursesResponse>>(UserErrors.Unauthorized);
-            var query =  _courseRepository.GetAllQueryableAsync(cancellationToken);
+            var query =  _courseRepository.GetAllQueryable(cancellationToken);
             query = query.Include(c => c.Classes)
                 .Where(c => c.TeacherId == user.Id);
             if (!string.IsNullOrWhiteSpace(request.Query))

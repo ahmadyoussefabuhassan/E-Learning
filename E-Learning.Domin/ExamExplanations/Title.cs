@@ -18,4 +18,5 @@ namespace E_Learning.Domain.ExamExplanations
             Value = value;
         }
     }
+
 }

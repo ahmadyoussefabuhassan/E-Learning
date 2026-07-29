@@ -18,7 +18,7 @@ namespace E_Learning.Application.Courses.Queries.GetAllCourses
 
         public async Task<Result<GetAllDataResponse<CourseResponse>>> Handle(GetAllCoursesQuery request, CancellationToken cancellationToken)
         {
-            var query =  _courseRepository.GetAllQueryableAsync(cancellationToken);
+            var query =  _courseRepository.GetAllQueryable(cancellationToken);
             query = query.Include(c => c.Classes).Include(c => c.Teachers);
             if(request.ClassId.HasValue)
                 query = query.Where(x => x.ClassesId == request.ClassId.Value);

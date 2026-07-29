@@ -50,7 +50,8 @@ namespace E_Learning.Application.ExamVideos.Commands.UpdateExamVideo
             }
             examVido.UpdateVidoe(
                 new ExamVideosVideoUrl(url),
-                new Year(request.Year)
+                new Year(request.Year),
+                new TitleVideoUrl(request.TitleUrl)
             );
             await _videoRepository.UpdateAsync(examVido , cancellationToken);
             await _unitOfWork.SaveChangesAsync(cancellationToken);

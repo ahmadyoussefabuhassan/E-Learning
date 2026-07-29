@@ -1,6 +1,4 @@
-﻿
-
-using E_Learning.Application.Abstractions.Files;
+﻿using E_Learning.Application.Abstractions.Files;
 using E_Learning.Application.Abstractions.Messaging;
 using E_Learning.Application.Abstractions.Services;
 using E_Learning.Domain.Abstractions;
@@ -47,6 +45,7 @@ namespace E_Learning.Application.ExamVideos.Commands.AddExamVideo
             var examvido = ExamVideo.Create(
               new ExamVideosVideoUrl(vido),
               new Year(request.Year),
+              new TitleVideoUrl(request.TitleUrl),
               exam.Id
             );
             await _videoRepository.AddAsync( examvido , cancellationToken);

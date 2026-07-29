@@ -24,8 +24,11 @@ namespace E_Learning.Infrastructure.Repositories
         public virtual async Task<IEnumerable<T>> GetAllAsync(CancellationToken cancellationToken = default)
             => await _dbContext.Set<T>().AsNoTracking().ToListAsync(cancellationToken);
 
-        public IQueryable<T> GetAllQueryableAsync(CancellationToken cancellationToken = default)
+        public IQueryable<T> GetAllQueryable(CancellationToken cancellationToken = default)
             => _dbContext.Set<T>().AsNoTracking();
+
+        public virtual async Task<IQueryable<T>> GetAllQueryableAsync(CancellationToken cancellationToken = default)
+            => await Task.FromResult(_dbContext.Set<T>().AsNoTracking());
 
         public virtual async Task<T?> GetByIdAsync(Guid id, CancellationToken cancellationToken = default)
             => await _dbContext.Set<T>()

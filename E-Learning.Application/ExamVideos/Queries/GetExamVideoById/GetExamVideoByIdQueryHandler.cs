@@ -21,7 +21,8 @@ namespace E_Learning.Application.ExamVideos.Queries.GetExamVideoById
             var response = new ExamVidoeResponse(
                 vidoe.Id,
                 $"/api/ExamVideos/stream/{vidoe.Id}",
-                vidoe.Year.Value
+                vidoe.Year.Value,
+                vidoe.TitleVideoUrl.Value
             );
             return Result.Success( response );
         }

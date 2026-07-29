@@ -3,6 +3,7 @@ using E_Learning.Application.Sections.Commands.DeleteSection;
 using E_Learning.Application.Sections.Commands.UpdateSection;
 using E_Learning.Application.Sections.Queries.GetAllSectionsByCourse;
 using E_Learning.Application.Sections.Queries.GetSectionById;
+using E_Learning.Application.Sections.Queries.GetSectionByIdForStudent;
 using MediatR;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
@@ -61,10 +62,18 @@ namespace E_Learning.Api.Controllers.Sections
             return result.IsSuccess ? Ok(result.Value) : BadRequest(result.Error);
         }
         [HttpGet("GetSection/{sectionId:guid}")]
-        [Authorize]
+        [Authorize(Roles = "Admin,Teacher")]
         public async Task<IActionResult> GetSection(Guid sectionId , CancellationToken cancellation)
         {
             var query =  new GetSectionByIdQuery(sectionId);
+            var result = await _sender.Send(query, cancellation);
+            return result.IsSuccess ? Ok(result.Value) : BadRequest(result.Error);
+        }
+        [HttpGet("GetSectionById/ForStudent/{sectionId:guid}")]
+        [Authorize(Roles = "Student")]
+        public async Task<IActionResult> GetSectionByIdForStudent(Guid sectionId, CancellationToken cancellation)
+        {
+            var query = new GetSectionByIdForStudentQuery(sectionId);
             var result = await _sender.Send(query, cancellation);
             return result.IsSuccess ? Ok(result.Value) : BadRequest(result.Error);
         }

@@ -28,7 +28,9 @@ namespace E_Learning.Application.InvtensivesVideos.Queries.GetAllInvtensivesVide
                 return Result.Success(Enumerable.Empty<InvtensiveVideoResponse>());
             var rsponse = invtensivesvideos.Select(invVideo => new InvtensiveVideoResponse(
                 invVideo.Id,
+                invVideo.TitleVideoUrl.Value,
                 invVideo.VideoUrl.Value
+                
             ));
             return Result.Success(rsponse);
         }

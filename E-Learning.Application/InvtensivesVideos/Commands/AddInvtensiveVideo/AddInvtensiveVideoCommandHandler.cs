@@ -46,7 +46,8 @@ namespace E_Learning.Application.InvtensivesVideos.Commands.AddInvtensiveVideo
             var vidoe = await _fileService.UploadVideoAsync(request.VidoeUrl, "InvtensiveVideos", cancellationToken);
             var invtensiveVideo = Domain.InvtensivesVideos.InvtensivesVideos.Create(
                 invtensive.Id,
-                new InvtensivesVideosVideoUrl(vidoe)
+                new InvtensivesVideosVideoUrl(vidoe),
+                new Domain.InvtensivesVideos.TitleVideoUrl(request.TitleUrl)
             );
             await _invtensivesVideosRepo.AddAsync(invtensiveVideo , cancellationToken);
             await _unitOfWork.SaveChangesAsync(cancellationToken);

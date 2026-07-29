@@ -20,6 +20,7 @@ namespace E_Learning.Application.InvtensivesVideos.Queries.GetInvtensiveVideoByI
                 return Result.Failure<InvtensiveVideoResponse>(InvtensivesVideosErrors.NotFound);
             var response = new InvtensiveVideoResponse(
                 invtensiveVideo.Id,
+                invtensiveVideo.TitleVideoUrl.Value,
                 $"/api/InvtensivesVideos/stream/{invtensiveVideo.Id}"
             );
             return Result.Success(response);

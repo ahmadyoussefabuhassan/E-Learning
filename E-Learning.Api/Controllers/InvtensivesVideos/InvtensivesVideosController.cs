@@ -35,7 +35,7 @@ namespace E_Learning.Api.Controllers.InvtensivesVideos
         [Authorize(Roles = "Admin,Teacher")]
         public async Task<IActionResult> AddInvtensiveVideo(Guid invtensiveId , [FromForm] AddInvtensiveVideoRequest request, CancellationToken cancellationToken)
         {
-            var command = new AddInvtensiveVideoCommand(invtensiveId, request.VidoeUrl);
+            var command = new AddInvtensiveVideoCommand(invtensiveId, request.TitleUrl,request.VidoeUrl);
             var result = await _sender.Send(command, cancellationToken);
             return result.IsSuccess ? Ok(result.Value) : BadRequest(result.Error);
         }
@@ -43,7 +43,7 @@ namespace E_Learning.Api.Controllers.InvtensivesVideos
         [Authorize(Roles = "Admin,Teacher")]
         public async Task<IActionResult> UpdateInvtensiveVideo(Guid invtensivevideoId , [FromForm] UpdateInvtensiveVideoRequest request , CancellationToken cancellationToken)
         {
-            var command = new UpdateInvtensiveVideoCommand(invtensivevideoId, request.VidoeUrl);
+            var command = new UpdateInvtensiveVideoCommand(invtensivevideoId, request.TitleUrl,request.VidoeUrl);
             var result = await _sender.Send(command, cancellationToken);
             return result.IsSuccess ? Ok(result.Value) : BadRequest(result.Error);
         }

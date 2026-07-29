@@ -1,6 +1,5 @@
 ﻿using E_Learning.Application.Abstractions.Extensions;
 using E_Learning.Application.Abstractions.Messaging;
-using E_Learning.Application.Courses.Queries.SherdResponses;
 using E_Learning.Domain.Abstractions;
 using E_Learning.Domain.Courses;
 using Microsoft.EntityFrameworkCore;
@@ -18,7 +17,7 @@ namespace E_Learning.Application.Courses.Queries.GetAllCoursesForStudent
 
         public async Task<Result<GetAllDataResponse<CourseResponse>>> Handle(GetAllCoursesForStudentQuery request, CancellationToken cancellationToken)
         {
-            var query = _courseRepository.GetAllQueryableAsync(cancellationToken);
+            var query = await _courseRepository.GetAllQueryableAsync(cancellationToken);
             query = query.Include(c => c.Classes)
                  .Include(c => c.Teachers);
             if (!string.IsNullOrWhiteSpace(request.SearchTerm))
@@ -39,9 +38,10 @@ namespace E_Learning.Application.Courses.Queries.GetAllCoursesForStudent
                     course.CourseName.Value,
                     course.Description.Value,
                     course.Price.Value,
-                    course.ImageUrl.Value,
+                    course.ImageUrl?.Value ?? string.Empty,
                     course.Classes.Name.Value,
-                    course.Teachers.FullName.Value
+                    course.Teachers.FullName.Value,
+                    course.IsLocked
                 )
             );
             return Result.Success(response);

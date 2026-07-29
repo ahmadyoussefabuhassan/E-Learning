@@ -3,5 +3,5 @@ using Microsoft.AspNetCore.Http;
 
 namespace E_Learning.Application.InvtensivesVideos.Commands.AddInvtensiveVideo
 {
-    public sealed record AddInvtensiveVideoCommand(Guid invtensiveId , IFormFile VidoeUrl) : ICommand<Guid>;
+    public sealed record AddInvtensiveVideoCommand(Guid invtensiveId  ,string TitleUrl, IFormFile VidoeUrl) : ICommand<Guid>;
 }
