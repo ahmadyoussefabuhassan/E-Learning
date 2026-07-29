@@ -83,7 +83,7 @@ namespace E_Learning.Api.Controllers.Teacher
             return result.IsSuccess ? Ok(result.Value) : BadRequest(result.Error);
         }
         [HttpGet("GetAll")]
-        [Authorize(Roles = "Admin")]
+        [Authorize(Roles = "Admin,Student")]
         public async Task<IActionResult> GetAllTeachers(CancellationToken cancellation)
         {
             var query = new GetAllTeachersQuery();

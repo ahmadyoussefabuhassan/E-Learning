@@ -9,6 +9,10 @@ using E_Learning.Application.StudentSubscriptions.Queries.GetStudentSubscription
 using Microsoft.AspNetCore.Mvc;
 using MediatR;
 using Microsoft.AspNetCore.Authorization;
+using E_Learning.Application.StudentSubscriptions.Queries.GetAllCoursesSubscriptionsByStudent;
+using E_Learning.Application.StudentSubscriptions.Queries.GetAllSectionsSubscriptionsByStudent;
+using E_Learning.Application.StudentSubscriptions.Queries.GetAllExamExplanationsSubscriptionsByStudent;
+using E_Learning.Application.StudentSubscriptions.Queries.GetAllInvtensivesSubscriptionsByStudent;
 
 namespace E_Learning.Api.Controllers.StudentSubscriptions
 {
@@ -85,6 +89,37 @@ namespace E_Learning.Api.Controllers.StudentSubscriptions
             var result = await _sender.Send(query , cancellationToken);
             return result.IsSuccess ? Ok(result.Value) : BadRequest(result.Error);
         }
-
+        [HttpGet("GetAll/Courses")]
+        [Authorize(Roles = "Student")]
+        public async Task<IActionResult> GetAllCoursesSubscription(CancellationToken cancellationToken)
+        {
+            var query = new GetAllCoursesSubscriptionsByStudentQuery();
+            var result = await _sender.Send(query, cancellationToken);
+            return result.IsSuccess ? Ok(result.Value) : BadRequest(result.Error);
+        }
+        [HttpGet("GetAll/Sections")]
+        [Authorize(Roles = "Student")]
+        public async Task<IActionResult> GetAllSectionsSubscription(CancellationToken cancellationToken)
+        {
+            var query = new GetAllSectionsSubscriptionsByStudentQuery();
+            var result = await _sender.Send(query, cancellationToken);
+            return result.IsSuccess ? Ok(result.Value) : BadRequest(result.Error);
+        }
+        [HttpGet("GetAll/Exams")]
+        [Authorize(Roles = "Student")]
+        public async Task<IActionResult> GetAllExamsSubscription(CancellationToken cancellationToken)
+        {
+            var query = new GetAllExamExplanationsSubscriptionsByStudentQuery();
+            var result = await _sender.Send(query, cancellationToken);
+            return result.IsSuccess ? Ok(result.Value) : BadRequest(result.Error);
+        }
+        [HttpGet("GetAll/Invtensives")]
+        [Authorize(Roles = "Student")]
+        public async Task<IActionResult> GetAllInvtensivesSubscription(CancellationToken cancellationToken)
+        {
+            var query = new GetAllInvtensivesSubscriptionsByStudentQuery();
+            var result = await _sender.Send(query, cancellationToken);
+            return result.IsSuccess ? Ok(result.Value) : BadRequest(result.Error);
+        }
     }
 }

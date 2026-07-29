@@ -3,6 +3,7 @@ using E_Learning.Application.Courses.Commands.DeleteCourse;
 using E_Learning.Application.Courses.Commands.UpdateCourse;
 using E_Learning.Application.Courses.Queries.GetAllCourses;
 using E_Learning.Application.Courses.Queries.GetAllCoursesByTeacher;
+using E_Learning.Application.Courses.Queries.GetAllCoursesByTeacherId;
 using E_Learning.Application.Courses.Queries.GetAllCoursesFilterByClass;
 using E_Learning.Application.Courses.Queries.GetAllCoursesForStudent;
 using E_Learning.Application.Courses.Queries.GetCourseById;
@@ -114,6 +115,14 @@ namespace E_Learning.Api.Controllers.Courses
         {
             var query = new GetCourseByIdForStudentQuery(id);
             var result = await _sender.Send(query, cancellationToken);
+            return result.IsSuccess ? Ok(result.Value) : BadRequest(result.Error);
+        }
+        [HttpGet("GetAllBy/TeacherId/{id:guid}")]
+        [Authorize(Roles = "Teacher")]
+        public async Task<IActionResult> GetAllByTeacherId(Guid id ,CancellationToken cancellation)
+        {
+            var query = new GetAllCoursesByTeacherIdQuery(id);
+            var result = await _sender.Send(query, cancellation);
             return result.IsSuccess ? Ok(result.Value) : BadRequest(result.Error);
         }
     }

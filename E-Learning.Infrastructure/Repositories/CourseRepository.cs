@@ -22,6 +22,14 @@ namespace E_Learning.Infrastructure.Repositories
             .Include(c => c.Classes)
             .Where(c => c.ClassesId == classId)
             .ToListAsync(cancellationToken);
+
+        public async Task<IEnumerable<Course>> GetAllByTeacherId(Guid teacherId, CancellationToken cancellationToken = default)
+            => await _dbContext.Set<Course>()
+            .AsNoTracking()
+            .Include(c =>c.Classes)
+            .Where(c => c.TeacherId == teacherId)
+            .ToListAsync(cancellationToken);
+
         public override async Task<Course?> GetByIdAsync(Guid id, CancellationToken cancellationToken = default)
             => await _dbContext.Set<Course>()
             .AsNoTracking()
