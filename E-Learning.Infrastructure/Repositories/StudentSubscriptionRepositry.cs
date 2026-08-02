@@ -52,46 +52,89 @@ namespace E_Learning.Infrastructure.Repositories
             .FirstOrDefaultAsync(sp => sp.Id == id, cancellationToken);
 
         public async Task<IEnumerable<Course>> GetAllCourseSubscribersAsync(Guid studentId, CancellationToken cancellation)
-            => await (from sub in _dbContext.Set<StudentSubscription>()
-                      join course in _dbContext.Set<Course>() on sub.TargetId equals course.Id
-                      where sub.StudentId == studentId &&
-                            sub.Status == SubscriptionStatus.Completed &&
-                           ( sub.TargetType.Value == TargetTypes.Course.ToArabicString() || sub.TargetType.Value == TargetTypes.Course.ToString())
-                      select course)
-                  .Include(c => c.Classes)   
-                  .Include(c => c.Teachers)
-                  .AsNoTracking()
-                  .ToListAsync(cancellation);
+        {
+            var subscriptions = await _dbContext.Set<StudentSubscription>()
+                 .AsNoTracking()
+                 .Where(s => s.StudentId == studentId && s.Status == SubscriptionStatus.Completed)
+                 .ToListAsync(cancellation);
+            if (subscriptions == null || !subscriptions.Any())
+                return Enumerable.Empty<Course>();
+            var targetIds = subscriptions
+                     .Where(s => s.TargetType != null && (s.TargetType.Value == "كورس" || s.TargetType.Value == "Course"))
+                     .Select(s => s.TargetId)
+                      .ToList();
+
+            if (targetIds == null || !targetIds.Any())
+                return Enumerable.Empty<Course>();
+            return await _dbContext.Set<Course>()
+                           .Include(c => c.Classes)
+                           .Include(c => c.Teachers)
+                            .Where(c => targetIds.Contains(c.Id)) 
+                            .AsNoTracking()
+                            .ToListAsync(cancellation);
+        }
 
         public async Task<IEnumerable<Section>> GetAllSectionSubscribersAsync(Guid studentId, CancellationToken cancellation)
-            => await (from sub in _dbContext.Set<StudentSubscription>()
-                      join section in _dbContext.Set<Section>() on sub.TargetId equals section.Id
-                      where sub.StudentId == studentId &&
-                            sub.Status == SubscriptionStatus.Completed &&
-                            (sub.TargetType.Value == TargetTypes.Section.ToArabicString() || sub.TargetType.Value == TargetTypes.Section.ToString())
-                      select section)
-                  .Include(s => s.Course)
-                  .AsNoTracking()
-                  .ToListAsync(cancellation);
+        {
+            var subscriptions = await _dbContext.Set<StudentSubscription>()
+                 .AsNoTracking()
+                 .Where(s => s.StudentId == studentId && s.Status == SubscriptionStatus.Completed)
+                 .ToListAsync(cancellation);
+            if(subscriptions == null || !subscriptions.Any())
+                return Enumerable.Empty<Section>();
+
+            var targetIds = subscriptions
+             .Where(s => s.TargetType != null && (s.TargetType.Value == "قسم" || s.TargetType.Value == "Section"))
+             .Select(s => s.TargetId)
+             .ToList();
+
+            if (!targetIds.Any()) return Enumerable.Empty<Section>();
+
+            return await _dbContext.Set<Section>()
+                        .Where(s => targetIds.Contains(s.Id))
+                        .AsNoTracking()
+                        .ToListAsync(cancellation);
+        }
 
         public async Task<IEnumerable<Invtensives>> GetAllInvtensivesSubscribersAsync(Guid studentId, CancellationToken cancellation)
-            => await (from sub in _dbContext.Set<StudentSubscription>()
-                      join inv in _dbContext.Set<Invtensives>() on sub.TargetId equals inv.Id
-                      where sub.StudentId == studentId &&
-                            sub.Status == SubscriptionStatus.Completed &&
-                      (sub.TargetType.Value == TargetTypes.Invtensive.ToArabicString()|| sub.TargetType.Value == TargetTypes.Invtensive.ToString())
-                      select inv)
-                  .AsNoTracking()
-                  .ToListAsync(cancellation);
+        {
+            var subscriptions = await _dbContext.Set<StudentSubscription>()
+                     .AsNoTracking()
+                     .Where(s => s.StudentId == studentId && s.Status == SubscriptionStatus.Completed)
+                     .ToListAsync(cancellation);
+            if (subscriptions == null || !subscriptions.Any())
+                return Enumerable.Empty<Invtensives>();
+            var targetIds = subscriptions
+                     .Where(s => s.TargetType != null && (s.TargetType.Value == "مكثفة" || s.TargetType.Value == "Invtensive"))
+                    .Select(s => s.TargetId)
+                    .ToList();
 
-        public async Task<IEnumerable<ExamExplanation>> GetAllExamExplanationSubscribersAsync(Guid studentId, CancellationToken cancellation)
-            => await (from sub in _dbContext.Set<StudentSubscription>()
-                      join exam in _dbContext.Set<ExamExplanation>() on sub.TargetId equals exam.Id
-                      where sub.StudentId == studentId &&
-                            sub.Status == SubscriptionStatus.Completed &&
-                      (sub.TargetType.Value == TargetTypes.ExamExplanation.ToArabicString() || sub.TargetType.Value == TargetTypes.ExamExplanation.ToString())
-                      select exam)
-                  .AsNoTracking()
-                  .ToListAsync(cancellation);
+            if (!targetIds.Any())
+                return Enumerable.Empty<Invtensives>();
+            return await _dbContext.Set<Invtensives>()
+                  .Where(i => targetIds.Contains(i.Id))
+                .AsNoTracking()
+                .ToListAsync(cancellation);
+        }
+
+        public async Task<IEnumerable<ExamExplanation>> GetAllExamExplanationSubscribersAsync(Guid studentId, CancellationToken cancellation) 
+        {
+            var subscriptions = await _dbContext.Set<StudentSubscription>()
+                   .AsNoTracking()
+                   .Where(s => s.StudentId == studentId && s.Status == SubscriptionStatus.Completed)
+                   .ToListAsync(cancellation);
+            if (subscriptions == null || !subscriptions.Any())
+                return Enumerable.Empty<ExamExplanation>();
+            var targetIds = subscriptions
+                .Where(s => s.TargetType != null && (s.TargetType.Value == "دورة" || s.TargetType.Value == "ExamExplanation"))
+                .Select(s => s.TargetId)
+                .ToList();
+            if (!targetIds.Any())
+                return Enumerable.Empty<ExamExplanation>();
+            return await _dbContext.Set<ExamExplanation>()
+               .Where(e => targetIds.Contains(e.Id))
+             .AsNoTracking()
+             .ToListAsync(cancellation);
+        }   
     }
 }

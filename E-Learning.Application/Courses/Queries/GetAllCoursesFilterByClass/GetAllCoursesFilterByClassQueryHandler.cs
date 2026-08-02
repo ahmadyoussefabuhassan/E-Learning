@@ -37,7 +37,7 @@ namespace E_Learning.Application.Courses.Queries.GetAllCoursesFilterByClass
                 cancellationToken);
             if(classes is null)
                 return Result.Failure<IEnumerable<CourseResponse>>(ClassesErrors.NotFound);
-            var courses = await _courseRepository.GetAllByClasses(classes.Id, cancellationToken);
+            var courses = await _courseRepository.GetAllByClassesAsync(classes.Id, cancellationToken);
             var response = courses.Select(course => new CourseResponse(
                 course.Id,
                 course.CourseName.Value,

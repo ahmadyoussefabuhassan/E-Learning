@@ -73,6 +73,7 @@ namespace E_Learning.Infrastructure.Migrations
                     Description = table.Column<string>(type: "nvarchar(255)", maxLength: 255, nullable: false),
                     Price = table.Column<decimal>(type: "decimal(18,2)", nullable: false),
                     IsActive = table.Column<bool>(type: "bit", nullable: false, defaultValue: true),
+                    IsLocked = table.Column<bool>(type: "bit", nullable: false, defaultValue: true),
                     ClassesId = table.Column<Guid>(type: "uniqueidentifier", nullable: false),
                     TeacherId = table.Column<Guid>(type: "uniqueidentifier", nullable: false)
                 },
@@ -100,7 +101,7 @@ namespace E_Learning.Infrastructure.Migrations
                     Id = table.Column<Guid>(type: "uniqueidentifier", nullable: false),
                     Message = table.Column<string>(type: "nvarchar(1000)", maxLength: 1000, nullable: false),
                     Title = table.Column<string>(type: "nvarchar(200)", maxLength: 200, nullable: false),
-                    UrlRedirect = table.Column<string>(type: "nvarchar(50)", maxLength: 50, nullable: true),
+                    UrlRedirect = table.Column<string>(type: "nvarchar(500)", maxLength: 500, nullable: true),
                     IsRead = table.Column<bool>(type: "bit", nullable: false, defaultValue: true),
                     CreatedAt = table.Column<DateTime>(type: "datetime2", nullable: false),
                     UserId = table.Column<Guid>(type: "uniqueidentifier", nullable: false)
@@ -185,6 +186,7 @@ namespace E_Learning.Infrastructure.Migrations
                     Title = table.Column<string>(type: "nvarchar(30)", maxLength: 30, nullable: false),
                     Description = table.Column<string>(type: "nvarchar(255)", maxLength: 255, nullable: false),
                     Price = table.Column<decimal>(type: "decimal(18,2)", nullable: false),
+                    IsLocked = table.Column<bool>(type: "bit", nullable: false, defaultValue: true),
                     CourseId = table.Column<Guid>(type: "uniqueidentifier", nullable: false)
                 },
                 constraints: table =>
@@ -204,8 +206,9 @@ namespace E_Learning.Infrastructure.Migrations
                 {
                     Id = table.Column<Guid>(type: "uniqueidentifier", nullable: false),
                     Title = table.Column<string>(type: "nvarchar(50)", maxLength: 50, nullable: false),
-                    Description = table.Column<string>(type: "nvarchar(50)", maxLength: 50, nullable: false),
+                    Description = table.Column<string>(type: "nvarchar(500)", maxLength: 500, nullable: false),
                     Price = table.Column<decimal>(type: "decimal(18,2)", nullable: false),
+                    IsLocked = table.Column<bool>(type: "bit", nullable: false, defaultValue: true),
                     CourseID = table.Column<Guid>(type: "uniqueidentifier", nullable: false)
                 },
                 constraints: table =>
@@ -226,6 +229,7 @@ namespace E_Learning.Infrastructure.Migrations
                     Id = table.Column<Guid>(type: "uniqueidentifier", nullable: false),
                     SectionTitle = table.Column<string>(type: "nvarchar(30)", maxLength: 30, nullable: false),
                     Price = table.Column<decimal>(type: "decimal(18,2)", nullable: false),
+                    IsLocked = table.Column<bool>(type: "bit", nullable: false, defaultValue: true),
                     CourseId = table.Column<Guid>(type: "uniqueidentifier", nullable: false)
                 },
                 constraints: table =>
@@ -269,8 +273,9 @@ namespace E_Learning.Infrastructure.Migrations
                 columns: table => new
                 {
                     Id = table.Column<Guid>(type: "uniqueidentifier", nullable: false),
-                    VideoUrl = table.Column<string>(type: "nvarchar(max)", nullable: false),
+                    VideoUrl = table.Column<string>(type: "nvarchar(500)", maxLength: 500, nullable: false),
                     Year = table.Column<int>(type: "int", nullable: false),
+                    TitleVideoUrl = table.Column<string>(type: "nvarchar(500)", maxLength: 500, nullable: false),
                     ExamExplanationId = table.Column<Guid>(type: "uniqueidentifier", nullable: false)
                 },
                 constraints: table =>
@@ -290,7 +295,8 @@ namespace E_Learning.Infrastructure.Migrations
                 {
                     Id = table.Column<Guid>(type: "uniqueidentifier", nullable: false),
                     InvtensiveId = table.Column<Guid>(type: "uniqueidentifier", nullable: false),
-                    VideoUrl = table.Column<string>(type: "nvarchar(50)", maxLength: 50, nullable: false)
+                    VideoUrl = table.Column<string>(type: "nvarchar(500)", maxLength: 500, nullable: false),
+                    TitleVideoUrl = table.Column<string>(type: "nvarchar(500)", maxLength: 500, nullable: false)
                 },
                 constraints: table =>
                 {
@@ -330,7 +336,7 @@ namespace E_Learning.Infrastructure.Migrations
                     Id = table.Column<Guid>(type: "uniqueidentifier", nullable: false),
                     LessonTitle = table.Column<string>(type: "nvarchar(255)", maxLength: 255, nullable: false),
                     URL = table.Column<string>(type: "nvarchar(255)", maxLength: 255, nullable: false),
-                    TitleUrl = table.Column<string>(type: "nvarchar(50)", maxLength: 50, nullable: false),
+                    TitleUrl = table.Column<string>(type: "nvarchar(500)", maxLength: 500, nullable: false),
                     UnitId = table.Column<Guid>(type: "uniqueidentifier", nullable: false)
                 },
                 constraints: table =>

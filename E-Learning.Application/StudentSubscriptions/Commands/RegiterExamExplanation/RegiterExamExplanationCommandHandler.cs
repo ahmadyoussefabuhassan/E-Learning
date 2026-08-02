@@ -49,7 +49,7 @@ namespace E_Learning.Application.StudentSubscriptions.Commands.RegiterExamExplan
             var studentSubscription = StudentSubscription.Create(
                 user.Id,
                 exam.Id,
-                new TargetType(TargetTypes.ExamExplanation.ToArabicString()+"\t"+exam.Title.Value),
+                new TargetType(TargetTypes.ExamExplanation.ToArabicString()),
                 new ReceiptImageUrl(Filepath),
                 SubscriptionStatus.Pending,
                 new PriceAtPurchase(exam.Price.Value)

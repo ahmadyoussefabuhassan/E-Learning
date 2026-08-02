@@ -41,7 +41,7 @@ namespace E_Learning.Infrastructure.Notifications
                 await _notificationRepository.AddAsync(notification, cancellation);
             }
 
-            await _unitOfWork.SaveChangesAsync(cancellation);
+           // await _unitOfWork.SaveChangesAsync(cancellation);
 
             await _hubContext.Clients.All.SendAsync("ReceiveNotification", new
             {
@@ -61,7 +61,7 @@ namespace E_Learning.Infrastructure.Notifications
             );
 
             await _notificationRepository.AddAsync(notification, cancellation);
-            await _unitOfWork.SaveChangesAsync(cancellation);
+            //await _unitOfWork.SaveChangesAsync(cancellation);
 
             await _hubContext.Clients.User(userId.ToString()).SendAsync("ReceiveNotification", new
             {
@@ -84,7 +84,7 @@ namespace E_Learning.Infrastructure.Notifications
                 await _notificationRepository.AddAsync(notification, cancellation);
             }
 
-            await _unitOfWork.SaveChangesAsync(cancellation);
+            //await _unitOfWork.SaveChangesAsync(cancellation);
 
             var userIdsStrings = userIds.Select(id => id.ToString()).ToList();
             await _hubContext.Clients.Users(userIdsStrings).SendAsync("ReceiveNotification", new

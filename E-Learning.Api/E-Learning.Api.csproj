@@ -22,4 +22,12 @@
     <ProjectReference Include="..\E-Learning.Infrastructure\E-Learning.Infrastructure.csproj" />
   </ItemGroup>
 
+  <ItemGroup>
+    <Folder Include="AppData\Videos\Exams\" />
+    <Folder Include="AppData\Videos\lossons\" />
+    <Folder Include="wwwroot\uploads\courses\" />
+    <Folder Include="wwwroot\uploads\StudentSubscriptions\" />
+    <Folder Include="wwwroot\uploads\Users\" />
+  </ItemGroup>
+
 </Project>

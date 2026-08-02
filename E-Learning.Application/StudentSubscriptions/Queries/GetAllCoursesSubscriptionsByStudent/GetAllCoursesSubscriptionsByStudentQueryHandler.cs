@@ -41,8 +41,6 @@ namespace E_Learning.Application.StudentSubscriptions.Queries.GetAllCoursesSubsc
             ));
             return Result.Success(response);
 
-
-
         }
     }
 }

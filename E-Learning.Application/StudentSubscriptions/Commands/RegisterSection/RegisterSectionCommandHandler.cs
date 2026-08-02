@@ -50,7 +50,7 @@ namespace E_Learning.Application.StudentSubscriptions.Commands.RegisterSection
             var studentSubscription = StudentSubscription.Create(
                 user.Id,
                 section.Id,
-                new TargetType(TargetTypes.Section.ToArabicString()+"\t"+section.SectionTitle.Value),
+                new TargetType(TargetTypes.Section.ToArabicString()),
                 new ReceiptImageUrl(Filepath),
                 SubscriptionStatus.Pending,
                 new PriceAtPurchase(section.Price.Value)

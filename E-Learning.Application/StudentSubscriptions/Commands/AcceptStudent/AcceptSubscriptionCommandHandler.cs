@@ -1,5 +1,6 @@
 ﻿using E_Learning.Application.Abstractions.Messaging;
 using E_Learning.Application.Abstractions.Services;
+using E_Learning.Application.Abstractions.Subscriptions;
 using E_Learning.Domain.Abstractions;
 using E_Learning.Domain.StudentSubscription;
 using E_Learning.Domain.User;
@@ -11,17 +12,20 @@ namespace E_Learning.Application.StudentSubscriptions.Commands.AcceptStudent
     {
         private readonly IStudentSubscriptionRepositry _subscriptionRepository;
         private readonly IUserRepository _userRepository;
+        private readonly IEnumerable<ISubscriptionActivator> _activators;
         private readonly IUnitOfWork _unitOfWork;
 
         public AcceptSubscriptionCommandHandler(
             IStudentSubscriptionRepositry subscriptionRepository,
             IUserRepository userRepository,
             IUnitOfWork unitOfWork,
-            IHttpContextAccessor httpContextAccessor) : base(httpContextAccessor)
+            IHttpContextAccessor httpContextAccessor,
+            IEnumerable<ISubscriptionActivator> activators) : base(httpContextAccessor)
         {
             _subscriptionRepository = subscriptionRepository;
             _userRepository = userRepository;
             _unitOfWork = unitOfWork;
+            _activators = activators;
         }
 
         public async Task<Result<Guid>> Handle(AcceptSubscriptionCommand request, CancellationToken cancellationToken)
@@ -33,6 +37,11 @@ namespace E_Learning.Application.StudentSubscriptions.Commands.AcceptStudent
             if (subscription == null)
                 return Result.Failure<Guid>(StudentSubscriptionErrors.NotFound);
 
+            var activator = _activators.FirstOrDefault(a => a.CanHandle(subscription.TargetType.Value));
+
+            if (activator is null)
+                return Result.Failure<Guid>(StudentSubscriptionErrors.ActivatorNotFound);
+            await activator.ActivateAsync(subscription.TargetId, cancellationToken);
             subscription.Confirm();
             await _subscriptionRepository.UpdateAsync(subscription , cancellationToken);
 

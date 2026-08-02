@@ -51,7 +51,7 @@ namespace E_Learning.Application.StudentSubscriptions.Commands.RegisterInvtensiv
             var studentSubscription = StudentSubscription.Create(
                 user.Id,
                 invtensive.Id,
-                new TargetType(TargetTypes.Invtensive.ToArabicString()+"\t"+invtensive.Title.Value),
+                new TargetType(TargetTypes.Invtensive.ToArabicString()),
                 new ReceiptImageUrl(Filepath),
                 SubscriptionStatus.Pending,
                 new PriceAtPurchase(invtensive.Price.Value)
