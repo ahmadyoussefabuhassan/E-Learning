@@ -19,8 +19,8 @@ namespace E_Learning.Api.Controllers.ExamExplanations
         public ExamExplanationsController(ISender sender)
             => _sender = sender;
         [HttpPost("AddExamExplanation/{courseId:guid}")]
-        [Authorize(Roles ="Admin,Teacher")]
-        public async Task<IActionResult> AddExamExplanation(Guid courseId , [FromBody] AddExamExplanationRequest request, CancellationToken cancellationToken)
+        [Authorize(Roles = "Admin,Teacher")]
+        public async Task<IActionResult> AddExamExplanation(Guid courseId, [FromBody] AddExamExplanationRequest request, CancellationToken cancellationToken)
         {
             var command = new AddExamExplanationCommand(
                 courseId,
@@ -33,7 +33,7 @@ namespace E_Learning.Api.Controllers.ExamExplanations
         }
         [HttpPut("UpdateExamExplanation/{examId:guid}")]
         [Authorize(Roles = "Admin,Teacher")]
-        public async Task<IActionResult> UpdateExamExplanation(Guid examId , [FromBody] UpdateExamExplanationRequest request , CancellationToken cancellation)
+        public async Task<IActionResult> UpdateExamExplanation(Guid examId, [FromBody] UpdateExamExplanationRequest request, CancellationToken cancellation)
         {
             var command = new UpdateExamExplanationCommand(
                 examId,
@@ -46,7 +46,7 @@ namespace E_Learning.Api.Controllers.ExamExplanations
         }
         [HttpDelete("DeleteExamExplanation/{examId:guid}")]
         [Authorize(Roles = "Admin,Teacher")]
-        public async Task<IActionResult> DeleteExamExplanation(Guid examId , CancellationToken cancellation)
+        public async Task<IActionResult> DeleteExamExplanation(Guid examId, CancellationToken cancellation)
         {
             var command = new DeleteExamExplanationCommand(examId);
             var result = await _sender.Send(command, cancellation);
@@ -54,7 +54,7 @@ namespace E_Learning.Api.Controllers.ExamExplanations
         }
         [HttpGet("GetAll/{courseId:guid}")]
         [Authorize]
-        public async Task<IActionResult> GetAllExamExplanation(Guid courseId , CancellationToken cancellation)
+        public async Task<IActionResult> GetAllExamExplanation(Guid courseId, CancellationToken cancellation)
         {
             var query = new GetAllExamExplanationByCourseQuery(courseId);
             var result = await _sender.Send(query, cancellation);
@@ -62,7 +62,7 @@ namespace E_Learning.Api.Controllers.ExamExplanations
         }
         [HttpGet("GetById/{examId:guid}")]
         [Authorize(Roles = "Admin,Teacher")]
-        public async Task<IActionResult> GetExamExplanationById(Guid examId , CancellationToken cancellation)
+        public async Task<IActionResult> GetExamExplanationById(Guid examId, CancellationToken cancellation)
         {
             var query = new GetExamExplanationByIdQuery(examId);
             var result = await _sender.Send(query, cancellation);

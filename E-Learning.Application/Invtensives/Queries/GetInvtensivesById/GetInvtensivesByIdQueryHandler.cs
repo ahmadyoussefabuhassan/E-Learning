@@ -24,7 +24,7 @@ namespace E_Learning.Application.Invtensives.Queries.GetInvtensivesById
                 invtensive.Description.Value,
                 invtensive.Price.Value
             );
-            return Result.Success( response );
+            return Result.Success(response);
         }
     }
 }

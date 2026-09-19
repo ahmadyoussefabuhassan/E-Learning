@@ -1,5 +1,5 @@
-﻿using Microsoft.EntityFrameworkCore;
-using E_Learning.Domain.Roles;
+﻿using E_Learning.Domain.Roles;
+using Microsoft.EntityFrameworkCore;
 
 namespace E_Learning.Infrastructure.DateSeeds
 {

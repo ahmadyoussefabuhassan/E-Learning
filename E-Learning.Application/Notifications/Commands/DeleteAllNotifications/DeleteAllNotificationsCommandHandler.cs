@@ -12,7 +12,7 @@ namespace E_Learning.Application.Notifications.Commands.DeleteAllNotifications
         private readonly IUnitOfWork _unitOfWork;
         private readonly INotificationRepositry _notificationRepository;
         private readonly IUserRepository _userRepository;
-        public DeleteAllNotificationsCommandHandler(IHttpContextAccessor httpContextAccessor, 
+        public DeleteAllNotificationsCommandHandler(IHttpContextAccessor httpContextAccessor,
             IUnitOfWork unitOfWork,
             INotificationRepositry notificationRepository,
             IUserRepository userRepository) : base(httpContextAccessor)
@@ -27,9 +27,9 @@ namespace E_Learning.Application.Notifications.Commands.DeleteAllNotifications
             var user = await _userRepository.GetByIdAsync(UserId, cancellationToken);
             if (user is null)
                 return Result.Failure(UserErrors.NotFound);
-           await _notificationRepository.DeleteAllNotificationByUserIdAsync(user.Id, cancellationToken);
-           await _unitOfWork.SaveChangesAsync(cancellationToken);
-           return Result.Success();
+            await _notificationRepository.DeleteAllNotificationByUserIdAsync(user.Id, cancellationToken);
+            await _unitOfWork.SaveChangesAsync(cancellationToken);
+            return Result.Success();
         }
     }
 }

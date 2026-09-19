@@ -1,5 +1,4 @@
-﻿using E_Learning.Application.Abstractions.Extensions;
-using E_Learning.Application.Abstractions.Messaging;
+﻿using E_Learning.Application.Abstractions.Messaging;
 using E_Learning.Domain.Abstractions;
 using E_Learning.Domain.Courses;
 using Microsoft.EntityFrameworkCore;
@@ -48,7 +47,7 @@ namespace E_Learning.Application.Courses.Queries.GetAllCoursesForStudent
                     course.ImageUrl?.Value ?? string.Empty,
                     course.Classes?.Name?.Value ?? "غير محدد",
                     course.Teachers?.FullName?.Value ?? "أستاذ غير معروف",
-                    course.IsLocked 
+                    course.IsLocked
                 ))
                 .ToList();
 

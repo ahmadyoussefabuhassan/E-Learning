@@ -18,13 +18,13 @@ namespace E_Learning.Application.Courses.Queries.GetAllCourses
 
         public async Task<Result<GetAllDataResponse<CourseResponse>>> Handle(GetAllCoursesQuery request, CancellationToken cancellationToken)
         {
-            var query =  _courseRepository.GetAllQueryable(cancellationToken);
+            var query = _courseRepository.GetAllQueryable(cancellationToken);
             query = query.Include(c => c.Classes).Include(c => c.Teachers);
-            if(request.ClassId.HasValue)
+            if (request.ClassId.HasValue)
                 query = query.Where(x => x.ClassesId == request.ClassId.Value);
-            if(request.TeacherId.HasValue)
+            if (request.TeacherId.HasValue)
                 query = query.Where(x => x.TeacherId == request.TeacherId.Value);
-            if(request.CourseId.HasValue)
+            if (request.CourseId.HasValue)
                 query = query.Where(x => x.Id == request.CourseId.Value);
             var response = await query.ToPagedResponseAsync(
                     request.PageNumber,

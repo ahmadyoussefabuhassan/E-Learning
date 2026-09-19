@@ -1,5 +1,4 @@
-﻿using E_Learning.Domain.Invtensives;
-using E_Learning.Domain.InvtensivesVideos;
+﻿using E_Learning.Domain.InvtensivesVideos;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Metadata.Builders;
 
@@ -11,16 +10,16 @@ namespace E_Learning.Infrastructure.Configurations
         public void Configure(EntityTypeBuilder<InvtensivesVideos> builder)
         {
 
-           builder.ToTable("InvtensivesVideos");
-           
-            builder .HasKey (i=>i.Id);
+            builder.ToTable("InvtensivesVideos");
+
+            builder.HasKey(i => i.Id);
 
             builder.Property(IntV => IntV.VideoUrl)
-                .HasConversion(videourl => videourl.Value , value => new InvtensivesVideosVideoUrl(value))
+                .HasConversion(videourl => videourl.Value, value => new InvtensivesVideosVideoUrl(value))
                 .HasMaxLength(500)
-                .IsRequired(); 
+                .IsRequired();
             builder.Property(IntV => IntV.TitleVideoUrl)
-                .HasConversion(titleVideoUrl => titleVideoUrl.Value , value => new TitleVideoUrl(value))
+                .HasConversion(titleVideoUrl => titleVideoUrl.Value, value => new TitleVideoUrl(value))
                 .HasMaxLength(500)
                 .IsRequired();
             builder.HasOne(inv => inv.Invtensive)
@@ -30,6 +29,6 @@ namespace E_Learning.Infrastructure.Configurations
 
         }
 
-       
+
     }
 }

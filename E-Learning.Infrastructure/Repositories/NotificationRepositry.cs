@@ -21,7 +21,7 @@ namespace E_Learning.Infrastructure.Repositories
             => await _dbContext.Set<Notification>()
                     .AsNoTracking()
                     .Where(n => n.UserId == userId)
-                    .OrderByDescending(n => n.CreatedAt) 
+                    .OrderByDescending(n => n.CreatedAt)
                     .ToListAsync(cancellationToken);
     }
 }

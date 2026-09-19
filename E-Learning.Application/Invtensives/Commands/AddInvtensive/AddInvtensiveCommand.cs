@@ -3,9 +3,9 @@
 namespace E_Learning.Application.Invtensives.Commands.AddInvtensive
 {
     public sealed record AddInvtensiveCommand(
-        Guid CourseId , 
-        string Title ,
-        string Description ,
+        Guid CourseId,
+        string Title,
+        string Description,
         decimal Price
     ) : ICommand<Guid>;
 }

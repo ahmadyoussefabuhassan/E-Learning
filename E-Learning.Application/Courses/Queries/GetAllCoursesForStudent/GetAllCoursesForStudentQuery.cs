@@ -1,5 +1,4 @@
 ﻿using E_Learning.Application.Abstractions.Messaging;
-using E_Learning.Application.Courses.Queries.SherdResponses;
 using E_Learning.Domain.Abstractions;
 
 namespace E_Learning.Application.Courses.Queries.GetAllCoursesForStudent
@@ -8,7 +7,7 @@ namespace E_Learning.Application.Courses.Queries.GetAllCoursesForStudent
     {
         public GetAllCoursesForStudentQuery(
             int pageNumber = 1,
-            int pageSize = 100, 
+            int pageSize = 100,
             string? searchTerm = null)
         {
             PageNumber = pageNumber;

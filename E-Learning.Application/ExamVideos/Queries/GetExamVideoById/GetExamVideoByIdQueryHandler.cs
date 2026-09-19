@@ -15,8 +15,8 @@ namespace E_Learning.Application.ExamVideos.Queries.GetExamVideoById
 
         public async Task<Result<ExamVidoeResponse>> Handle(GetExamVideoByIdQuery request, CancellationToken cancellationToken)
         {
-            var vidoe = await _examVideoRepository.GetByIdAsync(request.videoId , cancellationToken);
-            if (vidoe is null) 
+            var vidoe = await _examVideoRepository.GetByIdAsync(request.videoId, cancellationToken);
+            if (vidoe is null)
                 return Result.Failure<ExamVidoeResponse>(ExamVideosErrors.NotFound);
             var response = new ExamVidoeResponse(
                 vidoe.Id,
@@ -24,7 +24,7 @@ namespace E_Learning.Application.ExamVideos.Queries.GetExamVideoById
                 vidoe.Year.Value,
                 vidoe.TitleVideoUrl.Value
             );
-            return Result.Success( response );
+            return Result.Success(response);
         }
     }
 }

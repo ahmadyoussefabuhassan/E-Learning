@@ -2,11 +2,6 @@
 using E_Learning.Domain.StudentSubscription;
 using E_Learning.Domain.StudentSubscription.Events;
 using MediatR;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace E_Learning.Application.StudentSubscriptions.Events
 {

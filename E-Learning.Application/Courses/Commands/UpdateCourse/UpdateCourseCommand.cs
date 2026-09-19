@@ -8,7 +8,7 @@ namespace E_Learning.Application.Courses.Commands.UpdateCourse
         string Title,
         string Description,
         decimal Price,
-        IFormFile ImageFile, 
+        IFormFile ImageFile,
         string ClassroomName
-    ): ICommand<Guid>;
+    ) : ICommand<Guid>;
 }

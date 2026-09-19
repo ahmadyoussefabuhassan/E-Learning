@@ -1,12 +1,6 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-
-namespace E_Learning.Application.Users.Queries.GetProfileUser
+﻿namespace E_Learning.Application.Users.Queries.GetProfileUser
 {
-    public sealed record UserResponse (
+    public sealed record UserResponse(
         string FullName,
         string Email,
         string PhoneNumber,

@@ -2,7 +2,7 @@
 
 namespace E_Learning.Application.Teachers.Commands.AddTeacher
 {
-    public sealed record  AddTeacherCommand(
+    public sealed record AddTeacherCommand(
         string FullName,
         string Email,
         string Password,

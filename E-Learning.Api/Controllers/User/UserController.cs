@@ -60,14 +60,14 @@ namespace E_Learning.Api.Controllers.User
         }
         [HttpPut("UpdatePassword")]
         [Authorize]
-        public async Task<IActionResult> UpdatePassword([FromBody] ChangePasswordRequest  request, CancellationToken cancellation)
+        public async Task<IActionResult> UpdatePassword([FromBody] ChangePasswordRequest request, CancellationToken cancellation)
         {
             var command = new ChangePasswordCommand(request.OldPassword, request.NewPassword, request.ChekPassword);
             var result = await _sender.Send(command, cancellation);
             return result.IsSuccess ? Ok(result.Value) : BadRequest(result.Error);
         }
         [HttpGet("Count")]
-        [Authorize(Roles ="Admin,Teacher")]
+        [Authorize(Roles = "Admin,Teacher")]
         public async Task<IActionResult> GetAllUsers(CancellationToken cancellation)
         {
             var query = new GetCountUsersQuery();
@@ -76,7 +76,7 @@ namespace E_Learning.Api.Controllers.User
         }
         [AllowAnonymous]
         [HttpPost("forgot-password")]
-        public async Task<IActionResult> ForgotPassword([FromBody]SendResetCodeRequest request, CancellationToken cancellation)
+        public async Task<IActionResult> ForgotPassword([FromBody] SendResetCodeRequest request, CancellationToken cancellation)
         {
             var command = new SendResetCodeCommand(request.Email);
             var result = await _sender.Send(command, cancellation);
@@ -84,15 +84,15 @@ namespace E_Learning.Api.Controllers.User
         }
         [AllowAnonymous]
         [HttpPost("verify-reset-code")]
-        public async Task<IActionResult> VerifyCode([FromBody] VerifyResetCodeRequest request , CancellationToken cancellation)
+        public async Task<IActionResult> VerifyCode([FromBody] VerifyResetCodeRequest request, CancellationToken cancellation)
         {
-            var command = new VerifyResetCodeCommand(request.Email ,request.Code);
+            var command = new VerifyResetCodeCommand(request.Email, request.Code);
             var result = await _sender.Send(command, cancellation);
             return result.IsSuccess ? Ok(result.Value) : BadRequest(result.Error);
         }
         [AllowAnonymous]
         [HttpPost("reset-password")]
-        public async Task<IActionResult> ResetPassword([FromBody] ChangePasswordResetCodeRequest request , CancellationToken cancellation)
+        public async Task<IActionResult> ResetPassword([FromBody] ChangePasswordResetCodeRequest request, CancellationToken cancellation)
         {
             var command = new ChangePasswordResetCodeCommand(request.code, request.Password);
             var result = await _sender.Send(command, cancellation);

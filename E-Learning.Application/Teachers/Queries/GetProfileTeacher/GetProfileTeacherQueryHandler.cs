@@ -14,9 +14,9 @@ namespace E_Learning.Application.Teachers.Queries.GetProfileTeacher
         private readonly IUserRepository _userRepository;
         private readonly ITeacherRepository _teacherRepository;
 
-        public GetProfileTeacherQueryHandler(IUserRepository userRepository, 
+        public GetProfileTeacherQueryHandler(IUserRepository userRepository,
             ITeacherRepository teacherRepository,
-            IHttpContextAccessor httpContextAccessor): base(httpContextAccessor)
+            IHttpContextAccessor httpContextAccessor) : base(httpContextAccessor)
         {
             _userRepository = userRepository;
             _teacherRepository = teacherRepository;
@@ -39,7 +39,7 @@ namespace E_Learning.Application.Teachers.Queries.GetProfileTeacher
                 user.ImageUrl?.Value ?? "/uploads/users/default-profile.png",
                 teacher.SubjectTeacher.Value,
                 teacher.UrlShamCash?.Value ?? string.Empty,
-                user.Role?.notType.ToArabicString()?? string.Empty
+                user.Role?.notType.ToArabicString() ?? string.Empty
             );
             return Result.Success(response);
 

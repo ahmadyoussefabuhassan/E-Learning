@@ -15,8 +15,8 @@ namespace E_Learning.Application.Teachers.Commands.UpdateProfileTeacher
         private readonly IUserRepository _userRepository;
         private readonly ITeacherRepository _teacherRepository;
         private readonly IFileService _fileService;
-        public UpdateProfileTeacherCommandHandler(IUnitOfWork unitOfWork, 
-            IUserRepository userRepository, 
+        public UpdateProfileTeacherCommandHandler(IUnitOfWork unitOfWork,
+            IUserRepository userRepository,
             IFileService fileService,
             ITeacherRepository teacherRepository,
             IHttpContextAccessor httpContextAccessor) : base(httpContextAccessor)
@@ -34,12 +34,12 @@ namespace E_Learning.Application.Teachers.Commands.UpdateProfileTeacher
             if (user is null)
                 return Result.Failure<Guid>(UserErrors.NotFound);
             var teacher = await _teacherRepository.GetByIdAsync(user.Id, cancellationToken);
-            if (teacher is null) 
+            if (teacher is null)
                 return Result.Failure<Guid>(TeacherErrors.NotFound);
-           
-            if(request.Email != user.Email.Value)
+
+            if (request.Email != user.Email.Value)
             {
-               if(await _userRepository.IsEmailUniqueAsync(new Email(request.Email), cancellationToken) is not null)
+                if (await _userRepository.IsEmailUniqueAsync(new Email(request.Email), cancellationToken) is not null)
                     return Result.Failure<Guid>(UserErrors.EmailAlreadyExists);
             }
             string? image = user.ImageUrl?.Value;

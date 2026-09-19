@@ -1,5 +1,4 @@
 ﻿using E_Learning.Domain.RefreshTokens;
-using E_Learning.Domain.User;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Metadata.Builders;
 
@@ -26,10 +25,10 @@ namespace E_Learning.Infrastructure.Configurations
                 .HasMaxLength(200);
             builder.Property(x => x.IsUsed)
                 .IsRequired()
-                .HasDefaultValue(false); 
+                .HasDefaultValue(false);
             builder.Property(x => x.IsRevoked)
                 .IsRequired()
-                .HasDefaultValue(false); 
+                .HasDefaultValue(false);
             // Indexes
             builder.HasIndex(x => x.Token).IsUnique();
             // Relationships

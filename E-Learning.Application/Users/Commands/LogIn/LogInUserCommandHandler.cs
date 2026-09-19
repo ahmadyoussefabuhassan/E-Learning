@@ -16,7 +16,7 @@ namespace E_Learning.Application.Users.Commands.LogIn
         private readonly IRefreshTokenRepository _refreshTokenRepository;
         private readonly IDateTimeProvider _dateTimeProvider;
 
-        public LogInUserCommandHandler(IUnitOfWork unitOfWork, IJwtTokenGenerator jwtService, IUserRepository userRepository, IRefreshTokenRepository refreshTokenRepository,  IDateTimeProvider dateTimeProvider)
+        public LogInUserCommandHandler(IUnitOfWork unitOfWork, IJwtTokenGenerator jwtService, IUserRepository userRepository, IRefreshTokenRepository refreshTokenRepository, IDateTimeProvider dateTimeProvider)
         {
             _unitOfWork = unitOfWork;
             _jwtService = jwtService;
@@ -30,12 +30,12 @@ namespace E_Learning.Application.Users.Commands.LogIn
             var user = await _userRepository.GetByEmailAsync(new Email(request.Email), cancellationToken);
             if (user is null || user.Password.Value != request.Password)
                 return Result.Failure<AuthenticationResponse>(UserErrors.InvalidCredentials);
-            if(user.Role is null)
+            if (user.Role is null)
                 return Result.Failure<AuthenticationResponse>(RoleErrors.NotFound);
-            if(user.Role.notType != NotType.Admin)
+            if (user.Role.notType != NotType.Admin)
                 return Result.Failure<AuthenticationResponse>(UserErrors.Unauthorized);
             string jit = Guid.NewGuid().ToString();
-            var token = _jwtService.GenerateToken(user.Id, user.Email.Value,user.FullName.Value, user.Role.Name.Value, jit);
+            var token = _jwtService.GenerateToken(user.Id, user.Email.Value, user.FullName.Value, user.Role.Name.Value, jit);
             var refreshTokenText = Convert.ToBase64String(Guid.NewGuid().ToByteArray());
             var refreshToken = RefreshToken.Create(
                 refreshTokenText,

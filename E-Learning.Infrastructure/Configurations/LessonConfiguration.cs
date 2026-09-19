@@ -1,6 +1,4 @@
-﻿using E_Learning.Domain.Abstractions;
-using E_Learning.Domain.Lessons;
-using E_Learning.Domain.Units;
+﻿using E_Learning.Domain.Lessons;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Metadata.Builders;
 

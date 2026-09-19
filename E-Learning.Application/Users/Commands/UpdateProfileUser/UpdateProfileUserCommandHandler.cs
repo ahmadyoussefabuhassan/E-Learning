@@ -8,7 +8,7 @@ using Microsoft.AspNetCore.Http;
 
 namespace E_Learning.Application.Users.Commands.UpdateProfileUser
 {
-    public sealed class UpdateProfileUserCommandHandler : BaseService,ICommandHandler<UpdateProfileUserCommand, Guid>
+    public sealed class UpdateProfileUserCommandHandler : BaseService, ICommandHandler<UpdateProfileUserCommand, Guid>
     {
         private readonly IUnitOfWork _unitOfWork;
         private readonly IUserRepository _userRepository;

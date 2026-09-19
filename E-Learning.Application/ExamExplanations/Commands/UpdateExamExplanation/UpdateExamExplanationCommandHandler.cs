@@ -13,10 +13,10 @@ namespace E_Learning.Application.ExamExplanations.Commands.UpdateExamExplanation
         private readonly IUnitOfWork _unitOfWork;
         private readonly IExamExplanationRepository _examExplanationRepository;
 
-        public UpdateExamExplanationCommandHandler(IUserRepository userRepository, 
+        public UpdateExamExplanationCommandHandler(IUserRepository userRepository,
             IUnitOfWork unitOfWork,
             IExamExplanationRepository examExplanationRepository,
-            IHttpContextAccessor httpContextAccessor) : base(httpContextAccessor) 
+            IHttpContextAccessor httpContextAccessor) : base(httpContextAccessor)
         {
             _userRepository = userRepository;
             _unitOfWork = unitOfWork;
@@ -25,13 +25,13 @@ namespace E_Learning.Application.ExamExplanations.Commands.UpdateExamExplanation
 
         public async Task<Result<Guid>> Handle(UpdateExamExplanationCommand request, CancellationToken cancellationToken)
         {
-            var user = await _userRepository.GetByIdAsync(UserId , cancellationToken);
-            if(user is null)
+            var user = await _userRepository.GetByIdAsync(UserId, cancellationToken);
+            if (user is null)
                 return Result.Failure<Guid>(UserErrors.NotFound);
-            var exam = await _examExplanationRepository.GetByIdAsync(request.Id , cancellationToken);
-            if(exam is null)
+            var exam = await _examExplanationRepository.GetByIdAsync(request.Id, cancellationToken);
+            if (exam is null)
                 return Result.Failure<Guid>(ExamExplanationsErrors.NotFound);
-            if(exam.Course.TeacherId != user.Id && user.Role.notType != Domain.Roles.NotType.Admin)
+            if (exam.Course.TeacherId != user.Id && user.Role.notType != Domain.Roles.NotType.Admin)
                 return Result.Failure<Guid>(UserErrors.Unauthorized);
             exam.UpdateExam(
                 new Title(request.Title),

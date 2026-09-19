@@ -15,8 +15,8 @@ namespace E_Learning.Application.Users.Queries.GetCountUsers
 
         public async Task<Result<int>> Handle(GetCountUsersQuery request, CancellationToken cancellationToken)
         {
-           var count = await _userRepository.GetCountUserssAsync(cancellationToken);
-            if(count == 0)
+            var count = await _userRepository.GetCountUserssAsync(cancellationToken);
+            if (count == 0)
                 return Result.Success(0);
             return Result.Success(count);
         }

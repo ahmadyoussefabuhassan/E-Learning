@@ -18,10 +18,10 @@ namespace E_Learning.Infrastructure.Repositories
             => await _dbContext.Set<StudentSubscription>()
                     .AsNoTracking()
                    .Where(s => s.Status == SubscriptionStatus.Completed &&
-                   ((s.TargetId == sectionId ) ||
-                    (s.TargetId == courseId )))
+                   ((s.TargetId == sectionId) ||
+                    (s.TargetId == courseId)))
                     .Select(s => s.StudentId)
-                    .Distinct() 
+                    .Distinct()
                     .ToListAsync(cancellation);
 
         public async Task<List<Guid>> GetSubscribedStudentIdsAsync(Guid courseId, CancellationToken cancellation)
@@ -40,7 +40,7 @@ namespace E_Learning.Infrastructure.Repositories
             return await _dbContext.Set<StudentSubscription>()
                 .AnyAsync(s => s.StudentId == studentId &&
                                s.TargetId == targetId &&
-                               s.Status != SubscriptionStatus.Rejected, 
+                               s.Status != SubscriptionStatus.Rejected,
                           cancellationToken
                 );
         }
@@ -69,7 +69,7 @@ namespace E_Learning.Infrastructure.Repositories
             return await _dbContext.Set<Course>()
                            .Include(c => c.Classes)
                            .Include(c => c.Teachers)
-                            .Where(c => targetIds.Contains(c.Id)) 
+                            .Where(c => targetIds.Contains(c.Id))
                             .AsNoTracking()
                             .ToListAsync(cancellation);
         }
@@ -80,7 +80,7 @@ namespace E_Learning.Infrastructure.Repositories
                  .AsNoTracking()
                  .Where(s => s.StudentId == studentId && s.Status == SubscriptionStatus.Completed)
                  .ToListAsync(cancellation);
-            if(subscriptions == null || !subscriptions.Any())
+            if (subscriptions == null || !subscriptions.Any())
                 return Enumerable.Empty<Section>();
 
             var targetIds = subscriptions
@@ -117,7 +117,7 @@ namespace E_Learning.Infrastructure.Repositories
                 .ToListAsync(cancellation);
         }
 
-        public async Task<IEnumerable<ExamExplanation>> GetAllExamExplanationSubscribersAsync(Guid studentId, CancellationToken cancellation) 
+        public async Task<IEnumerable<ExamExplanation>> GetAllExamExplanationSubscribersAsync(Guid studentId, CancellationToken cancellation)
         {
             var subscriptions = await _dbContext.Set<StudentSubscription>()
                    .AsNoTracking()
@@ -135,6 +135,6 @@ namespace E_Learning.Infrastructure.Repositories
                .Where(e => targetIds.Contains(e.Id))
              .AsNoTracking()
              .ToListAsync(cancellation);
-        }   
+        }
     }
 }

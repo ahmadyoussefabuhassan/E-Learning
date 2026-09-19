@@ -15,7 +15,7 @@ namespace E_Learning.Application.Teachers.Commands.AddTeacher
 
         public AddTeacherCommandHandler(IUnitOfWork unitOfWork,
             ITeacherRepository teacherRepository,
-            IUserRepository userRepository, 
+            IUserRepository userRepository,
             IRoleRepository roleRepository)
         {
             _unitOfWork = unitOfWork;

@@ -1,5 +1,4 @@
 ﻿using E_Learning.Domain.Abstractions;
-using E_Learning.Domain.User;
 
 namespace E_Learning.Domain.Roles
 {

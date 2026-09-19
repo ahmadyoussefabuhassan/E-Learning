@@ -9,7 +9,7 @@ using Microsoft.AspNetCore.Http;
 
 namespace E_Learning.Application.Units.Commands.DeleteUnit
 {
-    public sealed class DeleteUnitCommandHandler : BaseService,ICommandHandler<DeleteUnitCommand, bool>
+    public sealed class DeleteUnitCommandHandler : BaseService, ICommandHandler<DeleteUnitCommand, bool>
     {
         private readonly IUserRepository _userRepository;
         private readonly IUnitOfWork _unitOfWork;
@@ -43,7 +43,7 @@ namespace E_Learning.Application.Units.Commands.DeleteUnit
             if (user.Role.notType != Domain.Roles.NotType.Admin)
                 return Result.Failure<bool>(UserErrors.Unauthorized);
             var lessons = await _lessonRepository.GetLessonsByUnitAsync(unit.Id, cancellationToken);
-            if(!lessons.Any() && lessons is not null)
+            if (!lessons.Any() && lessons is not null)
             {
                 foreach (var lesson in lessons)
                 {

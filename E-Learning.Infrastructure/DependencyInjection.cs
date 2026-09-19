@@ -67,17 +67,17 @@ namespace E_Learning.Infrastructure
             services.AddScoped<IStudentRepository, StudentRepository>();
             services.AddScoped<IRefreshTokenRepository, RefreshTokenRepository>();
             services.AddScoped<IRoleRepository, RoleRepository>();
-            services.AddScoped<ICourseRepository , CourseRepository>();
-            services.AddScoped<ISectionRepository , SectionRepository>();
-            services.AddScoped<ILessonRepository , LessonRepository>();
-            services.AddScoped<IUnitRepository , UnitRepository>();
-            services.AddScoped<IExamExplanationRepository , ExamExplanationRepository>();
-            services.AddScoped<IExamVideoRepository , ExamVideoRepository>();
+            services.AddScoped<ICourseRepository, CourseRepository>();
+            services.AddScoped<ISectionRepository, SectionRepository>();
+            services.AddScoped<ILessonRepository, LessonRepository>();
+            services.AddScoped<IUnitRepository, UnitRepository>();
+            services.AddScoped<IExamExplanationRepository, ExamExplanationRepository>();
+            services.AddScoped<IExamVideoRepository, ExamVideoRepository>();
             services.AddScoped<IClassesRepositry, ClassesRepositry>();
             services.AddScoped<IInvtensivesRepositry, InvtensivesRepositry>();
             services.AddScoped<IInvtensivesVideosRepositry, InvtensivesVideosRepositry>();
             services.AddScoped<INotificationRepositry, NotificationRepositry>();
-            services.AddScoped<IStudentSubscriptionRepositry , StudentSubscriptionRepositry>();
+            services.AddScoped<IStudentSubscriptionRepositry, StudentSubscriptionRepositry>();
             // Register Unit of Work
             services.AddScoped<IUnitOfWork>(s => s.GetRequiredService<ApplicationDbContext>());
             // Register other services like file handling, JWT service, etc. if needed
@@ -88,7 +88,7 @@ namespace E_Learning.Infrastructure
             services.AddTransient<IEmailService, EmailService>();
             // Register SignalR
             services.AddSignalR();
-        
+
             services.Configure<JwtSettings>(jwtSection);
             services.AddAuthentication(options =>
             {
@@ -98,7 +98,7 @@ namespace E_Learning.Infrastructure
             })
            .AddJwtBearer(options =>
            {
-              
+
                options.TokenValidationParameters = new TokenValidationParameters
                {
                    ValidateIssuer = true,

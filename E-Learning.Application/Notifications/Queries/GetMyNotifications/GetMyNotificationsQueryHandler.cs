@@ -2,7 +2,6 @@
 using E_Learning.Application.Abstractions.Services;
 using E_Learning.Domain.Abstractions;
 using E_Learning.Domain.Notification;
-using E_Learning.Domain.User;
 using Microsoft.AspNetCore.Http;
 
 
@@ -33,7 +32,7 @@ namespace E_Learning.Application.Notifications.Queries.GetMyNotifications
                 n.Title.Value,
                 n.Message.Value,
                 n.CreatedAt,
-                n.IsRead 
+                n.IsRead
             ));
 
             return Result.Success(response);

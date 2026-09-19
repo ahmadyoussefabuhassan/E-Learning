@@ -2,7 +2,6 @@
 using E_Learning.Application.Abstractions.Messaging;
 using E_Learning.Application.Abstractions.Services;
 using E_Learning.Domain.Abstractions;
-using E_Learning.Domain.ExamVideos;
 using E_Learning.Domain.InvtensivesVideos;
 using E_Learning.Domain.User;
 using Microsoft.AspNetCore.Http;
@@ -16,9 +15,9 @@ namespace E_Learning.Application.InvtensivesVideos.Commands.UpdateInvtensiveVide
         private readonly IInvtensivesVideosRepositry _invtensivesVideosRepo;
         private readonly IFileService _fileService;
 
-        public UpdateInvtensiveVideoCommandHandler(IUnitOfWork unitOfWork, 
+        public UpdateInvtensiveVideoCommandHandler(IUnitOfWork unitOfWork,
             IUserRepository userRepository,
-            IInvtensivesVideosRepositry invtensivesVideosRepo, 
+            IInvtensivesVideosRepositry invtensivesVideosRepo,
             IFileService fileService,
             IHttpContextAccessor httpContextAccessor) : base(httpContextAccessor)
         {
@@ -49,7 +48,7 @@ namespace E_Learning.Application.InvtensivesVideos.Commands.UpdateInvtensiveVide
                 new InvtensivesVideosVideoUrl(url),
                 new Domain.InvtensivesVideos.TitleVideoUrl(request.TitleUrl)
             );
-            await _invtensivesVideosRepo.UpdateAsync(invtensiveVideo , cancellationToken);
+            await _invtensivesVideosRepo.UpdateAsync(invtensiveVideo, cancellationToken);
             await _unitOfWork.SaveChangesAsync(cancellationToken);
             return Result.Success(invtensiveVideo.Id);
         }

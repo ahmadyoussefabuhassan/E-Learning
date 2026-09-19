@@ -1,6 +1,4 @@
-﻿using E_Learning.Domain.Roles;
-
-namespace E_Learning.Domain.StudentSubscription
+﻿namespace E_Learning.Domain.StudentSubscription
 {
     public sealed record TargetType(string Value);
     public enum TargetTypes

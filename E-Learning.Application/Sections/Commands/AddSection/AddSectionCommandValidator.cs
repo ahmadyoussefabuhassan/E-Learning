@@ -4,7 +4,7 @@ namespace E_Learning.Application.Sections.Commands.AddSection
 {
     internal sealed class AddSectionCommandValidator : AbstractValidator<AddSectionCommand>
     {
-        public AddSectionCommandValidator() 
+        public AddSectionCommandValidator()
         {
             RuleFor(command => command.Title)
                 .NotEmpty().WithMessage("اسم قسم مطلوب")

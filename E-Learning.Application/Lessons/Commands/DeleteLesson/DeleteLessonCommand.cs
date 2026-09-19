@@ -2,5 +2,5 @@
 
 namespace E_Learning.Application.Lessons.Commands.DeleteLesson
 {
-    public sealed record DeleteLessonCommand(Guid Id): ICommand<bool>;
+    public sealed record DeleteLessonCommand(Guid Id) : ICommand<bool>;
 }

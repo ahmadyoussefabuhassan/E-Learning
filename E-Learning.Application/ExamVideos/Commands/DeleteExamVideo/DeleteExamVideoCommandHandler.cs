@@ -8,7 +8,7 @@ using Microsoft.AspNetCore.Http;
 
 namespace E_Learning.Application.ExamVideos.Commands.DeleteExamVideo
 {
-    public sealed class DeleteExamVideoCommandHandler : BaseService,ICommandHandler<DeleteExamVideoCommand>
+    public sealed class DeleteExamVideoCommandHandler : BaseService, ICommandHandler<DeleteExamVideoCommand>
     {
         private readonly IUserRepository _userRepository;
         private readonly IUnitOfWork _unitOfWork;
@@ -19,7 +19,7 @@ namespace E_Learning.Application.ExamVideos.Commands.DeleteExamVideo
             IUnitOfWork unitOfWork,
             IExamVideoRepository examVideoRepository,
             IFileService fileService,
-            IHttpContextAccessor httpContextAccessor) : base(httpContextAccessor) 
+            IHttpContextAccessor httpContextAccessor) : base(httpContextAccessor)
         {
             _userRepository = userRepository;
             _unitOfWork = unitOfWork;

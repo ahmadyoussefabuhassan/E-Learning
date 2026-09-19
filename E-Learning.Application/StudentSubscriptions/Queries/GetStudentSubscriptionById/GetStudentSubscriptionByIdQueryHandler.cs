@@ -29,7 +29,7 @@ namespace E_Learning.Application.StudentSubscriptions.Queries.GetStudentSubscrip
                 studentSubscription.Status.ToString(),
                 studentSubscription.PriceAtPurchase.Value
             );
-            return Result.Success( response );
+            return Result.Success(response);
 
         }
     }

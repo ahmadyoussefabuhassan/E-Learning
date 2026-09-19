@@ -58,7 +58,7 @@ namespace E_Learning.Infrastructure.Configurations
             builder.HasIndex(user => user.Email)
                 .IsUnique();
 
-            builder.HasOne(user => user.Role) 
+            builder.HasOne(user => user.Role)
                    .WithMany(role => role.Users)
                    .HasForeignKey(user => user.RoleId)
                    .OnDelete(DeleteBehavior.Restrict);

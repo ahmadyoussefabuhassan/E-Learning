@@ -10,7 +10,7 @@ namespace E_Learning.Domain.ExamVideos
         private ExamVideo() : base(Guid.Empty)
         {
         }
-        private ExamVideo(Guid id, ExamVideosVideoUrl videoUrl, Year year, TitleVideoUrl titleVideoUrl,Guid examExplanationId) : base(id)
+        private ExamVideo(Guid id, ExamVideosVideoUrl videoUrl, Year year, TitleVideoUrl titleVideoUrl, Guid examExplanationId) : base(id)
         {
             VideoUrl = videoUrl;
             Year = year;
@@ -23,14 +23,14 @@ namespace E_Learning.Domain.ExamVideos
         public Guid ExamExplanationId { get; private set; }
         public ExamExplanation ExamExplanation { get; private set; } = null!;
 
-        public static ExamVideo Create( ExamVideosVideoUrl videoUrl, Year year, TitleVideoUrl titleVideoUrl,Guid examExplanationId )
+        public static ExamVideo Create(ExamVideosVideoUrl videoUrl, Year year, TitleVideoUrl titleVideoUrl, Guid examExplanationId)
         {
-            
-            var examVideo = new ExamVideo(Guid.NewGuid(), videoUrl, year, titleVideoUrl,examExplanationId);
+
+            var examVideo = new ExamVideo(Guid.NewGuid(), videoUrl, year, titleVideoUrl, examExplanationId);
             examVideo.RaiseDomainEvent(new ExamVideoCreatedDomainEvent(examVideo.Id, examVideo.VideoUrl.Value, examVideo.Year.Value, examVideo.ExamExplanationId));
             return examVideo;
         }
-        public void UpdateVidoe(ExamVideosVideoUrl videoUrl , Year year , TitleVideoUrl titleVideoUrl)
+        public void UpdateVidoe(ExamVideosVideoUrl videoUrl, Year year, TitleVideoUrl titleVideoUrl)
         {
             VideoUrl = videoUrl;
             Year = year;

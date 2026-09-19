@@ -22,7 +22,7 @@ namespace E_Learning.Application.Lessons.Commands.AddLesson
             IUserRepository userRepository,
             ILessonRepository lessonRepository,
             IFileService fileService,
-            IHttpContextAccessor httpContextAccessor) : base(httpContextAccessor) 
+            IHttpContextAccessor httpContextAccessor) : base(httpContextAccessor)
         {
             _unitOfWork = unitOfWork;
             _unitRepository = unitRepository;
@@ -37,7 +37,7 @@ namespace E_Learning.Application.Lessons.Commands.AddLesson
             var user = await _userRepository.GetByIdAsync(currentUserId, cancellationToken);
             if (user is null)
                 return Result.Failure<Guid>(UserErrors.NotFound);
-            var unit = await _unitRepository.GetByIdAsync(request.unitId , cancellationToken);
+            var unit = await _unitRepository.GetByIdAsync(request.unitId, cancellationToken);
             if (unit is null)
                 return Result.Failure<Guid>(UnitsErrors.NotFound);
             if (unit.Section.Course.TeacherId != user.Id && user.Role.notType != Domain.Roles.NotType.Admin)
@@ -49,7 +49,7 @@ namespace E_Learning.Application.Lessons.Commands.AddLesson
                 new TitleUrl(request.TitleUrl),
                 unit.Id
             );
-            await _lessonRepository.AddAsync( lesson , cancellationToken);
+            await _lessonRepository.AddAsync(lesson, cancellationToken);
             await _unitOfWork.SaveChangesAsync(cancellationToken);
             return Result.Success(lesson.Id);
         }

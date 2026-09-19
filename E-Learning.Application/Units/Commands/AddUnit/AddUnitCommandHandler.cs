@@ -15,11 +15,11 @@ namespace E_Learning.Application.Units.Commands.AddUnit
         private readonly IUnitOfWork _unitOfWork;
         private readonly IUnitRepository _unitRepository;
 
-        public AddUnitCommandHandler(IUserRepository userRepository, 
+        public AddUnitCommandHandler(IUserRepository userRepository,
             ISectionRepository sectionRepository,
             IUnitOfWork unitOfWork,
             IUnitRepository unitRepository,
-            IHttpContextAccessor httpContextAccessor) : base(httpContextAccessor) 
+            IHttpContextAccessor httpContextAccessor) : base(httpContextAccessor)
         {
             _userRepository = userRepository;
             _sectionRepository = sectionRepository;
@@ -42,7 +42,7 @@ namespace E_Learning.Application.Units.Commands.AddUnit
                 new UnitTitle(request.Title),
                 new Domain.Shared.Description(request.Description),
                 section.Id
-            ); 
+            );
             await _unitRepository.AddAsync(unit, cancellationToken);
             await _unitOfWork.SaveChangesAsync(cancellationToken);
             return Result.Success(unit.Id);

@@ -12,5 +12,5 @@ namespace E_Learning.Domain.Courses
             Value = value;
         }
     }
-   
+
 }

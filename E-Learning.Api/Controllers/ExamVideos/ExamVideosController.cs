@@ -4,10 +4,8 @@ using E_Learning.Application.ExamVideos.Commands.UpdateExamVideo;
 using E_Learning.Application.ExamVideos.Queries.GetAllExamVideosByExam;
 using E_Learning.Application.ExamVideos.Queries.GetExamVideoById;
 using E_Learning.Application.ExamVideos.Queries.GetExamVideoStream;
-using E_Learning.Domain.Abstractions;
 using MediatR;
 using Microsoft.AspNetCore.Authorization;
-using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 
 
@@ -31,8 +29,8 @@ namespace E_Learning.Api.Controllers.ExamVideos
             return File(result.Value, "video/mp4", enableRangeProcessing: true);
         }
         [HttpPost("AddExamVideo/{examId:guid}")]
-        [Authorize(Roles ="Admin,Teacher")]
-        public async Task<IActionResult> AddExamVideo(Guid examId, [FromForm] AddExamVideoRequest request , CancellationToken cancellation)
+        [Authorize(Roles = "Admin,Teacher")]
+        public async Task<IActionResult> AddExamVideo(Guid examId, [FromForm] AddExamVideoRequest request, CancellationToken cancellation)
         {
             var command = new AddExamVideoCommand(
                 examId,
@@ -45,7 +43,7 @@ namespace E_Learning.Api.Controllers.ExamVideos
         }
         [HttpPut("UpdateExamVideo/{examvidoeId:guid}")]
         [Authorize(Roles = "Admin,Teacher")]
-        public async Task<IActionResult> UpdateExamVideo(Guid examvidoeId , [FromForm] UpdateExamVideoRequest request , CancellationToken cancellation)
+        public async Task<IActionResult> UpdateExamVideo(Guid examvidoeId, [FromForm] UpdateExamVideoRequest request, CancellationToken cancellation)
         {
             var command = new UpdateExamVideoCommand(
                 examvidoeId,
@@ -58,7 +56,7 @@ namespace E_Learning.Api.Controllers.ExamVideos
         }
         [HttpDelete("DeleteExamVideo/{examvidoeId:guid}")]
         [Authorize(Roles = "Admin,Teacher")]
-        public async Task<IActionResult> DeleteExamVideo(Guid examvidoeId , CancellationToken cancellation)
+        public async Task<IActionResult> DeleteExamVideo(Guid examvidoeId, CancellationToken cancellation)
         {
             var command = new DeleteExamVideoCommand(examvidoeId);
             var result = await _sender.Send(command, cancellation);
@@ -66,7 +64,7 @@ namespace E_Learning.Api.Controllers.ExamVideos
         }
         [HttpGet("GetAll/{examId:guid}")]
         [Authorize]
-        public async Task<IActionResult> GetAllExamVideo(Guid examId , CancellationToken cancellation)
+        public async Task<IActionResult> GetAllExamVideo(Guid examId, CancellationToken cancellation)
         {
             var query = new GetAllExamVideosByExamQuery(examId);
             var result = await _sender.Send(query, cancellation);

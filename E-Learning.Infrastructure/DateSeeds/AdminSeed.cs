@@ -8,12 +8,12 @@ namespace E_Learning.Infrastructure.DateSeeds
     public static class AdminSeed
     {
         public static async Task SeedAdminAsync(ApplicationDbContext dbContext)
-            
+
         {
             var adminEmail = "admin@ELearning.com";
             var adminPassword = "A@s$w0rd";
             var adminrole = await dbContext.Set<Role>()
-                 .FirstOrDefaultAsync(r =>  r.notType == NotType.Admin);
+                 .FirstOrDefaultAsync(r => r.notType == NotType.Admin);
             if (adminrole is null)
                 throw new ApplicationException("System Error: Admin role not found. Please run RoleSeed first.");
             var adminEmailObject = new Domain.User.Email(adminEmail);

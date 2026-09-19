@@ -2,5 +2,5 @@
 
 namespace E_Learning.Application.StudentSubscriptions.Queries.GetAllCoursesSubscriptionsByStudent
 {
-    public sealed record  GetAllCoursesSubscriptionsByStudentQuery : IQuery<IEnumerable<CourseResponse>>;
+    public sealed record GetAllCoursesSubscriptionsByStudentQuery : IQuery<IEnumerable<CourseResponse>>;
 }

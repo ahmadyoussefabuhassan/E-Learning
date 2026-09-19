@@ -21,6 +21,6 @@ namespace E_Learning.Infrastructure.Repositories
 
         public async Task<RefreshToken?> GetToken(string token)
             => await _dbContext.Set<RefreshToken>()
-                        .FirstOrDefaultAsync(x => x.Token == token );
+                        .FirstOrDefaultAsync(x => x.Token == token);
     }
 }

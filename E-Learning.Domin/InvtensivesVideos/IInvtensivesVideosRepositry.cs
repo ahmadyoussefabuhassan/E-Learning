@@ -4,7 +4,7 @@ namespace E_Learning.Domain.InvtensivesVideos
 {
     public interface IInvtensivesVideosRepositry : IRepository<InvtensivesVideos>
     {
-        Task<IEnumerable<InvtensivesVideos>> GetAllByInvtensiveAsync(Guid invtensiveId , CancellationToken cancellation);
+        Task<IEnumerable<InvtensivesVideos>> GetAllByInvtensiveAsync(Guid invtensiveId, CancellationToken cancellation);
     }
-   
+
 }

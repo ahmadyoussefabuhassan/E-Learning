@@ -18,17 +18,17 @@ namespace E_Learning.Application.ExamExplanations.Activator
                targetType == TargetTypes.ExamExplanation.ToString();
         public async Task ActivateAsync(Guid targetId, CancellationToken ct)
         {
-            var exam = await _examExplanationRepository.GetByIdAsync(targetId , ct);
+            var exam = await _examExplanationRepository.GetByIdAsync(targetId, ct);
             if (exam is null)
                 return;
-            if(exam is not null && exam.IsLocked)
+            if (exam is not null && exam.IsLocked)
             {
                 exam.ToggleLock();
-                await _examExplanationRepository.UpdateAsync(exam , ct);
+                await _examExplanationRepository.UpdateAsync(exam, ct);
             }
 
         }
 
-  
+
     }
 }

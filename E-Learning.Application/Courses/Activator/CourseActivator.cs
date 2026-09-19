@@ -21,11 +21,11 @@ namespace E_Learning.Application.Courses.Activator
             var course = await _courseRepository.GetByIdAsync(targetId);
             if (course == null)
                 return;
-            if(course is not null && course.IsLocked)
+            if (course is not null && course.IsLocked)
             {
                 course.ToggleLock();
-                await _courseRepository.UpdateLoukedSectionAsync(course.Id , ct);
-                await _courseRepository.UpdateAsync(course , ct);
+                await _courseRepository.UpdateLoukedSectionAsync(course.Id, ct);
+                await _courseRepository.UpdateAsync(course, ct);
             }
         }
 

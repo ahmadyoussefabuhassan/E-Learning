@@ -3,7 +3,6 @@ using E_Learning.Domain.Abstractions;
 using E_Learning.Domain.Notification;
 using E_Learning.Domain.User;
 using Microsoft.AspNetCore.SignalR;
-using Microsoft.EntityFrameworkCore;
 
 namespace E_Learning.Infrastructure.Notifications
 {
@@ -41,7 +40,7 @@ namespace E_Learning.Infrastructure.Notifications
                 await _notificationRepository.AddAsync(notification, cancellation);
             }
 
-           // await _unitOfWork.SaveChangesAsync(cancellation);
+            // await _unitOfWork.SaveChangesAsync(cancellation);
 
             await _hubContext.Clients.All.SendAsync("ReceiveNotification", new
             {

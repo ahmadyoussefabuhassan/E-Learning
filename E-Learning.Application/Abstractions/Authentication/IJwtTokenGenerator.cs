@@ -1,13 +1,7 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-
-namespace E_Learning.Application.Abstractions.Authentication
+﻿namespace E_Learning.Application.Abstractions.Authentication
 {
     public interface IJwtTokenGenerator
     {
-        string GenerateToken(Guid userId, string email, string FullName , string rolename , string jit);
+        string GenerateToken(Guid userId, string email, string FullName, string rolename, string jit);
     }
 }

@@ -11,7 +11,7 @@ using Microsoft.AspNetCore.Http;
 
 namespace E_Learning.Application.Courses.Commands.AddCourse
 {
-    public sealed class AddCourseCommandHandler : BaseService,ICommandHandler<AddCourseCommand, Guid>
+    public sealed class AddCourseCommandHandler : BaseService, ICommandHandler<AddCourseCommand, Guid>
     {
         private readonly IUnitOfWork _unitOfWork;
         private readonly ICourseRepository _courseRepository;
@@ -53,7 +53,7 @@ namespace E_Learning.Application.Courses.Commands.AddCourse
                 classes.Id,
                 user.Id
             );
-           
+
             await _courseRepository.AddAsync(course, cancellationToken);
             await _unitOfWork.SaveChangesAsync(cancellationToken);
             return Result.Success(course.Id);

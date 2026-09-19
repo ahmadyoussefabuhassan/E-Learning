@@ -19,7 +19,7 @@ namespace E_Learning.Application.ExamExplanations.Commands.AddExamExplanation
             IExamExplanationRepository examExplanationRepository,
             IUserRepository userRepository,
             IUnitOfWork unitOfWork,
-            IHttpContextAccessor httpContextAccessor) : base(httpContextAccessor) 
+            IHttpContextAccessor httpContextAccessor) : base(httpContextAccessor)
         {
             _courseRepository = courseRepository;
             _examExplanationRepository = examExplanationRepository;
@@ -29,11 +29,11 @@ namespace E_Learning.Application.ExamExplanations.Commands.AddExamExplanation
 
         public async Task<Result<Guid>> Handle(AddExamExplanationCommand request, CancellationToken cancellationToken)
         {
-            var user =  await _userRepository.GetByIdAsync(UserId , cancellationToken);
+            var user = await _userRepository.GetByIdAsync(UserId, cancellationToken);
             if (user is null)
                 return Result.Failure<Guid>(UserErrors.NotFound);
-            var course = await _courseRepository.GetByIdAsync(request.CourseId , cancellationToken);
-            if(course is null)
+            var course = await _courseRepository.GetByIdAsync(request.CourseId, cancellationToken);
+            if (course is null)
                 return Result.Failure<Guid>(CourseErrors.NotFound);
             if (course.TeacherId != user.Id && user.Role.notType != Domain.Roles.NotType.Admin)
                 return Result.Failure<Guid>(UserErrors.Unauthorized);

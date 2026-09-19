@@ -23,7 +23,7 @@ namespace E_Learning.Application.Sections.Queries.GetSectionById
                 section.SectionTitle.Value,
                 section.Price.Value
             );
-            return Result.Success( response );
+            return Result.Success(response);
         }
     }
 }

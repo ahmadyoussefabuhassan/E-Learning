@@ -9,12 +9,12 @@ namespace E_Learning.Infrastructure.Configurations
     {
         public void Configure(EntityTypeBuilder<Classes> builder)
         {
-             builder.ToTable ("Classes");
+            builder.ToTable("Classes");
 
-             builder.HasKey(classes => classes.Id);
+            builder.HasKey(classes => classes.Id);
 
             builder.Property(classes => classes.Name)
-                 .HasConversion(name  => name.Value , value => new ClassesName(value))
+                 .HasConversion(name => name.Value, value => new ClassesName(value))
                  .HasMaxLength(50)
                  .IsRequired();
 

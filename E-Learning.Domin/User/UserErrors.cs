@@ -15,9 +15,9 @@ namespace E_Learning.Domain.User
 
         public static readonly Error Unauthorized = new(
             "User.Unauthorized", "ليس لديك الصلاحية الكافية للقيام بهذا الإجراء");
-        public static Error InvalidEmail = new Error("User.InvalidEmail", 
+        public static Error InvalidEmail = new Error("User.InvalidEmail",
             "البريد الإلكتروني غير صالح");
-        public static Error InvalidPassword = new Error("User.InvalidPassword", 
+        public static Error InvalidPassword = new Error("User.InvalidPassword",
             "كلمة المرور غير صالحة");
         public static readonly Error InvalidOldPassword = new(
               "User.InvalidOldPassword", "كلمة المرور القديمة التي أدخلتها غير صحيحة.");

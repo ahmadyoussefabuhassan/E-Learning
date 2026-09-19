@@ -2,5 +2,5 @@
 
 namespace E_Learning.Application.Classes.Commands.UpdateClass
 {
-    public sealed record UpdateClassCommand(Guid Id , string Name) : ICommand<Guid>;
+    public sealed record UpdateClassCommand(Guid Id, string Name) : ICommand<Guid>;
 }

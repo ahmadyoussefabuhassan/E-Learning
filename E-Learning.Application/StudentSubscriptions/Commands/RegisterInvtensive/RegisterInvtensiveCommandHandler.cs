@@ -2,7 +2,6 @@
 using E_Learning.Application.Abstractions.Messaging;
 using E_Learning.Application.Abstractions.Services;
 using E_Learning.Domain.Abstractions;
-using E_Learning.Domain.Courses;
 using E_Learning.Domain.Invtensives;
 using E_Learning.Domain.Students;
 using E_Learning.Domain.StudentSubscription;
@@ -11,7 +10,7 @@ using Microsoft.AspNetCore.Http;
 
 namespace E_Learning.Application.StudentSubscriptions.Commands.RegisterInvtensive
 {
-    public sealed class RegisterInvtensiveCommandHandler : BaseService , ICommandHandler<RegisterInvtensiveCommand , Guid>
+    public sealed class RegisterInvtensiveCommandHandler : BaseService, ICommandHandler<RegisterInvtensiveCommand, Guid>
     {
         private readonly IUserRepository _userRepository;
         private readonly IUnitOfWork _unitOfWork;
@@ -21,9 +20,9 @@ namespace E_Learning.Application.StudentSubscriptions.Commands.RegisterInvtensiv
 
         public RegisterInvtensiveCommandHandler(
             IUserRepository userRepository,
-            IUnitOfWork unitOfWork, 
+            IUnitOfWork unitOfWork,
             IInvtensivesRepositry invtensivesRepositry,
-            IFileService fileService, 
+            IFileService fileService,
             IStudentSubscriptionRepositry studentSubscriptionRepositry,
             IHttpContextAccessor httpContextAccessor) : base(httpContextAccessor)
         {

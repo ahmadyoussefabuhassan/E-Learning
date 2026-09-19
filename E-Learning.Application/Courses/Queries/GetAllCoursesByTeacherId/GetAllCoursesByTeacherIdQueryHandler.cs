@@ -18,11 +18,11 @@ namespace E_Learning.Application.Courses.Queries.GetAllCoursesByTeacherId
 
         public async Task<Result<IEnumerable<CoursesResponse>>> Handle(GetAllCoursesByTeacherIdQuery request, CancellationToken cancellationToken)
         {
-            var user = await _userRepository.GetByIdAsync(request.teacherId , cancellationToken);
+            var user = await _userRepository.GetByIdAsync(request.teacherId, cancellationToken);
             if (user is null)
                 return Result.Failure<IEnumerable<CoursesResponse>>(UserErrors.NotFound);
             var courses = await _courseRepository.GetAllByTeacherIdAsync(user.Id, cancellationToken);
-            if(! courses.Any())
+            if (!courses.Any())
                 return Result.Success<IEnumerable<CoursesResponse>>(Enumerable.Empty<CoursesResponse>());
             var response = courses.Select(c => new CoursesResponse(
                 c.Id,

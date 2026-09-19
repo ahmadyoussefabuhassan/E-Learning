@@ -19,10 +19,10 @@ namespace E_Learning.Application.Units.Queries.GetAllUnitsBySection
         public async Task<Result<IEnumerable<UnitResponse>>> Handle(GetAllUnitsBySectionQuery request, CancellationToken cancellationToken)
         {
             var section = await _sectionRepository.GetByIdAsync(request.sectionId, cancellationToken);
-            if(section is null)
+            if (section is null)
                 return Result.Failure<IEnumerable<UnitResponse>>(SectionErrors.NotFound);
-            var units =  await _unitRepository.GetAllBySectionAsync(request.sectionId, cancellationToken);
-            if(!units.Any())
+            var units = await _unitRepository.GetAllBySectionAsync(request.sectionId, cancellationToken);
+            if (!units.Any())
                 return Result.Success(Enumerable.Empty<UnitResponse>());
             var response = units.Select(unit => new UnitResponse(
                 unit.Id,

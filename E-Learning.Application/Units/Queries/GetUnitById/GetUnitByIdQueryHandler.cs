@@ -15,7 +15,7 @@ namespace E_Learning.Application.Units.Queries.GetUnitById
 
         public async Task<Result<UnitResponse>> Handle(GetUnitByIdQuery request, CancellationToken cancellationToken)
         {
-            var unit = await _unitRepository.GetByIdAsync(request.Id , cancellationToken);
+            var unit = await _unitRepository.GetByIdAsync(request.Id, cancellationToken);
             if (unit is null)
                 return Result.Failure<UnitResponse>(UnitsErrors.NotFound);
             var response = new UnitResponse(

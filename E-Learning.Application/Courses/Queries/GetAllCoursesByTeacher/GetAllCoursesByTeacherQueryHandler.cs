@@ -2,7 +2,6 @@
 using E_Learning.Application.Abstractions.Messaging;
 using E_Learning.Application.Abstractions.Services;
 using E_Learning.Domain.Abstractions;
-using E_Learning.Domain.Classes;
 using E_Learning.Domain.Courses;
 using E_Learning.Domain.User;
 using Microsoft.AspNetCore.Http;
@@ -15,7 +14,7 @@ namespace E_Learning.Application.Courses.Queries.GetAllCoursesByTeacher
         private readonly IUserRepository _userRepository;
         private readonly ICourseRepository _courseRepository;
 
-        public GetAllCoursesByTeacherQueryHandler(IUserRepository userRepository, 
+        public GetAllCoursesByTeacherQueryHandler(IUserRepository userRepository,
             ICourseRepository courseRepository,
             IHttpContextAccessor httpContextAccessor) : base(httpContextAccessor)
         {
@@ -31,12 +30,12 @@ namespace E_Learning.Application.Courses.Queries.GetAllCoursesByTeacher
                 return Result.Failure<GetAllDataResponse<CoursesResponse>>(UserErrors.NotFound);
             if (user.Role.notType != Domain.Roles.NotType.Teacher)
                 return Result.Failure<GetAllDataResponse<CoursesResponse>>(UserErrors.Unauthorized);
-            var query =  _courseRepository.GetAllQueryable(cancellationToken);
+            var query = _courseRepository.GetAllQueryable(cancellationToken);
             query = query.Include(c => c.Classes)
                 .Where(c => c.TeacherId == user.Id);
             if (!string.IsNullOrWhiteSpace(request.Query))
                 query = query.Where(c => c.CourseName.Value.Contains(request.Query));
-            if(request.CourseId.HasValue)
+            if (request.CourseId.HasValue)
                 query = query.Where(c => c.Id == request.CourseId.Value);
             var response = await query.ToPagedResponseAsync(
              request.PageNumber,
@@ -47,10 +46,10 @@ namespace E_Learning.Application.Courses.Queries.GetAllCoursesByTeacher
                  course.Description.Value,
                  course.Price.Value,
                  course.ImageUrl.Value,
-                 course.Classes.Name.Value 
+                 course.Classes.Name.Value
              )
             );
-            return Result.Success( response );
+            return Result.Success(response);
         }
     }
 }

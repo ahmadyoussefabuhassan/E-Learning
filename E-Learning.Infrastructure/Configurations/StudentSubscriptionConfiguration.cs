@@ -1,5 +1,4 @@
-﻿using E_Learning.Domain.Students;
-using E_Learning.Domain.StudentSubscription;
+﻿using E_Learning.Domain.StudentSubscription;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Metadata.Builders;
 
@@ -12,18 +11,18 @@ namespace E_Learning.Infrastructure.Configurations
 
         public void Configure(EntityTypeBuilder<StudentSubscription> builder)
         {
-           // Table name
+            // Table name
             builder.ToTable("StudentSubscriptions");
             // Primary key
             builder.HasKey(studentsubscriptions => studentsubscriptions.Id);
             // Properties
-            builder.Property(studentsubscriptions => studentsubscriptions.TargetType )
-                .HasConversion(targettype => targettype.Value , value  => new TargetType(value))
+            builder.Property(studentsubscriptions => studentsubscriptions.TargetType)
+                .HasConversion(targettype => targettype.Value, value => new TargetType(value))
                 .HasMaxLength(50)
                 .IsRequired();
 
             builder.Property(studentsubscriptions => studentsubscriptions.ReceiptImageUrl)
-                .HasConversion(receiptimageurl => receiptimageurl.Value , value => new ReceiptImageUrl(value))
+                .HasConversion(receiptimageurl => receiptimageurl.Value, value => new ReceiptImageUrl(value))
                 .HasMaxLength(100)
                 .IsRequired();
 
@@ -32,7 +31,7 @@ namespace E_Learning.Infrastructure.Configurations
                 .HasColumnType("decimal(18,2)")
                 .IsRequired();
             // relationships
-            builder.HasOne(sp=>sp.Students)
+            builder.HasOne(sp => sp.Students)
                 .WithMany(student => student.StudentSubscriptions)
                 .HasForeignKey(studentsubscriptions => studentsubscriptions.StudentId)
                 .OnDelete(DeleteBehavior.Cascade);

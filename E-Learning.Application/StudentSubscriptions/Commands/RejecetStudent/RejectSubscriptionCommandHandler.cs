@@ -4,11 +4,6 @@ using E_Learning.Domain.Abstractions;
 using E_Learning.Domain.StudentSubscription;
 using E_Learning.Domain.User;
 using Microsoft.AspNetCore.Http;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace E_Learning.Application.StudentSubscriptions.Commands.RejecetStudent
 {
@@ -40,7 +35,7 @@ namespace E_Learning.Application.StudentSubscriptions.Commands.RejecetStudent
                 return Result.Failure<Guid>(StudentSubscriptionErrors.NotFound);
 
             subscription.Reject();
-            await _subscriptionRepository.UpdateAsync(subscription , cancellationToken);
+            await _subscriptionRepository.UpdateAsync(subscription, cancellationToken);
             await _unitOfWork.SaveChangesAsync(cancellationToken);
 
             return Result.Success(subscription.Id);

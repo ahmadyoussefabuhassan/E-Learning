@@ -43,7 +43,7 @@ namespace E_Learning.Application.StudentSubscriptions.Commands.AcceptStudent
                 return Result.Failure<Guid>(StudentSubscriptionErrors.ActivatorNotFound);
             await activator.ActivateAsync(subscription.TargetId, cancellationToken);
             subscription.Confirm();
-            await _subscriptionRepository.UpdateAsync(subscription , cancellationToken);
+            await _subscriptionRepository.UpdateAsync(subscription, cancellationToken);
 
             await _unitOfWork.SaveChangesAsync(cancellationToken);
 

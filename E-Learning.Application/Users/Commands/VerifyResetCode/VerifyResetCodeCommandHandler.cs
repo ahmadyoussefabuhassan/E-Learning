@@ -21,10 +21,10 @@ namespace E_Learning.Application.Users.Commands.VerifyResetCode
                 return Result.Failure<bool>(UserErrors.NotFound);
             if (user.PasswordResetCode is null || string.IsNullOrEmpty(user.PasswordResetCode.Value))
                 return Result.Failure<bool>(UserErrors.InvalidResetCode);
-            
-            if(user.PasswordResetCode.Value != request.Code)
+
+            if (user.PasswordResetCode.Value != request.Code)
                 return Result.Failure<bool>(UserErrors.InvalidResetCode);
-            if(user.PasswordResetCodeExpiresAt < DateTime.UtcNow)
+            if (user.PasswordResetCodeExpiresAt < DateTime.UtcNow)
                 return Result.Failure<bool>(UserErrors.ResetCodeExpired);
             return Result.Success(true);
         }

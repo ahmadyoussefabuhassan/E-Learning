@@ -26,7 +26,7 @@ namespace E_Learning.Application.Notifications.Commands.DeleteNotification
                 return Result.Failure(NotificationErrors.NotFound);
             if (notification.UserId != UserId)
                 return Result.Failure(UserErrors.Unauthorized);
-            await _notificationRepositry.DeleteAsync(notification.Id , cancellationToken);
+            await _notificationRepositry.DeleteAsync(notification.Id, cancellationToken);
             await _unitOfWork.SaveChangesAsync(cancellationToken);
             return Result.Success();
         }

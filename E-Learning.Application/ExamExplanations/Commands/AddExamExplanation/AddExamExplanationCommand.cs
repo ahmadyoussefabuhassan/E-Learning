@@ -4,8 +4,8 @@ namespace E_Learning.Application.ExamExplanations.Commands.AddExamExplanation
 {
     public sealed record AddExamExplanationCommand(
         Guid CourseId,
-        string Title ,
-        string Description ,
+        string Title,
+        string Description,
         decimal Price
-    ) : ICommand<Guid> ; 
+    ) : ICommand<Guid>;
 }

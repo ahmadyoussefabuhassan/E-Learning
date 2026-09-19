@@ -27,7 +27,7 @@ namespace E_Learning.Application.Units.Events
             var section = await _sectionRepository.GetByIdAsync(notification.SectionId, cancellationToken);
             var studentIds = await _subscriptionRepo.GetSectionOrCourseSubscribersAsync(
              notification.SectionId,
-             section.CourseId,  
+             section.CourseId,
              cancellationToken
             );
             if (studentIds.Any())

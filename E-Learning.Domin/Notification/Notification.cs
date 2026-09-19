@@ -4,7 +4,7 @@ using E_Learning.Domain.Notification.Events;
 namespace E_Learning.Domain.Notification
 {
     public sealed class Notification : Entity
-    { 
+    {
         private Notification() : base(Guid.Empty)
         {
         }
@@ -17,11 +17,11 @@ namespace E_Learning.Domain.Notification
             UrlRedirect = urlRedirect;
             CreatedAt = createdAt;
         }
- 
+
         public Message Message { get; private set; }
         public Title Title { get; private set; }
         public UrlRedirect UrlRedirect { get; private set; }
-        public bool  IsRead { get; private set; }
+        public bool IsRead { get; private set; }
         public DateTime CreatedAt { get; private set; }
         public Guid UserId { get; private set; }
         public User.User User { get; private set; } = null!;
@@ -31,6 +31,6 @@ namespace E_Learning.Domain.Notification
             notification.RaiseDomainEvent(new NotificationCreatedEvent(notification.Id, notification.UserId, notification.Message.Value, notification.Title.Value, notification.UrlRedirect.Value, notification.IsRead, notification.CreatedAt));
             return notification;
         }
-       
+
     }
 }

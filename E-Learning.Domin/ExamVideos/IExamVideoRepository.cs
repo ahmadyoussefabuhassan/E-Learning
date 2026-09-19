@@ -7,5 +7,5 @@ namespace E_Learning.Domain.ExamVideos
     {
         Task<IEnumerable<ExamVideo>> GetAllByExamAsync(Guid ExamId, CancellationToken cancellation = default);
     }
-    
+
 }

@@ -21,10 +21,10 @@ namespace E_Learning.Application.InvtensivesVideos.Commands.AddInvtensiveVideo
         public AddInvtensiveVideoCommandHandler(
             IUnitOfWork unitOfWork,
             IUserRepository userRepository,
-            IInvtensivesRepositry invtensivesRepositry, 
+            IInvtensivesRepositry invtensivesRepositry,
             IInvtensivesVideosRepositry invtensivesVideosRepo,
             IFileService fileService,
-            IHttpContextAccessor httpContextAccessor) : base(httpContextAccessor) 
+            IHttpContextAccessor httpContextAccessor) : base(httpContextAccessor)
         {
             _unitOfWork = unitOfWork;
             _userRepository = userRepository;
@@ -39,9 +39,9 @@ namespace E_Learning.Application.InvtensivesVideos.Commands.AddInvtensiveVideo
             if (user is null)
                 return Result.Failure<Guid>(UserErrors.NotFound);
             var invtensive = await _invtensivesRepositry.GetByIdAsync(request.invtensiveId, cancellationToken);
-            if(invtensive is null)
+            if (invtensive is null)
                 return Result.Failure<Guid>(InvtensivesErrors.NotFound);
-           if (invtensive.Course.TeacherId != user.Id && user.Role.notType != Domain.Roles.NotType.Admin)
+            if (invtensive.Course.TeacherId != user.Id && user.Role.notType != Domain.Roles.NotType.Admin)
                 return Result.Failure<Guid>(UserErrors.Unauthorized);
             var vidoe = await _fileService.UploadVideoAsync(request.VidoeUrl, "InvtensiveVideos", cancellationToken);
             var invtensiveVideo = Domain.InvtensivesVideos.InvtensivesVideos.Create(
@@ -49,7 +49,7 @@ namespace E_Learning.Application.InvtensivesVideos.Commands.AddInvtensiveVideo
                 new InvtensivesVideosVideoUrl(vidoe),
                 new Domain.InvtensivesVideos.TitleVideoUrl(request.TitleUrl)
             );
-            await _invtensivesVideosRepo.AddAsync(invtensiveVideo , cancellationToken);
+            await _invtensivesVideosRepo.AddAsync(invtensiveVideo, cancellationToken);
             await _unitOfWork.SaveChangesAsync(cancellationToken);
             return Result.Success(invtensiveVideo.Id);
 

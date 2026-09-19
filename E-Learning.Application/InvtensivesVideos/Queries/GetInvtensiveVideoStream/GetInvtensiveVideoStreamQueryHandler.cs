@@ -8,7 +8,7 @@ using Microsoft.AspNetCore.Http;
 
 namespace E_Learning.Application.InvtensivesVideos.Queries.GetInvtensiveVideoStream
 {
-    public sealed class GetInvtensiveVideoStreamQueryHandler : BaseService,IQueryHandler<GetInvtensiveVideoStreamQuery, FileStream>
+    public sealed class GetInvtensiveVideoStreamQueryHandler : BaseService, IQueryHandler<GetInvtensiveVideoStreamQuery, FileStream>
     {
         private readonly IFileService _fileService;
         private readonly IInvtensivesVideosRepositry _invtensivesVideosRepo;
@@ -23,18 +23,18 @@ namespace E_Learning.Application.InvtensivesVideos.Queries.GetInvtensiveVideoStr
 
         public async Task<Result<FileStream>> Handle(GetInvtensiveVideoStreamQuery request, CancellationToken cancellationToken)
         {
-            var user = await _userRepository.GetByIdAsync(UserId , cancellationToken);
+            var user = await _userRepository.GetByIdAsync(UserId, cancellationToken);
             if (user is null)
                 return Result.Failure<FileStream>(UserErrors.NotFound);
             var invtensiveVideo = await _invtensivesVideosRepo.GetByIdAsync(request.Id, cancellationToken);
             if (invtensiveVideo is null)
                 return Result.Failure<FileStream>(InvtensivesVideosErrors.NotFound);
-            if(user.Role.notType == Domain.Roles.NotType.Student)
+            if (user.Role.notType == Domain.Roles.NotType.Student)
             {
                 if (invtensiveVideo.Invtensive.IsLocked)
                     return Result.Failure<FileStream>(InvtensivesVideosErrors.AccessDenied);
             }
-           
+
             try
             {
                 var stream = _fileService.GetVideoProvider(invtensiveVideo.VideoUrl.Value);

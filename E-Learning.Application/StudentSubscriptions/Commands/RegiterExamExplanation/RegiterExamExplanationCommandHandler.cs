@@ -40,7 +40,7 @@ namespace E_Learning.Application.StudentSubscriptions.Commands.RegiterExamExplan
             if (user.Role.notType != Domain.Roles.NotType.Student)
                 return Result.Failure<Guid>(UserErrors.Unauthorized);
             var exam = await _examExplanationRepository.GetByIdAsync(request.targetId, cancellationToken);
-            if(exam is null)
+            if (exam is null)
                 return Result.Failure<Guid>(ExamExplanationsErrors.NotFound);
             bool alreadyRequested = await _studentSubscriptionRepositry.IsAlreadySubscribedAsync(user.Id, exam.Id, cancellationToken);
             if (alreadyRequested)

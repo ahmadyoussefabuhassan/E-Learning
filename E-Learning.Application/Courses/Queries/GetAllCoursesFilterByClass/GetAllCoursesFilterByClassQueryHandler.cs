@@ -10,7 +10,7 @@ using Microsoft.AspNetCore.Http;
 
 namespace E_Learning.Application.Courses.Queries.GetAllCoursesFilterByClass
 {
-    public sealed class GetAllCoursesFilterByClassQueryHandler : BaseService,IQueryHandler<GetAllCoursesFilterByClassQuery, IEnumerable<CourseResponse>>
+    public sealed class GetAllCoursesFilterByClassQueryHandler : BaseService, IQueryHandler<GetAllCoursesFilterByClassQuery, IEnumerable<CourseResponse>>
     {
         private readonly IStudentRepository _studentRepository;
         private readonly ICourseRepository _courseRepository;
@@ -31,11 +31,11 @@ namespace E_Learning.Application.Courses.Queries.GetAllCoursesFilterByClass
         {
             var studentId = UserId;
             var student = await _studentRepository.GetByIdAsync(studentId, cancellationToken);
-            if(student is null)
+            if (student is null)
                 return Result.Failure<IEnumerable<CourseResponse>>(UserErrors.Unauthorized);
             var classes = await _classesRepositry.GetClassesByNameAsync(new ClassesName(student.SubjectStudent.Value),
                 cancellationToken);
-            if(classes is null)
+            if (classes is null)
                 return Result.Failure<IEnumerable<CourseResponse>>(ClassesErrors.NotFound);
             var courses = await _courseRepository.GetAllByClassesAsync(classes.Id, cancellationToken);
             var response = courses.Select(course => new CourseResponse(

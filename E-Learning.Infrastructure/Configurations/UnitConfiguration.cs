@@ -1,5 +1,4 @@
-﻿using E_Learning.Domain.Sections;
-using E_Learning.Domain.Shared;
+﻿using E_Learning.Domain.Shared;
 using E_Learning.Domain.Units;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Metadata.Builders;
@@ -12,7 +11,7 @@ namespace E_Learning.Infrastructure.Configurations
         {
             builder.ToTable("Units");
 
-            builder.HasKey(u => u.Id); 
+            builder.HasKey(u => u.Id);
 
             builder.Property(u => u.UnitTitle)
                      .HasConversion(

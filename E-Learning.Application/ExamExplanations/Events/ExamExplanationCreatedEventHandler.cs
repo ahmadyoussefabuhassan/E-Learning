@@ -1,5 +1,4 @@
 ﻿using E_Learning.Application.Abstractions.Notifications;
-using E_Learning.Domain.Abstractions;
 using E_Learning.Domain.ExamExplanations;
 using E_Learning.Domain.ExamExplanations.Events;
 using E_Learning.Domain.StudentSubscription;

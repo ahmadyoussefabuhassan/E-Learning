@@ -1,7 +1,5 @@
-﻿using E_Learning.Domain.Classes;
-using E_Learning.Domain.Courses;
+﻿using E_Learning.Domain.Courses;
 using E_Learning.Domain.Shared;
-using E_Learning.Domain.Teachers;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Metadata.Builders;
 
@@ -43,12 +41,12 @@ namespace E_Learning.Infrastructure.Configurations
                 .IsRequired()
                 .HasColumnType("decimal(18,2)");
 
-            builder.HasOne(c => c.Classes) 
+            builder.HasOne(c => c.Classes)
                   .WithMany(cl => cl.Courses)
                  .HasForeignKey(c => c.ClassesId)
                 .OnDelete(DeleteBehavior.Cascade);
 
-            builder.HasOne(c => c.Teachers) 
+            builder.HasOne(c => c.Teachers)
                    .WithMany(t => t.Courses)
                    .HasForeignKey(c => c.TeacherId)
                    .OnDelete(DeleteBehavior.Cascade);

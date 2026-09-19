@@ -13,7 +13,7 @@ namespace E_Learning.Application.Students.Queries.GetProfileStudent
         private readonly IUserRepository _userRepository;
         private readonly IStudentRepository _studentRepository;
 
-        public GetProfileStudentQueryHandler(IUserRepository userRepository, 
+        public GetProfileStudentQueryHandler(IUserRepository userRepository,
             IStudentRepository studentRepository,
             IHttpContextAccessor httpContextAccessor) : base(httpContextAccessor)
         {

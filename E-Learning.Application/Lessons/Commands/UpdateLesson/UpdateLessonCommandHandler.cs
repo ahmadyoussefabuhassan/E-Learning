@@ -16,10 +16,10 @@ namespace E_Learning.Application.Lessons.Commands.UpdateLesson
         private readonly IFileService _fileService;
 
         public UpdateLessonCommandHandler(IUnitOfWork unitOfWork,
-            IUserRepository userRepository, 
+            IUserRepository userRepository,
             ILessonRepository lessonRepository,
             IFileService fileService,
-            IHttpContextAccessor httpContextAccessor): base(httpContextAccessor)
+            IHttpContextAccessor httpContextAccessor) : base(httpContextAccessor)
         {
             _unitOfWork = unitOfWork;
             _userRepository = userRepository;
@@ -33,22 +33,22 @@ namespace E_Learning.Application.Lessons.Commands.UpdateLesson
             var user = await _userRepository.GetByIdAsync(currentUserId, cancellationToken);
             if (user is null)
                 return Result.Failure<Guid>(UserErrors.NotFound);
-            var lesson =  await _lessonRepository.GetByIdAsync(request.Id , cancellationToken);
+            var lesson = await _lessonRepository.GetByIdAsync(request.Id, cancellationToken);
             if (lesson?.Unit.Section.Course.TeacherId != user.Id && user.Role.notType != Domain.Roles.NotType.Admin)
                 return Result.Failure<Guid>(UserErrors.Unauthorized);
             string? vido = lesson.URL.Value;
             if (request.VidoUrl is not null)
             {
                 if (!string.IsNullOrEmpty(lesson.URL?.Value))
-                     _fileService.DeleteVideo(lesson.URL.Value);
-                vido = await _fileService.UploadVideoAsync(request.VidoUrl , "lessons" , cancellationToken);
+                    _fileService.DeleteVideo(lesson.URL.Value);
+                vido = await _fileService.UploadVideoAsync(request.VidoUrl, "lessons", cancellationToken);
             }
             lesson.UpdateLesson(
                 new LessonTitle(request.Title),
                 new URL(vido),
                 new TitleUrl(request.TitleUrl)
             );
-            await _lessonRepository.UpdateAsync(lesson , cancellationToken);
+            await _lessonRepository.UpdateAsync(lesson, cancellationToken);
             await _unitOfWork.SaveChangesAsync(cancellationToken);
             return Result.Success(lesson.Id);
         }

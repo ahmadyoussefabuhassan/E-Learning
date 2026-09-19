@@ -12,6 +12,6 @@ namespace E_Learning.Application.StudentSubscriptions.Queries.GetAllStudentSubsc
             PageSize = pageSize;
             Status = status;
         }
-        public string? Status { get; } 
+        public string? Status { get; }
     }
 }

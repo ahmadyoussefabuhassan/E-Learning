@@ -16,7 +16,7 @@ namespace E_Learning.Application.Students.Queries.GetCountStudents
         public async Task<Result<int>> Handle(GetCountStudentsQuery request, CancellationToken cancellationToken)
         {
             var count = await _studentRepository.GetCountStudentsAsync(cancellationToken);
-            if(count == 0)
+            if (count == 0)
                 return Result.Success(0);
             return Result.Success(count);
         }

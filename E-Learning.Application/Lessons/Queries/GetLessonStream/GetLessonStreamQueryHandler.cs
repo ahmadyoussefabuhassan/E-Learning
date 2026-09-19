@@ -8,7 +8,7 @@ using Microsoft.AspNetCore.Http;
 
 namespace E_Learning.Application.Lessons.Queries.GetLessonStream
 {
-    public sealed class GetLessonStreamQueryHandler : BaseService , IQueryHandler<GetLessonStreamQuery, FileStream>
+    public sealed class GetLessonStreamQueryHandler : BaseService, IQueryHandler<GetLessonStreamQuery, FileStream>
     {
         private readonly ILessonRepository _lessonRepository;
         private readonly IFileService _fileService;
@@ -29,12 +29,12 @@ namespace E_Learning.Application.Lessons.Queries.GetLessonStream
             var lesson = await _lessonRepository.GetByIdAsync(request.LessonId, cancellationToken);
             if (lesson is null || string.IsNullOrEmpty(lesson.URL?.Value))
                 return Result.Failure<FileStream>(LessonsErrors.NotFound);
-            if(user.Role.notType == Domain.Roles.NotType.Student)
+            if (user.Role.notType == Domain.Roles.NotType.Student)
             {
                 if (lesson.Unit.Section.IsLocked || lesson.Unit.Section.Course.IsLocked)
                     return Result.Failure<FileStream>(LessonsErrors.AccessDenied);
             }
-         
+
 
             try
             {

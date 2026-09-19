@@ -5,7 +5,6 @@ using E_Learning.Application.Students.Queries.GetCountStudents;
 using E_Learning.Application.Students.Queries.GetProfileStudent;
 using MediatR;
 using Microsoft.AspNetCore.Authorization;
-using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 
 namespace E_Learning.Api.Controllers.Student
@@ -32,47 +31,47 @@ namespace E_Learning.Api.Controllers.Student
             var result = await _sender.Send(command, cancellation);
             return result.IsSuccess ? Ok(result.Value) : BadRequest(result.Error);
         }
-       [HttpPost("Login")]
-       [AllowAnonymous]
-       public async Task<IActionResult> Login([FromBody] LoginStudentRequest request, CancellationToken cancellation)
-       {
-           var command = new LogInStudentCommand(
-               request.Email,
-               request.Password
-           );
-           var result = await _sender.Send(command, cancellation);
-           return result.IsSuccess ? Ok(result.Value) : BadRequest(result.Error);
-       }
-       [HttpGet("Profile")]
-       [Authorize(Roles = "Student")]
-       public async Task<IActionResult> GetProfile(CancellationToken cancellation)
-       {
+        [HttpPost("Login")]
+        [AllowAnonymous]
+        public async Task<IActionResult> Login([FromBody] LoginStudentRequest request, CancellationToken cancellation)
+        {
+            var command = new LogInStudentCommand(
+                request.Email,
+                request.Password
+            );
+            var result = await _sender.Send(command, cancellation);
+            return result.IsSuccess ? Ok(result.Value) : BadRequest(result.Error);
+        }
+        [HttpGet("Profile")]
+        [Authorize(Roles = "Student")]
+        public async Task<IActionResult> GetProfile(CancellationToken cancellation)
+        {
             var query = new GetProfileStudentQuery();
             var result = await _sender.Send(query, cancellation);
             return result.IsSuccess ? Ok(result.Value) : BadRequest(result.Error);
-       }
-       [HttpPut("UpdateProfile")]
-       [Authorize(Roles = "Student")]
-         public async Task<IActionResult> UpdateProfile([FromForm] UpdateProfileStudentRequest request, CancellationToken cancellation)
-         {
-             var command = new UpdateProfileStudentCommand(
-                request.FullName,
-                request.Email,
-                request.PhoneNumber,
-                request.Address,
-                request.ImageUrl,
-                request.Education
+        }
+        [HttpPut("UpdateProfile")]
+        [Authorize(Roles = "Student")]
+        public async Task<IActionResult> UpdateProfile([FromForm] UpdateProfileStudentRequest request, CancellationToken cancellation)
+        {
+            var command = new UpdateProfileStudentCommand(
+               request.FullName,
+               request.Email,
+               request.PhoneNumber,
+               request.Address,
+               request.ImageUrl,
+               request.Education
 
-             );
-             var result = await _sender.Send(command, cancellation);
-             return result.IsSuccess ? Ok(result.Value) : BadRequest(result.Error);
-         }
+            );
+            var result = await _sender.Send(command, cancellation);
+            return result.IsSuccess ? Ok(result.Value) : BadRequest(result.Error);
+        }
         [HttpGet("Counts")]
-        [Authorize(Roles ="Admin")]
+        [Authorize(Roles = "Admin")]
         public async Task<IActionResult> GetCountStudents(CancellationToken cancellation)
         {
             var query = new GetCountStudentsQuery();
-            var result =  await _sender.Send(query, cancellation);
+            var result = await _sender.Send(query, cancellation);
             return result.IsSuccess ? Ok(result.Value) : BadRequest(result.Error);
         }
 

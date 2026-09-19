@@ -3,7 +3,7 @@ using Microsoft.EntityFrameworkCore;
 
 namespace E_Learning.Infrastructure.Repositories
 {
-    internal  class Repository<T> : IRepository<T>  where T : Entity
+    internal class Repository<T> : IRepository<T> where T : Entity
     {
         protected readonly ApplicationDbContext _dbContext;
         protected Repository(ApplicationDbContext dbContext)

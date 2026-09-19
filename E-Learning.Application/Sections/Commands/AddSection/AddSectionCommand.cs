@@ -4,7 +4,7 @@ namespace E_Learning.Application.Sections.Commands.AddSection
 {
     public sealed record AddSectionCommand(
         string Title,
-        decimal Price ,
+        decimal Price,
         Guid CourseId
     ) : ICommand<Guid>;
 }

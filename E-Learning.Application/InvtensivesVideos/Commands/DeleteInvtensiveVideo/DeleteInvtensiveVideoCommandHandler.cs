@@ -2,7 +2,6 @@
 using E_Learning.Application.Abstractions.Messaging;
 using E_Learning.Application.Abstractions.Services;
 using E_Learning.Domain.Abstractions;
-using E_Learning.Domain.Invtensives;
 using E_Learning.Domain.InvtensivesVideos;
 using E_Learning.Domain.User;
 using Microsoft.AspNetCore.Http;
@@ -18,7 +17,7 @@ namespace E_Learning.Application.InvtensivesVideos.Commands.DeleteInvtensiveVide
 
         public DeleteInvtensiveVideoCommandHandler(
             IUnitOfWork unitOfWork,
-            IUserRepository userRepository, 
+            IUserRepository userRepository,
             IInvtensivesVideosRepositry invtensivesVideosRepo,
             IFileService fileService,
             IHttpContextAccessor httpContextAccessor) : base(httpContextAccessor)
@@ -35,7 +34,7 @@ namespace E_Learning.Application.InvtensivesVideos.Commands.DeleteInvtensiveVide
             if (user is null)
                 return Result.Failure<bool>(UserErrors.NotFound);
             var invtensiveVideo = await _invtensivesVideosRepo.GetByIdAsync(request.Id, cancellationToken);
-            if(invtensiveVideo is null)
+            if (invtensiveVideo is null)
                 return Result.Failure<bool>(InvtensivesVideosErrors.NotFound);
             if (invtensiveVideo.Invtensive.Course.TeacherId != user.Id && user.Role.notType != Domain.Roles.NotType.Admin)
                 return Result.Failure<bool>(UserErrors.Unauthorized);

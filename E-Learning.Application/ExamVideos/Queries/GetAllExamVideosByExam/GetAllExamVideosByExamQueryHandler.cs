@@ -18,18 +18,18 @@ namespace E_Learning.Application.ExamVideos.Queries.GetAllExamVideosByExam
 
         public async Task<Result<IEnumerable<ExamVidoeResponse>>> Handle(GetAllExamVideosByExamQuery request, CancellationToken cancellationToken)
         {
-            var exam = await _examExplanationRepository.GetByIdAsync(request.ExamId , cancellationToken);
+            var exam = await _examExplanationRepository.GetByIdAsync(request.ExamId, cancellationToken);
             if (exam is null)
                 return Result.Failure<IEnumerable<ExamVidoeResponse>>(ExamExplanationsErrors.NotFound);
             var videos = await _videoRepository.GetAllByExamAsync(exam.Id, cancellationToken);
-            if(!videos.Any())
+            if (!videos.Any())
                 return Result.Success(Enumerable.Empty<ExamVidoeResponse>());
             var response = videos.Select(video => new ExamVidoeResponse(
               video.Id,
               video.VideoUrl.Value,
               video.Year.Value,
               video.TitleVideoUrl.Value
-              
+
             ));
             return Result.Success(response);
         }

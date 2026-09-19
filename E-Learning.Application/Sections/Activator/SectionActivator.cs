@@ -19,15 +19,15 @@ namespace E_Learning.Application.Sections.Activator
         public async Task ActivateAsync(Guid targetId, CancellationToken ct)
         {
             var section = await _sectionRepository.GetByIdAsync(targetId);
-            if (section is null) 
+            if (section is null)
                 return;
             if (section is not null && section.IsLocked)
             {
                 section.ToggleLock();
-                await _sectionRepository.UpdateAsync(section , ct);
+                await _sectionRepository.UpdateAsync(section, ct);
             }
         }
 
- 
+
     }
 }

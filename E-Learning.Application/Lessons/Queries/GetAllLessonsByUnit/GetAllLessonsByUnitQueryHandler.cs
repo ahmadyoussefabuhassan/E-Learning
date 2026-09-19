@@ -22,7 +22,7 @@ namespace E_Learning.Application.Lessons.Queries.GetAllLessonsByUnit
             if (unit is null)
                 return Result.Failure<IEnumerable<LessonResponse>>(UnitsErrors.NotFound);
             var lessons = await _lessonRepository.GetLessonsByUnitAsync(unit.Id, cancellationToken);
-            if(!lessons.Any())
+            if (!lessons.Any())
                 return Result.Success(Enumerable.Empty<LessonResponse>());
             var response = lessons.Select(lesson => new LessonResponse(
                 lesson.Id,

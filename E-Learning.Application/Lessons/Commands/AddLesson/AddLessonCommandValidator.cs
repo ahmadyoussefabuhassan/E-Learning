@@ -5,7 +5,7 @@ namespace E_Learning.Application.Lessons.Commands.AddLesson
 {
     internal sealed class AddLessonCommandValidator : AbstractValidator<AddLessonCommand>
     {
-        public AddLessonCommandValidator() 
+        public AddLessonCommandValidator()
         {
             RuleFor(command => command.Title)
                 .NotEmpty().WithMessage("عنوان الدرس مطلوب.")

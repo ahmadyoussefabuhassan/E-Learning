@@ -19,12 +19,12 @@ namespace E_Learning.Application.StudentSubscriptions.Commands.RegisterCourse
         private readonly IStudentSubscriptionRepositry _studentSubscriptionRepositry;
 
         public RegisterCourseCommandHandler(
-            IUserRepository userRepository, 
-            IUnitOfWork unitOfWork, 
+            IUserRepository userRepository,
+            IUnitOfWork unitOfWork,
             ICourseRepository courseRepository,
-            IFileService fileService, 
+            IFileService fileService,
             IStudentSubscriptionRepositry studentSubscriptionRepositry,
-            IHttpContextAccessor httpContextAccessor) :base(httpContextAccessor)
+            IHttpContextAccessor httpContextAccessor) : base(httpContextAccessor)
         {
             _userRepository = userRepository;
             _unitOfWork = unitOfWork;
@@ -35,13 +35,13 @@ namespace E_Learning.Application.StudentSubscriptions.Commands.RegisterCourse
 
         public async Task<Result<Guid>> Handle(RegisterCourseCommand request, CancellationToken cancellationToken)
         {
-            var user = await _userRepository.GetByIdAsync(UserId , cancellationToken);
+            var user = await _userRepository.GetByIdAsync(UserId, cancellationToken);
             if (user is null)
                 return Result.Failure<Guid>(StudentErrors.NotFound);
             if (user.Role.notType != Domain.Roles.NotType.Student)
                 return Result.Failure<Guid>(UserErrors.Unauthorized);
-            var course = await _courseRepository.GetByIdAsync(request.targetId , cancellationToken);
-            if(course is null)
+            var course = await _courseRepository.GetByIdAsync(request.targetId, cancellationToken);
+            if (course is null)
                 return Result.Failure<Guid>(CourseErrors.NotFound);
             bool alreadyRequested = await _studentSubscriptionRepositry.IsAlreadySubscribedAsync(user.Id, course.Id, cancellationToken);
             if (alreadyRequested)

@@ -20,6 +20,6 @@ namespace E_Learning.Infrastructure.Repositories
             .Include(u => u.Unit)
             .ThenInclude(s => s.Section)
             .ThenInclude(c => c.Course)
-            .FirstOrDefaultAsync(l => l.Id == id , cancellationToken);
+            .FirstOrDefaultAsync(l => l.Id == id, cancellationToken);
     }
 }

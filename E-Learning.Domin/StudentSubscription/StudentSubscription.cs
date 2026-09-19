@@ -32,7 +32,7 @@ namespace E_Learning.Domain.StudentSubscription
         public DateTime CreatedAt { get; private set; }
         public DateTime? ExpiresAt { get; private set; }
 
-        public static StudentSubscription Create(Guid studentId, Guid targetId, TargetType targetType, ReceiptImageUrl receiptImageUrl, SubscriptionStatus status , PriceAtPurchase priceAtPurchase)
+        public static StudentSubscription Create(Guid studentId, Guid targetId, TargetType targetType, ReceiptImageUrl receiptImageUrl, SubscriptionStatus status, PriceAtPurchase priceAtPurchase)
         {
             var subscription = new StudentSubscription(Guid.NewGuid(), studentId, targetId, targetType, receiptImageUrl, status, priceAtPurchase, DateTime.UtcNow);
             subscription.RaiseDomainEvent(new StudentSubscriptionCreatedEvent(subscription.Id, subscription.StudentId, subscription.TargetId, subscription.TargetType.Value, subscription.ReceiptImageUrl.Value, subscription.Status, subscription.PriceAtPurchase.Value, subscription.CreatedAt));
@@ -53,9 +53,9 @@ namespace E_Learning.Domain.StudentSubscription
             if (Status == SubscriptionStatus.Pending)
             {
                 Status = SubscriptionStatus.Completed;
-                ExpiresAt = DateTime.UtcNow.AddYears(1); 
+                ExpiresAt = DateTime.UtcNow.AddYears(1);
 
-               RaiseDomainEvent(new SubscriptionConfirmedDomainEvent(Id, StudentId));
+                RaiseDomainEvent(new SubscriptionConfirmedDomainEvent(Id, StudentId));
             }
         }
     }

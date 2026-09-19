@@ -20,7 +20,7 @@ namespace E_Learning.Api.Extensions
         public static void UseCustomExceptionHandler(this IApplicationBuilder app)
         {
             app.UseMiddleware<ExceptionHandlingMiddleware>();
-            
+
         }
         public static void UseTokenCheck(this IApplicationBuilder app)
         {

@@ -1,7 +1,7 @@
+using E_Learning.Api.Extensions;
+using E_Learning.Application;
 using E_Learning.Infrastructure;
 using E_Learning.Infrastructure.Notifications;
-using E_Learning.Application;
-using E_Learning.Api.Extensions;
 using System.IdentityModel.Tokens.Jwt;
 
 namespace E_Learning.Api
@@ -10,7 +10,7 @@ namespace E_Learning.Api
     {
         public static void Main(string[] args)
         {
-           JwtSecurityTokenHandler.DefaultInboundClaimTypeMap.Clear();
+            JwtSecurityTokenHandler.DefaultInboundClaimTypeMap.Clear();
             var builder = WebApplication.CreateBuilder(args);
             // Add Dependencies
             builder.Services.AddInfrastructure(builder.Configuration);
@@ -25,7 +25,7 @@ namespace E_Learning.Api
             app.UseSwaggerUI(options =>
             {
                 options.SwaggerEndpoint("/swagger/v1/swagger.json", "v1");
-                options.RoutePrefix = string.Empty; 
+                options.RoutePrefix = string.Empty;
             });
             app.ApplyMigrations();
             app.UseCustomExceptionHandler();

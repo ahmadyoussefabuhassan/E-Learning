@@ -19,7 +19,7 @@ namespace E_Learning.Application.Courses.Events
 
         public async Task Handle(CourseUpdatedDomainEvent notification, CancellationToken cancellationToken)
         {
-            var students =  await _studentSubscriptionRepositry.GetSubscribedStudentIdsAsync(notification.Id, cancellationToken);
+            var students = await _studentSubscriptionRepositry.GetSubscribedStudentIdsAsync(notification.Id, cancellationToken);
             if (!students.Any())
                 return;
             var message = string.Format(CourseNotifications.Updated.Description, notification.Name);

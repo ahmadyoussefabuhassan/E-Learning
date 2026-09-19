@@ -1,5 +1,4 @@
 ﻿using E_Learning.Domain.Students;
-using E_Learning.Domain.User;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Metadata.Builders;
 

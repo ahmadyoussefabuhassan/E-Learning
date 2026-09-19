@@ -10,7 +10,7 @@ namespace E_Learning.Application.Users.Queries.GetProfileUser
     public sealed class GetProfileUserQueryHandler : BaseService, IQueryHandler<GetProfileUserQuery, UserResponse>
     {
         private readonly IUserRepository _userRepository;
- 
+
         public GetProfileUserQueryHandler(IUserRepository userRepository, IHttpContextAccessor httpContextAccessor) : base(httpContextAccessor)
         {
             _userRepository = userRepository;
@@ -20,7 +20,7 @@ namespace E_Learning.Application.Users.Queries.GetProfileUser
         {
             Guid currentUserId = UserId;
             var user = await _userRepository.GetByIdAsync(currentUserId, cancellationToken);
-            if(user is null)
+            if (user is null)
                 return Result.Failure<UserResponse>(UserErrors.NotFound);
             var response = new UserResponse(
                 user.FullName.Value,

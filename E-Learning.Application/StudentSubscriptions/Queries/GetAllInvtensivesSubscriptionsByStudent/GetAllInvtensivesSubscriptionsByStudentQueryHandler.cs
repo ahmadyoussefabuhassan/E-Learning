@@ -7,13 +7,13 @@ using Microsoft.AspNetCore.Http;
 
 namespace E_Learning.Application.StudentSubscriptions.Queries.GetAllInvtensivesSubscriptionsByStudent
 {
-    public sealed class GetAllInvtensivesSubscriptionsByStudentQueryHandler : BaseService , IQueryHandler<GetAllInvtensivesSubscriptionsByStudentQuery, IEnumerable<InvtensiveResponse>>
+    public sealed class GetAllInvtensivesSubscriptionsByStudentQueryHandler : BaseService, IQueryHandler<GetAllInvtensivesSubscriptionsByStudentQuery, IEnumerable<InvtensiveResponse>>
     {
         private readonly IUserRepository _userRepository;
         private readonly IStudentSubscriptionRepositry _studentSubscriptionRepositry;
 
         public GetAllInvtensivesSubscriptionsByStudentQueryHandler(IUserRepository userRepository, IStudentSubscriptionRepositry studentSubscriptionRepositry,
-            IHttpContextAccessor httpContextAccessor) : base(httpContextAccessor) 
+            IHttpContextAccessor httpContextAccessor) : base(httpContextAccessor)
         {
             _userRepository = userRepository;
             _studentSubscriptionRepositry = studentSubscriptionRepositry;
@@ -27,7 +27,7 @@ namespace E_Learning.Application.StudentSubscriptions.Queries.GetAllInvtensivesS
             if (user.Role.notType != Domain.Roles.NotType.Student)
                 return Result.Failure<IEnumerable<InvtensiveResponse>>(UserErrors.Unauthorized);
             var invtensives = await _studentSubscriptionRepositry.GetAllInvtensivesSubscribersAsync(user.Id, cancellationToken);
-            if(!invtensives.Any())
+            if (!invtensives.Any())
                 return Result.Success<IEnumerable<InvtensiveResponse>>(Enumerable.Empty<InvtensiveResponse>());
             var response = invtensives.Select(i => new InvtensiveResponse(
                 i.Id,

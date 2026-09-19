@@ -22,7 +22,7 @@ namespace E_Learning.Application.Invtensives.Queries.GetAllInvtensivesByCourse
             if (course is null)
                 return Result.Failure<IEnumerable<InvtensiveResponse>>(CourseErrors.NotFound);
             var invtensives = await _invtensivesRepositry.GetAllInvtensivesByCourseAsync(course.Id, cancellationToken);
-            if(!invtensives.Any())
+            if (!invtensives.Any())
                 return Result.Success(Enumerable.Empty<InvtensiveResponse>());
             var response = invtensives.Select(inv => new InvtensiveResponse(
                 inv.Id,

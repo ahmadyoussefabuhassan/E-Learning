@@ -10,7 +10,7 @@ namespace E_Learning.Application.ExamExplanations.Queries.GetAllExamExplanationB
         private readonly ICourseRepository _courseRepository;
         private readonly IExamExplanationRepository _examExplanationRepository;
 
-        public GetAllExamExplanationByCourseQueryHandler(ICourseRepository courseRepository, 
+        public GetAllExamExplanationByCourseQueryHandler(ICourseRepository courseRepository,
             IExamExplanationRepository examExplanationRepository)
         {
             _courseRepository = courseRepository;
@@ -19,11 +19,11 @@ namespace E_Learning.Application.ExamExplanations.Queries.GetAllExamExplanationB
 
         public async Task<Result<IEnumerable<ExamExplanationResponse>>> Handle(GetAllExamExplanationByCourseQuery request, CancellationToken cancellationToken)
         {
-            var course = await _courseRepository.GetByIdAsync(request.courseId , cancellationToken);
+            var course = await _courseRepository.GetByIdAsync(request.courseId, cancellationToken);
             if (course is null)
                 return Result.Failure<IEnumerable<ExamExplanationResponse>>(CourseErrors.NotFound);
             var exams = await _examExplanationRepository.GetAllByCourseAsync(course.Id, cancellationToken);
-            if(!exams.Any())
+            if (!exams.Any())
                 return Result.Success(Enumerable.Empty<ExamExplanationResponse>());
             var response = exams.Select(exam => new ExamExplanationResponse(
                 exam.Id,

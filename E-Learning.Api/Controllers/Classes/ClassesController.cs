@@ -5,7 +5,6 @@ using E_Learning.Application.Classes.Queries.GetAllClass;
 using E_Learning.Application.Classes.Queries.GetClassById;
 using MediatR;
 using Microsoft.AspNetCore.Authorization;
-using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 
 namespace E_Learning.Api.Controllers.Classes
@@ -20,7 +19,7 @@ namespace E_Learning.Api.Controllers.Classes
             => _sender = sender;
         [HttpGet("GetById/{id:guid}")]
         [Authorize]
-        public async Task<IActionResult> GetClassById( Guid id , CancellationToken cancellation)
+        public async Task<IActionResult> GetClassById(Guid id, CancellationToken cancellation)
         {
             var query = new GetClassByIdQuery(id);
             var result = await _sender.Send(query, cancellation);
@@ -36,7 +35,7 @@ namespace E_Learning.Api.Controllers.Classes
         }
         [HttpPost("AddClass")]
         [Authorize(Roles = "Admin")]
-        public async Task<IActionResult> AddClass([FromBody]AddClassRequest request, CancellationToken cancellation = default)
+        public async Task<IActionResult> AddClass([FromBody] AddClassRequest request, CancellationToken cancellation = default)
         {
             var command = new AddClassCommand(request.Name);
             var result = await _sender.Send(command, cancellation);
@@ -44,15 +43,15 @@ namespace E_Learning.Api.Controllers.Classes
         }
         [HttpPut("UpdateClass/{id:guid}")]
         [Authorize(Roles = "Admin")]
-        public async Task<IActionResult> UpdateClass(Guid id,[FromBody] UpdateClassRequest request, CancellationToken cancellation)
+        public async Task<IActionResult> UpdateClass(Guid id, [FromBody] UpdateClassRequest request, CancellationToken cancellation)
         {
             var command = new UpdateClassCommand(id, request.Name);
             var result = await _sender.Send(command, cancellation);
             return result.IsSuccess ? Ok(result.Value) : BadRequest(result.Error);
         }
         [HttpDelete("DeleteClass/{id:guid}")]
-        [Authorize(Roles ="Admin")]
-        public async Task<IActionResult> DeleteClass(Guid Id,CancellationToken cancellation = default)
+        [Authorize(Roles = "Admin")]
+        public async Task<IActionResult> DeleteClass(Guid Id, CancellationToken cancellation = default)
         {
             var command = new DeleteClassCommand(Id);
             var result = await _sender.Send(command, cancellation);

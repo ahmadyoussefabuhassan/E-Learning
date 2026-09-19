@@ -1,11 +1,11 @@
 ﻿using E_Learning.Application.Abstractions.Authentication;
-using Microsoft.Extensions.Options;
-using System.IdentityModel.Tokens.Jwt;
-using System.Security.Claims;
-using Microsoft.IdentityModel.Tokens;
-using System.Text;
 using E_Learning.Application.Abstractions.Clock;
 using E_Learning.Domain.Abstractions.JWT;
+using Microsoft.Extensions.Options;
+using Microsoft.IdentityModel.Tokens;
+using System.IdentityModel.Tokens.Jwt;
+using System.Security.Claims;
+using System.Text;
 
 namespace E_Learning.Infrastructure.Authentication
 {
@@ -19,7 +19,7 @@ namespace E_Learning.Infrastructure.Authentication
             _dateTimeProvider = dateTimeProvider;
         }
 
-        public string GenerateToken(Guid userId, string email, string FullName ,string rolename , string jit)
+        public string GenerateToken(Guid userId, string email, string FullName, string rolename, string jit)
         {
             var key = new SymmetricSecurityKey(Encoding.UTF8.GetBytes(_jwt.Key));
             var credentials = new SigningCredentials(key, SecurityAlgorithms.HmacSha256);

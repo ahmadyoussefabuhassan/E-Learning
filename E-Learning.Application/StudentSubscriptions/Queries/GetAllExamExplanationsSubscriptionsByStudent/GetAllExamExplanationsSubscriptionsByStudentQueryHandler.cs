@@ -12,7 +12,7 @@ namespace E_Learning.Application.StudentSubscriptions.Queries.GetAllExamExplanat
         private readonly IUserRepository _userRepository;
         private readonly IStudentSubscriptionRepositry _studentSubscriptionRepositry;
 
-        public GetAllExamExplanationsSubscriptionsByStudentQueryHandler(IUserRepository userRepository, IStudentSubscriptionRepositry studentSubscriptionRepositry ,
+        public GetAllExamExplanationsSubscriptionsByStudentQueryHandler(IUserRepository userRepository, IStudentSubscriptionRepositry studentSubscriptionRepositry,
             IHttpContextAccessor httpContextAccessor) : base(httpContextAccessor)
         {
             _userRepository = userRepository;
@@ -27,7 +27,7 @@ namespace E_Learning.Application.StudentSubscriptions.Queries.GetAllExamExplanat
             if (user.Role.notType != Domain.Roles.NotType.Student)
                 return Result.Failure<IEnumerable<ExamExplanationResponse>>(UserErrors.Unauthorized);
             var examExplanations = await _studentSubscriptionRepositry.GetAllExamExplanationSubscribersAsync(user.Id, cancellationToken);
-            if(!examExplanations.Any())
+            if (!examExplanations.Any())
                 return Result.Success<IEnumerable<ExamExplanationResponse>>(Enumerable.Empty<ExamExplanationResponse>());
             var response = examExplanations.Select(e => new ExamExplanationResponse(
                 e.Id,

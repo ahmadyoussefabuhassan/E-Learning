@@ -28,7 +28,7 @@ namespace E_Learning.Application.Courses.Queries.GetCourseById
                 course.Classes.Name.Value,
                 course.Teachers.FullName.Value
             );
-            return Result.Success( response );
+            return Result.Success(response);
         }
     }
 }

@@ -1,4 +1,4 @@
-﻿using E_Learning.Application.Abstractions.Extensions; 
+﻿using E_Learning.Application.Abstractions.Extensions;
 using E_Learning.Application.Abstractions.Messaging;
 using E_Learning.Application.StudentSubscriptions.Queries.GetAllStudentSubscriptions;
 using E_Learning.Domain.Abstractions;
@@ -19,7 +19,7 @@ public sealed class GetAllStudentSubscriptionsQueryHandler : IQueryHandler<GetAl
         var query = _subscriptionRepo.GetAllQueryable()
             .Include(s => s.Students)
                 .ThenInclude(st => st.User)
-                .AsQueryable(); 
+                .AsQueryable();
         if (!string.IsNullOrEmpty(request.Status))
         {
             query = query.Where(s => s.Status.ToString() == request.Status);

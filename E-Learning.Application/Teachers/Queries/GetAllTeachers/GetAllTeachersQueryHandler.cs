@@ -16,7 +16,7 @@ namespace E_Learning.Application.Teachers.Queries.GetAllTeachers
         public async Task<Result<IEnumerable<TeachersResponse>>> Handle(GetAllTeachersQuery request, CancellationToken cancellationToken)
         {
             var teachers = await _teacherRepository.GetAllAsync(cancellationToken);
-            if(!teachers.Any())
+            if (!teachers.Any())
                 return Result.Success(Enumerable.Empty<TeachersResponse>());
             var response = teachers.Select(t => new TeachersResponse(
                 t.Id,

@@ -20,9 +20,9 @@ namespace E_Learning.Application.ExamVideos.Commands.AddExamVideo
         public AddExamVideoCommandHandler(IUserRepository userRepository,
             IExamExplanationRepository examExplanationRepository,
             IExamVideoRepository videoRepository,
-            IFileService fileService, 
-            IUnitOfWork unitOfWork, 
-            IHttpContextAccessor httpContextAccessor ) : base( httpContextAccessor ) 
+            IFileService fileService,
+            IUnitOfWork unitOfWork,
+            IHttpContextAccessor httpContextAccessor) : base(httpContextAccessor)
         {
             _userRepository = userRepository;
             _examExplanationRepository = examExplanationRepository;
@@ -34,11 +34,11 @@ namespace E_Learning.Application.ExamVideos.Commands.AddExamVideo
         public async Task<Result<Guid>> Handle(AddExamVideoCommand request, CancellationToken cancellationToken)
         {
             var user = await _userRepository.GetByIdAsync(UserId, cancellationToken);
-            if( user is null )
+            if (user is null)
                 return Result.Failure<Guid>(UserErrors.NotFound);
-            var exam =  await _examExplanationRepository.GetByIdAsync(request.ExamId, cancellationToken);
-            if ( exam is null )
-                return Result.Failure<Guid>(ExamExplanationsErrors.NotFound); 
+            var exam = await _examExplanationRepository.GetByIdAsync(request.ExamId, cancellationToken);
+            if (exam is null)
+                return Result.Failure<Guid>(ExamExplanationsErrors.NotFound);
             if (exam.Course.TeacherId != user.Id && user.Role.notType != Domain.Roles.NotType.Admin)
                 return Result.Failure<Guid>(UserErrors.Unauthorized);
             string vido = await _fileService.UploadVideoAsync(request.VidoUrl, "Exams", cancellationToken);
@@ -48,7 +48,7 @@ namespace E_Learning.Application.ExamVideos.Commands.AddExamVideo
               new TitleVideoUrl(request.TitleUrl),
               exam.Id
             );
-            await _videoRepository.AddAsync( examvido , cancellationToken);
+            await _videoRepository.AddAsync(examvido, cancellationToken);
             await _unitOfWork.SaveChangesAsync(cancellationToken);
             return Result.Success(examvido.Id);
 

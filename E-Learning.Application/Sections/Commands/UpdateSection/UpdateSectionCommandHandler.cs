@@ -3,7 +3,6 @@
 using E_Learning.Application.Abstractions.Messaging;
 using E_Learning.Application.Abstractions.Services;
 using E_Learning.Domain.Abstractions;
-using E_Learning.Domain.Courses;
 using E_Learning.Domain.Sections;
 using E_Learning.Domain.User;
 using Microsoft.AspNetCore.Http;
@@ -17,9 +16,9 @@ namespace E_Learning.Application.Sections.Commands.UpdateSection
         private readonly ISectionRepository _sectionRepository;
 
         public UpdateSectionCommandHandler(IUserRepository userRepository,
-            IUnitOfWork unitOfWork, 
+            IUnitOfWork unitOfWork,
             ISectionRepository sectionRepository,
-            IHttpContextAccessor httpContextAccessor) : base(httpContextAccessor) 
+            IHttpContextAccessor httpContextAccessor) : base(httpContextAccessor)
         {
             _userRepository = userRepository;
             _unitOfWork = unitOfWork;
@@ -32,8 +31,8 @@ namespace E_Learning.Application.Sections.Commands.UpdateSection
             var user = await _userRepository.GetByIdAsync(currentUserId, cancellationToken);
             if (user is null)
                 return Result.Failure<Guid>(UserErrors.NotFound);
-            var section = await _sectionRepository.GetByIdAsync(request.Id , cancellationToken);
-            if(section is null)
+            var section = await _sectionRepository.GetByIdAsync(request.Id, cancellationToken);
+            if (section is null)
                 return Result.Failure<Guid>(SectionErrors.NotFound);
             if (user.Id != section?.Course.TeacherId && user.Role.notType != Domain.Roles.NotType.Admin)
                 return Result.Failure<Guid>(UserErrors.Unauthorized);

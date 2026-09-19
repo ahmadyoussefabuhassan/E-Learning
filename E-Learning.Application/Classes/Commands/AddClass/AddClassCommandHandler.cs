@@ -17,7 +17,7 @@ namespace E_Learning.Application.Classes.Commands.AddClass
 
         public async Task<Result<Guid>> Handle(AddClassCommand request, CancellationToken cancellationToken)
         {
-            var classes = await _classesRepositry.IsClassesUniqueAsync(new ClassesName(request.Name) , cancellationToken);
+            var classes = await _classesRepositry.IsClassesUniqueAsync(new ClassesName(request.Name), cancellationToken);
             if (classes is not null)
                 return Result.Failure<Guid>(ClassesErrors.AlreadyExists);
             var newClass = Domain.Classes.Classes.Create(new ClassesName(request.Name));

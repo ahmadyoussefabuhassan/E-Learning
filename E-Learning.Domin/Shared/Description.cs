@@ -14,5 +14,5 @@ namespace E_Learning.Domain.Shared
             Value = value;
         }
     }
-    
+
 }

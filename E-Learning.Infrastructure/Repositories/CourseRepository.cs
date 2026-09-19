@@ -4,7 +4,7 @@ using Microsoft.EntityFrameworkCore;
 
 namespace E_Learning.Infrastructure.Repositories
 {
-    internal sealed class CourseRepository : Repository<Course>, ICourseRepository 
+    internal sealed class CourseRepository : Repository<Course>, ICourseRepository
     {
         public CourseRepository(ApplicationDbContext dbContext) : base(dbContext)
         {
@@ -17,7 +17,7 @@ namespace E_Learning.Infrastructure.Repositories
             .ToListAsync(cancellationToken);
 
         public async Task<IEnumerable<Course>> GetAllByClassesAsync(Guid classId, CancellationToken cancellationToken = default)
-            =>  await _dbContext.Set<Course>()
+            => await _dbContext.Set<Course>()
             .AsNoTracking()
             .Include(c => c.Teachers)
             .Include(c => c.Classes)
@@ -27,7 +27,7 @@ namespace E_Learning.Infrastructure.Repositories
         public async Task<IEnumerable<Course>> GetAllByTeacherIdAsync(Guid teacherId, CancellationToken cancellationToken = default)
             => await _dbContext.Set<Course>()
             .AsNoTracking()
-            .Include(c =>c.Classes)
+            .Include(c => c.Classes)
             .Where(c => c.TeacherId == teacherId)
             .ToListAsync(cancellationToken);
 

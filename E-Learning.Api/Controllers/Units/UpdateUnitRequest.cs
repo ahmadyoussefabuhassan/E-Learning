@@ -3,5 +3,5 @@
     public sealed record UpdateUnitRequest(
         string Title,
         string Description);
-    
+
 }

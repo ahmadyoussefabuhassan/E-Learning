@@ -3,7 +3,6 @@ using E_Learning.Application.Abstractions.Messaging;
 using E_Learning.Domain.Abstractions;
 using E_Learning.Domain.ExamExplanations;
 using E_Learning.Domain.ExamVideos;
-using E_Learning.Domain.Lessons;
 
 namespace E_Learning.Application.ExamExplanations.Commands.DeleteExamExplanation
 {
@@ -27,10 +26,10 @@ namespace E_Learning.Application.ExamExplanations.Commands.DeleteExamExplanation
 
         public async Task<Result<bool>> Handle(DeleteExamExplanationCommand request, CancellationToken cancellationToken)
         {
-            var exam = await _examExplanationRepository.GetByIdAsync(request.ExamId , cancellationToken);
+            var exam = await _examExplanationRepository.GetByIdAsync(request.ExamId, cancellationToken);
             if (exam is null)
                 return Result.Failure<bool>(ExamExplanationsErrors.NotFound);
-            var examvidos = await _examVideoRepository.GetAllByExamAsync(exam.Id , cancellationToken);
+            var examvidos = await _examVideoRepository.GetAllByExamAsync(exam.Id, cancellationToken);
             if (!examvidos.Any() && examvidos is not null)
             {
                 foreach (var examvido in examvidos)

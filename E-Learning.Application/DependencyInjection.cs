@@ -13,7 +13,7 @@ namespace E_Learning.Application
     {
         public static IServiceCollection AddApplication(this IServiceCollection services)
         {
-            services.AddMediatR(configuration => 
+            services.AddMediatR(configuration =>
             {
 
                 configuration.RegisterServicesFromAssembly(typeof(DependencyInjection).Assembly);

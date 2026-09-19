@@ -24,7 +24,7 @@ namespace E_Learning.Application.Invtensives.Activator
             if (invtensive is not null && invtensive.IsLocked)
             {
                 invtensive.ToggleLock();
-                await _invtensivesRepositry.UpdateAsync(invtensive , ct);
+                await _invtensivesRepositry.UpdateAsync(invtensive, ct);
             }
 
         }

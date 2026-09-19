@@ -6,7 +6,7 @@ using E_Learning.Domain.Abstractions;
 
 namespace E_Learning.Application.Courses.Queries.GetAllCourses
 {
-    public sealed class GetAllCoursesQuery : PaginationRequest , IQuery<GetAllDataResponse<CourseResponse>>
+    public sealed class GetAllCoursesQuery : PaginationRequest, IQuery<GetAllDataResponse<CourseResponse>>
     {
         public GetAllCoursesQuery(
             int pageNumber = 1,
@@ -14,7 +14,7 @@ namespace E_Learning.Application.Courses.Queries.GetAllCourses
             Guid? teacherId = null,
             Guid? classId = null,
             Guid? courseId = null
-        ) 
+        )
         {
             PageNumber = pageNumber;
             PageSize = pageSize;
@@ -22,7 +22,7 @@ namespace E_Learning.Application.Courses.Queries.GetAllCourses
             ClassId = classId;
             CourseId = courseId;
         }
-       public Guid? TeacherId { get; }
+        public Guid? TeacherId { get; }
         public Guid? ClassId { get; }
         public Guid? CourseId { get; }
     }

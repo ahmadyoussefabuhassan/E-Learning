@@ -15,8 +15,8 @@ namespace E_Learning.Application.ExamExplanations.Queries.GetExamExplanationById
 
         public async Task<Result<ExamExplanationResponse>> Handle(GetExamExplanationByIdQuery request, CancellationToken cancellationToken)
         {
-            var exam = await _examExplanationRepository.GetByIdAsync(request.examId , cancellationToken);
-            if(exam is null)
+            var exam = await _examExplanationRepository.GetByIdAsync(request.examId, cancellationToken);
+            if (exam is null)
                 return Result.Failure<ExamExplanationResponse>(ExamExplanationsErrors.NotFound);
             var response = new ExamExplanationResponse(
                 exam.Id,
@@ -24,7 +24,7 @@ namespace E_Learning.Application.ExamExplanations.Queries.GetExamExplanationById
                 exam.Description.Value,
                 exam.Price.Value
             );
-            return Result.Success( response );
+            return Result.Success(response);
         }
     }
 }

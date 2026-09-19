@@ -2,7 +2,6 @@
 using E_Learning.Application.Abstractions.Messaging;
 using E_Learning.Application.Abstractions.Services;
 using E_Learning.Domain.Abstractions;
-using E_Learning.Domain.Invtensives;
 using E_Learning.Domain.Sections;
 using E_Learning.Domain.Students;
 using E_Learning.Domain.StudentSubscription;
@@ -20,11 +19,11 @@ namespace E_Learning.Application.StudentSubscriptions.Commands.RegisterSection
         private readonly IStudentSubscriptionRepositry _studentSubscriptionRepositry;
 
         public RegisterSectionCommandHandler(IUserRepository userRepository,
-            IUnitOfWork unitOfWork, 
+            IUnitOfWork unitOfWork,
             ISectionRepository sectionRepository,
-            IFileService fileService, 
+            IFileService fileService,
             IStudentSubscriptionRepositry studentSubscriptionRepositry,
-            IHttpContextAccessor httpContextAccessor) : base(httpContextAccessor) 
+            IHttpContextAccessor httpContextAccessor) : base(httpContextAccessor)
         {
             _userRepository = userRepository;
             _unitOfWork = unitOfWork;
@@ -40,8 +39,8 @@ namespace E_Learning.Application.StudentSubscriptions.Commands.RegisterSection
                 return Result.Failure<Guid>(StudentErrors.NotFound);
             if (user.Role.notType != Domain.Roles.NotType.Student)
                 return Result.Failure<Guid>(UserErrors.Unauthorized);
-            var section = await _sectionRepository.GetByIdAsync(request.targetId,cancellationToken);
-            if(section is null)
+            var section = await _sectionRepository.GetByIdAsync(request.targetId, cancellationToken);
+            if (section is null)
                 return Result.Failure<Guid>(SectionErrors.NotFound);
             bool alreadyRequested = await _studentSubscriptionRepositry.IsAlreadySubscribedAsync(user.Id, section.Id, cancellationToken);
             if (alreadyRequested)

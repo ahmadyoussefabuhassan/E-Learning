@@ -5,7 +5,6 @@ using E_Learning.Application.Notifications.Queries.GetMyNotifications;
 using E_Learning.Application.Notifications.Queries.GetNotificationById;
 using MediatR;
 using Microsoft.AspNetCore.Authorization;
-using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 
 namespace E_Learning.Api.Controllers.Notifications
@@ -34,10 +33,10 @@ namespace E_Learning.Api.Controllers.Notifications
         }
         [HttpPost("broadcast")]
         [Authorize(Roles = "Admin")]
-        public async Task<IActionResult> SendBroadcast([FromBody] SendBroadcastNotificationRequest request , CancellationToken cancellation)
+        public async Task<IActionResult> SendBroadcast([FromBody] SendBroadcastNotificationRequest request, CancellationToken cancellation)
         {
             var command = new SendBroadcastNotificationCommand(request.Title, request.Message, request.Audience);
-            var result = await _sender.Send(command , cancellation);
+            var result = await _sender.Send(command, cancellation);
             return result.IsSuccess ? Ok(result) : BadRequest(result.Error);
         }
         [HttpDelete("delete-all")]
@@ -50,7 +49,7 @@ namespace E_Learning.Api.Controllers.Notifications
         }
         [HttpDelete("{id:guid}")]
         [Authorize]
-        public async Task<IActionResult> DeleteNotificationById(Guid id,CancellationToken cancellation)
+        public async Task<IActionResult> DeleteNotificationById(Guid id, CancellationToken cancellation)
         {
             var command = new DeleteNotificationCommand(id);
             var result = await _sender.Send(command, cancellation);

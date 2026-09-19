@@ -4,7 +4,7 @@ namespace E_Learning.Application.StudentSubscriptions.Commands.RegisterSection
 {
     internal sealed class RegisterSectionCommandValidator : AbstractValidator<RegisterSectionCommand>
     {
-        public RegisterSectionCommandValidator() 
+        public RegisterSectionCommandValidator()
         {
             RuleFor(command => command.targetId)
                  .NotNull();

@@ -4,7 +4,7 @@ using System.Security.Claims;
 
 namespace E_Learning.Application.Abstractions.Services
 {
-    public  class BaseService
+    public class BaseService
     {
         protected Guid UserId => GetUserId();
 

@@ -16,9 +16,9 @@ namespace E_Learning.Infrastructure.Repositories
             .ToListAsync(cancellation);
 
         public override async Task<ExamVideo?> GetByIdAsync(Guid id, CancellationToken cancellationToken = default)
-            =>  await _dbContext.Set<ExamVideo>()
+            => await _dbContext.Set<ExamVideo>()
             .Include(ex => ex.ExamExplanation)
             .ThenInclude(c => c.Course)
-            .FirstOrDefaultAsync(c => c.Id == id , cancellationToken);
+            .FirstOrDefaultAsync(c => c.Id == id, cancellationToken);
     }
 }

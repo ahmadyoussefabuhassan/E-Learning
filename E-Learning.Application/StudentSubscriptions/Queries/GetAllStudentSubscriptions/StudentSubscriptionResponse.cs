@@ -6,8 +6,8 @@ namespace E_Learning.Application.StudentSubscriptions.Queries.GetAllStudentSubsc
         Guid Id,
         Guid StudentId,
         Guid targetId,
-        string studentName ,
-        string targetName, 
+        string studentName,
+        string targetName,
         string ImageUrl,
         string Status,
         decimal Price

@@ -20,7 +20,7 @@ namespace E_Learning.Application.Users.Commands.LogOut
         {
             var token = await _refreshTokensRepository.GetToken(request.token);
             if (token is null)
-                 return Result.Failure<bool>(RefreshTokenErrors.NotFound);
+                return Result.Failure<bool>(RefreshTokenErrors.NotFound);
             await _refreshTokensRepository.DeleteToken(request.token);
             await _unitOfWork.SaveChangesAsync(cancellationToken);
             return Result.Success(true);

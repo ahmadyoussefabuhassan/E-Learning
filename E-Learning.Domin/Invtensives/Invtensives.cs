@@ -9,13 +9,13 @@ namespace E_Learning.Domain.Invtensives
     {
         private Invtensives() : base(Guid.Empty)
         { }
-        private Invtensives(Guid id, InvtensivesTitle title, Description description, Price price , bool islocked, Guid courseID) : base(id)
+        private Invtensives(Guid id, InvtensivesTitle title, Description description, Price price, bool islocked, Guid courseID) : base(id)
         {
             Title = title;
             Description = description;
             Price = price;
             IsLocked = islocked;
-            CourseID = courseID ;
+            CourseID = courseID;
         }
         public InvtensivesTitle Title { get; private set; }
         public Description Description { get; private set; }

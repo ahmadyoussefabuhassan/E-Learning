@@ -8,7 +8,7 @@ using Microsoft.AspNetCore.Http;
 
 namespace E_Learning.Application.Lessons.Commands.DeleteLesson
 {
-    public sealed class DeleteLessonCommandHandler :BaseService, ICommandHandler<DeleteLessonCommand, bool>
+    public sealed class DeleteLessonCommandHandler : BaseService, ICommandHandler<DeleteLessonCommand, bool>
     {
         private readonly ILessonRepository _lessonRepository;
         private readonly IFileService _fileService;

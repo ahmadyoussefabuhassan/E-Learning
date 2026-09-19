@@ -2,6 +2,6 @@
 
 namespace E_Learning.Application.Teachers.Queries.GetCountTeachers
 {
-    public sealed record  GetCountTeachersQuery() : IQuery<int>;
+    public sealed record GetCountTeachersQuery() : IQuery<int>;
 
 }

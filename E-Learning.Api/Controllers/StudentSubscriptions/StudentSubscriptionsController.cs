@@ -4,16 +4,16 @@ using E_Learning.Application.StudentSubscriptions.Commands.RegisterInvtensive;
 using E_Learning.Application.StudentSubscriptions.Commands.RegisterSection;
 using E_Learning.Application.StudentSubscriptions.Commands.RegiterExamExplanation;
 using E_Learning.Application.StudentSubscriptions.Commands.RejecetStudent;
-using E_Learning.Application.StudentSubscriptions.Queries.GetAllStudentSubscriptions;
-using E_Learning.Application.StudentSubscriptions.Queries.GetStudentSubscriptionById;
-using Microsoft.AspNetCore.Mvc;
-using MediatR;
-using Microsoft.AspNetCore.Authorization;
 using E_Learning.Application.StudentSubscriptions.Queries.GetAllCoursesSubscriptionsByStudent;
-using E_Learning.Application.StudentSubscriptions.Queries.GetAllSectionsSubscriptionsByStudent;
 using E_Learning.Application.StudentSubscriptions.Queries.GetAllExamExplanationsSubscriptionsByStudent;
 using E_Learning.Application.StudentSubscriptions.Queries.GetAllInvtensivesSubscriptionsByStudent;
+using E_Learning.Application.StudentSubscriptions.Queries.GetAllSectionsSubscriptionsByStudent;
+using E_Learning.Application.StudentSubscriptions.Queries.GetAllStudentSubscriptions;
+using E_Learning.Application.StudentSubscriptions.Queries.GetStudentSubscriptionById;
 using E_Learning.Application.StudentSubscriptions.Queries.GetStudentSubscriptionStreamImage;
+using MediatR;
+using Microsoft.AspNetCore.Authorization;
+using Microsoft.AspNetCore.Mvc;
 
 namespace E_Learning.Api.Controllers.StudentSubscriptions
 {
@@ -27,7 +27,7 @@ namespace E_Learning.Api.Controllers.StudentSubscriptions
             => _sender = sender;
         [HttpGet("streamImage/{subscriptionId:guid}")]
         [Authorize(Roles = "Admin")]
-        public async Task<IActionResult> StreamImage(Guid subscriptionId , CancellationToken cancellation)
+        public async Task<IActionResult> StreamImage(Guid subscriptionId, CancellationToken cancellation)
         {
             var query = new GetStudentSubscriptionStreamImageQuery(subscriptionId);
             var result = await _sender.Send(query, cancellation);
@@ -36,26 +36,26 @@ namespace E_Learning.Api.Controllers.StudentSubscriptions
             return File(result.Value, "image/jpeg", enableRangeProcessing: true);
         }
         [HttpPost("RegisterCourse/{courseId:guid}")]
-        [Authorize(Roles ="Student")]
-        public async Task<IActionResult> RegisterCourse(Guid courseId , [FromForm] RegisterStudentSubscriptionsRequests request , CancellationToken cancellation)
+        [Authorize(Roles = "Student")]
+        public async Task<IActionResult> RegisterCourse(Guid courseId, [FromForm] RegisterStudentSubscriptionsRequests request, CancellationToken cancellation)
         {
-            var command = new RegisterCourseCommand(courseId , request.Image);
+            var command = new RegisterCourseCommand(courseId, request.Image);
             var result = await _sender.Send(command, cancellation);
             return result.IsSuccess ? Ok(result.Value) : BadRequest(result.Error);
         }
         [HttpPost("RegisterInvtensive/{invtensiveId:guid}")]
         [Authorize(Roles = "Student")]
-        public async Task<IActionResult> RegisterInvtensive(Guid invtensiveId , [FromForm] RegisterStudentSubscriptionsRequests request, CancellationToken cancellation)
+        public async Task<IActionResult> RegisterInvtensive(Guid invtensiveId, [FromForm] RegisterStudentSubscriptionsRequests request, CancellationToken cancellation)
         {
-            var command = new RegisterInvtensiveCommand(invtensiveId , request.Image);
+            var command = new RegisterInvtensiveCommand(invtensiveId, request.Image);
             var result = await _sender.Send(command, cancellation);
             return result.IsSuccess ? Ok(result.Value) : BadRequest(result.Error);
         }
         [HttpPost("RegisterSection/{sectionId:guid}")]
         [Authorize(Roles = "Student")]
-        public async Task<IActionResult> RegisterSection(Guid sectionId , [FromForm] RegisterStudentSubscriptionsRequests request, CancellationToken cancellation)
+        public async Task<IActionResult> RegisterSection(Guid sectionId, [FromForm] RegisterStudentSubscriptionsRequests request, CancellationToken cancellation)
         {
-            var command = new RegisterSectionCommand(sectionId , request.Image);
+            var command = new RegisterSectionCommand(sectionId, request.Image);
             var result = await _sender.Send(command, cancellation);
             return result.IsSuccess ? Ok(result.Value) : BadRequest(result.Error);
         }
@@ -63,13 +63,13 @@ namespace E_Learning.Api.Controllers.StudentSubscriptions
         [Authorize(Roles = "Student")]
         public async Task<IActionResult> RegisterExam(Guid examId, [FromForm] RegisterStudentSubscriptionsRequests request, CancellationToken cancellation)
         {
-            var command = new RegiterExamExplanationCommand(examId , request.Image);
+            var command = new RegiterExamExplanationCommand(examId, request.Image);
             var result = await _sender.Send(command, cancellation);
             return result.IsSuccess ? Ok(result.Value) : BadRequest(result.Error);
         }
         [HttpPost("Accept/{subscriptionId:guid}")]
         [Authorize(Roles = "Admin")]
-        public async Task<IActionResult> AcceptStudent(Guid subscriptionId , CancellationToken cancellation)
+        public async Task<IActionResult> AcceptStudent(Guid subscriptionId, CancellationToken cancellation)
         {
             var command = new AcceptSubscriptionCommand(subscriptionId);
             var result = await _sender.Send(command, cancellation);
@@ -77,7 +77,7 @@ namespace E_Learning.Api.Controllers.StudentSubscriptions
         }
         [HttpPost("Rejecet/{subscriptionId:guid}")]
         [Authorize(Roles = "Admin")]
-        public async Task<IActionResult> RejecetStudent(Guid subscriptionId , CancellationToken cancellation)
+        public async Task<IActionResult> RejecetStudent(Guid subscriptionId, CancellationToken cancellation)
         {
             var command = new RejectSubscriptionCommand(subscriptionId);
             var result = await _sender.Send(command, cancellation);
@@ -97,7 +97,7 @@ namespace E_Learning.Api.Controllers.StudentSubscriptions
         public async Task<IActionResult> GetById(Guid subscriptionId, CancellationToken cancellationToken)
         {
             var query = new GetStudentSubscriptionByIdQuery(subscriptionId);
-            var result = await _sender.Send(query , cancellationToken);
+            var result = await _sender.Send(query, cancellationToken);
             return result.IsSuccess ? Ok(result.Value) : BadRequest(result.Error);
         }
         [HttpGet("GetAll/Courses")]

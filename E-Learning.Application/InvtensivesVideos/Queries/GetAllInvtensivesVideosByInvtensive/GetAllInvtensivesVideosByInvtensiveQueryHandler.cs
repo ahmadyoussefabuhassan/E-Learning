@@ -24,13 +24,13 @@ namespace E_Learning.Application.InvtensivesVideos.Queries.GetAllInvtensivesVide
             if (invtensive is null)
                 return Result.Failure<IEnumerable<InvtensiveVideoResponse>>(InvtensivesErrors.NotFound);
             var invtensivesvideos = await _invtensivesVideosRepo.GetAllByInvtensiveAsync(invtensive.Id, cancellationToken);
-            if(!invtensivesvideos.Any())
+            if (!invtensivesvideos.Any())
                 return Result.Success(Enumerable.Empty<InvtensiveVideoResponse>());
             var rsponse = invtensivesvideos.Select(invVideo => new InvtensiveVideoResponse(
                 invVideo.Id,
                 invVideo.TitleVideoUrl.Value,
                 invVideo.VideoUrl.Value
-                
+
             ));
             return Result.Success(rsponse);
         }

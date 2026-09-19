@@ -26,7 +26,7 @@ namespace E_Learning.Infrastructure
         {
 
             await PublishDomainEventsAsync(cancellationToken);
-           return await base.SaveChangesAsync(cancellationToken);
+            return await base.SaveChangesAsync(cancellationToken);
 
         }
 
@@ -38,7 +38,7 @@ namespace E_Learning.Infrastructure
 
             var domainEvents = domainEntries
                 .SelectMany(x => x.Entity.GetDomainEvents())
-                .ToList(); 
+                .ToList();
 
             domainEntries.ForEach(x => x.Entity.ClearDomainEvents());
 

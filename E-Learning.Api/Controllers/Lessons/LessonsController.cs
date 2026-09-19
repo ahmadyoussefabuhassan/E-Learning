@@ -6,7 +6,6 @@ using E_Learning.Application.Lessons.Queries.GetLessonById;
 using E_Learning.Application.Lessons.Queries.GetLessonStream;
 using MediatR;
 using Microsoft.AspNetCore.Authorization;
-using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 
 namespace E_Learning.Api.Controllers.Lessons
@@ -33,24 +32,24 @@ namespace E_Learning.Api.Controllers.Lessons
             return File(result.Value, "video/mp4", enableRangeProcessing: true);
         }
         [HttpPost("AddLesson/{unitId:guid}")]
-        [Authorize(Roles ="Admin,Teacher")]
-        public async Task<IActionResult> AddLesson(Guid unitId, [FromForm] AddLessonRequest request , CancellationToken cancellation)
+        [Authorize(Roles = "Admin,Teacher")]
+        public async Task<IActionResult> AddLesson(Guid unitId, [FromForm] AddLessonRequest request, CancellationToken cancellation)
         {
-            var command = new AddLessonCommand(unitId , request.Title ,request.TitleUrl , request.VidoUrl);
-            var result = await _sender.Send(command , cancellation);
+            var command = new AddLessonCommand(unitId, request.Title, request.TitleUrl, request.VidoUrl);
+            var result = await _sender.Send(command, cancellation);
             return result.IsSuccess ? Ok(result.Value) : BadRequest(result.Error);
         }
         [HttpPut("UpdateLesson/{lessonId:guid}")]
         [Authorize(Roles = "Admin,Teacher")]
-        public async Task<IActionResult> UpdateLesson(Guid lessonId , [FromForm] UpdateLessonRequest request , CancellationToken cancellation)
+        public async Task<IActionResult> UpdateLesson(Guid lessonId, [FromForm] UpdateLessonRequest request, CancellationToken cancellation)
         {
-            var command = new UpdateLessonCommand(lessonId , request.Title ,request.TitleUrl , request.VidoUrl);
+            var command = new UpdateLessonCommand(lessonId, request.Title, request.TitleUrl, request.VidoUrl);
             var result = await _sender.Send(command, cancellation);
             return result.IsSuccess ? Ok(result.Value) : BadRequest(result.Error);
         }
         [HttpDelete("{lessonId:guid}")]
         [Authorize(Roles = "Admin,Teacher")]
-        public async Task<IActionResult> DeleteLesson(Guid lessonId , CancellationToken cancellation)
+        public async Task<IActionResult> DeleteLesson(Guid lessonId, CancellationToken cancellation)
         {
             var command = new DeleteLessonCommand(lessonId);
             var result = await _sender.Send(command, cancellation);
@@ -58,7 +57,7 @@ namespace E_Learning.Api.Controllers.Lessons
         }
         [HttpGet("GetAll/{unitId:guid}")]
         [Authorize]
-        public async Task<IActionResult> GetAllLessons(Guid unitId , CancellationToken cancellation)
+        public async Task<IActionResult> GetAllLessons(Guid unitId, CancellationToken cancellation)
         {
             var query = new GetAllLessonsByUnitQuery(unitId);
             var result = await _sender.Send(query, cancellation);
@@ -66,7 +65,7 @@ namespace E_Learning.Api.Controllers.Lessons
         }
         [HttpGet("GetById/{lessonId:guid}")]
         [Authorize]
-        public async Task<IActionResult> GetLesson(Guid lessonId , CancellationToken cancellation)
+        public async Task<IActionResult> GetLesson(Guid lessonId, CancellationToken cancellation)
         {
             var query = new GetLessonByIdQuery(lessonId);
             var result = await _sender.Send(query, cancellation);

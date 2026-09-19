@@ -7,7 +7,7 @@ namespace E_Learning.Application.Lessons.Commands.UpdateLesson
 {
     internal sealed class UpdateLessonCommandValidator : AbstractValidator<UpdateLessonCommand>
     {
-        public UpdateLessonCommandValidator() 
+        public UpdateLessonCommandValidator()
         {
             RuleFor(command => command.Title)
                     .NotEmpty().WithMessage("عنوان الدرس مطلوب.")

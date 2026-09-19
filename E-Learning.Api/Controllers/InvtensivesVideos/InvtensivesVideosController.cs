@@ -7,8 +7,6 @@ using E_Learning.Application.InvtensivesVideos.Queries.GetInvtensiveVideoStream;
 using MediatR;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
-using System.Threading;
-using static Microsoft.EntityFrameworkCore.DbLoggerCategory.Database;
 
 
 namespace E_Learning.Api.Controllers.InvtensivesVideos
@@ -33,23 +31,23 @@ namespace E_Learning.Api.Controllers.InvtensivesVideos
         }
         [HttpPost("AddVideo/{invtensiveId:guid}")]
         [Authorize(Roles = "Admin,Teacher")]
-        public async Task<IActionResult> AddInvtensiveVideo(Guid invtensiveId , [FromForm] AddInvtensiveVideoRequest request, CancellationToken cancellationToken)
+        public async Task<IActionResult> AddInvtensiveVideo(Guid invtensiveId, [FromForm] AddInvtensiveVideoRequest request, CancellationToken cancellationToken)
         {
-            var command = new AddInvtensiveVideoCommand(invtensiveId, request.TitleUrl,request.VidoeUrl);
+            var command = new AddInvtensiveVideoCommand(invtensiveId, request.TitleUrl, request.VidoeUrl);
             var result = await _sender.Send(command, cancellationToken);
             return result.IsSuccess ? Ok(result.Value) : BadRequest(result.Error);
         }
         [HttpPut("UpdateVideo/{invtensivevideoId:guid}")]
         [Authorize(Roles = "Admin,Teacher")]
-        public async Task<IActionResult> UpdateInvtensiveVideo(Guid invtensivevideoId , [FromForm] UpdateInvtensiveVideoRequest request , CancellationToken cancellationToken)
+        public async Task<IActionResult> UpdateInvtensiveVideo(Guid invtensivevideoId, [FromForm] UpdateInvtensiveVideoRequest request, CancellationToken cancellationToken)
         {
-            var command = new UpdateInvtensiveVideoCommand(invtensivevideoId, request.TitleUrl,request.VidoeUrl);
+            var command = new UpdateInvtensiveVideoCommand(invtensivevideoId, request.TitleUrl, request.VidoeUrl);
             var result = await _sender.Send(command, cancellationToken);
             return result.IsSuccess ? Ok(result.Value) : BadRequest(result.Error);
         }
         [HttpDelete("DeleteVideo/{invtensivevideoId:guid}")]
         [Authorize(Roles = "Admin,Teacher")]
-        public async Task<IActionResult> DeleteInvtensiveVideo(Guid invtensivevideoId , CancellationToken cancellationToken)
+        public async Task<IActionResult> DeleteInvtensiveVideo(Guid invtensivevideoId, CancellationToken cancellationToken)
         {
             var command = new DeleteInvtensiveVideoCommand(invtensivevideoId);
             var result = await _sender.Send(command, cancellationToken);
@@ -57,7 +55,7 @@ namespace E_Learning.Api.Controllers.InvtensivesVideos
         }
         [HttpGet("GetAll/{invtensiveId:guid}")]
         [Authorize]
-        public async Task<IActionResult> GetAllInvtensivesVideos(Guid invtensiveId , CancellationToken cancellation)
+        public async Task<IActionResult> GetAllInvtensivesVideos(Guid invtensiveId, CancellationToken cancellation)
         {
             var query = new GetAllInvtensivesVideosByInvtensiveQuery(invtensiveId);
             var result = await _sender.Send(query, cancellation);
@@ -65,7 +63,7 @@ namespace E_Learning.Api.Controllers.InvtensivesVideos
         }
         [HttpGet("GetById/{invtensivevideoId:guid}")]
         [Authorize]
-        public async Task<IActionResult> GetInvtensiveVideo(Guid invtensivevideoId , CancellationToken cancellation)
+        public async Task<IActionResult> GetInvtensiveVideo(Guid invtensivevideoId, CancellationToken cancellation)
         {
             var query = new GetInvtensiveVideoByIdQuery(invtensivevideoId);
             var result = await _sender.Send(query, cancellation);

@@ -15,8 +15,8 @@ namespace E_Learning.Application.Users.Commands.ChangePassword
 
         public ChangePasswordCommandHandler(IUnitOfWork unitOfWork
             , IUserRepository userRepository
-            , IHttpContextAccessor httpContextAccessor) 
-            : base(httpContextAccessor) 
+            , IHttpContextAccessor httpContextAccessor)
+            : base(httpContextAccessor)
         {
             _unitOfWork = unitOfWork;
             _userRepository = userRepository;
@@ -30,7 +30,7 @@ namespace E_Learning.Application.Users.Commands.ChangePassword
                 return Result.Failure<bool>(UserErrors.NotFound);
             if (user.Password.Value != request.OldPassword)
                 return Result.Failure<bool>(UserErrors.InvalidOldPassword);
-            if(request.NewPassword != request.ChekPassword)
+            if (request.NewPassword != request.ChekPassword)
                 return Result.Failure<bool>(UserErrors.InvalidPassword);
             user.ChangePassword(
                 new Password(request.NewPassword)

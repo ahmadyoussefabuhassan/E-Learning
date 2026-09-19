@@ -1,10 +1,8 @@
 ﻿using E_Learning.Application.Abstractions.Files;
 using E_Learning.Application.Abstractions.Messaging;
-using E_Learning.Application.Abstractions.Services;
 using E_Learning.Domain.Abstractions;
 using E_Learning.Domain.Teachers;
 using E_Learning.Domain.User;
-using Microsoft.AspNetCore.Http;
 
 namespace E_Learning.Application.Teachers.Commands.DeleteTeacher
 {
@@ -15,10 +13,10 @@ namespace E_Learning.Application.Teachers.Commands.DeleteTeacher
         private readonly IUserRepository _userRepository;
         private readonly IFileService _fileService;
         public DeleteTeacherCommandHandler(
-            ITeacherRepository teacherRepository, 
+            ITeacherRepository teacherRepository,
             IUnitOfWork unitOfWork,
             IUserRepository userRepository,
-            IFileService fileService) 
+            IFileService fileService)
         {
             _teacherRepository = teacherRepository;
             _unitOfWork = unitOfWork;
@@ -28,9 +26,9 @@ namespace E_Learning.Application.Teachers.Commands.DeleteTeacher
 
         public async Task<Result<bool>> Handle(DeleteTeacherCommand request, CancellationToken cancellationToken)
         {
-    
+
             var teacher = await _teacherRepository.GetByIdAsync(request.TeacherId, cancellationToken);
-            if(teacher is null)
+            if (teacher is null)
                 return Result.Failure<bool>(TeacherErrors.NotFound);
             bool hasCourses = await _teacherRepository.HasActiveCoursesAsync(teacher.Id, cancellationToken);
             if (hasCourses)

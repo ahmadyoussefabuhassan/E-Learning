@@ -7,7 +7,6 @@ using E_Learning.Application.Sections.Queries.GetSectionByIdForStudent;
 using MediatR;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
-using static Microsoft.EntityFrameworkCore.DbLoggerCategory.Database;
 
 namespace E_Learning.Api.Controllers.Sections
 {
@@ -22,20 +21,20 @@ namespace E_Learning.Api.Controllers.Sections
             _sender = sender;
         }
         [HttpPost("AddSection/{CourseId:guid}")]
-        [Authorize(Roles ="Admin,Teacher")]
-        public async Task<IActionResult> AddSection(Guid CourseId , [FromBody] AddSectionRequest request , CancellationToken cancellation)
+        [Authorize(Roles = "Admin,Teacher")]
+        public async Task<IActionResult> AddSection(Guid CourseId, [FromBody] AddSectionRequest request, CancellationToken cancellation)
         {
             var command = new AddSectionCommand(
                 request.Title,
                 request.Price,
                 CourseId
             );
-            var result =  await _sender.Send(command , cancellation);
+            var result = await _sender.Send(command, cancellation);
             return result.IsSuccess ? Ok(result.Value) : BadRequest(result.Error);
         }
         [HttpPut("UpdateSection/{sectionId:guid}")]
         [Authorize(Roles = "Admin,Teacher")]
-        public async Task<IActionResult> UpdateSection( Guid sectionId , [FromForm] UpdateSectionRequest request , CancellationToken cancellation)
+        public async Task<IActionResult> UpdateSection(Guid sectionId, [FromForm] UpdateSectionRequest request, CancellationToken cancellation)
         {
             var command = new UpdateSectionCommand(
                 sectionId,
@@ -55,17 +54,17 @@ namespace E_Learning.Api.Controllers.Sections
         }
         [HttpGet("GetAllSectionsByCourse/{CourseId:guid}")]
         [Authorize]
-        public async Task<IActionResult> GetAllSectionsByCourse( Guid CourseId, CancellationToken cancellation)
+        public async Task<IActionResult> GetAllSectionsByCourse(Guid CourseId, CancellationToken cancellation)
         {
-            var query =  new GetAllSectionsByCourseQuery(CourseId);
+            var query = new GetAllSectionsByCourseQuery(CourseId);
             var result = await _sender.Send(query, cancellation);
             return result.IsSuccess ? Ok(result.Value) : BadRequest(result.Error);
         }
         [HttpGet("GetSection/{sectionId:guid}")]
         [Authorize(Roles = "Admin,Teacher")]
-        public async Task<IActionResult> GetSection(Guid sectionId , CancellationToken cancellation)
+        public async Task<IActionResult> GetSection(Guid sectionId, CancellationToken cancellation)
         {
-            var query =  new GetSectionByIdQuery(sectionId);
+            var query = new GetSectionByIdQuery(sectionId);
             var result = await _sender.Send(query, cancellation);
             return result.IsSuccess ? Ok(result.Value) : BadRequest(result.Error);
         }

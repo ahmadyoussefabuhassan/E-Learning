@@ -21,7 +21,7 @@ namespace E_Learning.Application.Courses.Commands.DeleteCourse
         public async Task<Result<bool>> Handle(DeleteCourseCommand request, CancellationToken cancellationToken)
         {
             var course = await _courseRepository.GetByIdAsync(request.Id, cancellationToken);
-            if(course is null)
+            if (course is null)
                 return Result.Failure<bool>(CourseErrors.NotFound);
             if (!string.IsNullOrEmpty(course.ImageUrl?.Value))
                 _fileService.DeleteImage(course.ImageUrl.Value);

@@ -11,7 +11,6 @@ using E_Learning.Application.Courses.Queries.GetCourseByIdForStudent;
 using MediatR;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
-using System.Threading;
 
 namespace E_Learning.Api.Controllers.Courses
 {
@@ -119,7 +118,7 @@ namespace E_Learning.Api.Controllers.Courses
         }
         [HttpGet("GetAllBy/TeacherId/{id:guid}")]
         [Authorize(Roles = "Teacher")]
-        public async Task<IActionResult> GetAllByTeacherId(Guid id ,CancellationToken cancellation)
+        public async Task<IActionResult> GetAllByTeacherId(Guid id, CancellationToken cancellation)
         {
             var query = new GetAllCoursesByTeacherIdQuery(id);
             var result = await _sender.Send(query, cancellation);

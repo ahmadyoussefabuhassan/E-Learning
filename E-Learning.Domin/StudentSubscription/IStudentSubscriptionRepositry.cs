@@ -2,7 +2,6 @@
 using E_Learning.Domain.Courses;
 using E_Learning.Domain.ExamExplanations;
 using E_Learning.Domain.Sections;
-using E_Learning.Domain.Students;
 
 namespace E_Learning.Domain.StudentSubscription
 {

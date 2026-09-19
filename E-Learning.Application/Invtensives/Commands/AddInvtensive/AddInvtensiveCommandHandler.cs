@@ -16,10 +16,10 @@ namespace E_Learning.Application.Invtensives.Commands.AddInvtensive
         private readonly IInvtensivesRepositry _invtensivesRepositry;
 
         public AddInvtensiveCommandHandler(IUnitOfWork unitOfWork,
-            IUserRepository userRepository, 
+            IUserRepository userRepository,
             ICourseRepository courseRepository,
             IInvtensivesRepositry invtensivesRepositry,
-            IHttpContextAccessor httpContextAccessor) : base(httpContextAccessor) 
+            IHttpContextAccessor httpContextAccessor) : base(httpContextAccessor)
         {
             _unitOfWork = unitOfWork;
             _userRepository = userRepository;
@@ -33,9 +33,9 @@ namespace E_Learning.Application.Invtensives.Commands.AddInvtensive
             if (user is null)
                 return Result.Failure<Guid>(UserErrors.NotFound);
             var course = await _courseRepository.GetByIdAsync(request.CourseId, cancellationToken);
-            if(course is null)
+            if (course is null)
                 return Result.Failure<Guid>(CourseErrors.NotFound);
-            if(course.TeacherId != user.Id && user.Role.notType != Domain.Roles.NotType.Admin)
+            if (course.TeacherId != user.Id && user.Role.notType != Domain.Roles.NotType.Admin)
                 return Result.Failure<Guid>(UserErrors.Unauthorized);
             var invtensive = Domain.Invtensives.Invtensives.Create(
                 new InvtensivesTitle(request.Title),
@@ -43,7 +43,7 @@ namespace E_Learning.Application.Invtensives.Commands.AddInvtensive
                 new Domain.Shared.Price(request.Price),
                 course.Id
             );
-            await _invtensivesRepositry.AddAsync(invtensive , cancellationToken);
+            await _invtensivesRepositry.AddAsync(invtensive, cancellationToken);
             await _unitOfWork.SaveChangesAsync(cancellationToken);
             return Result.Success(invtensive.Id);
         }

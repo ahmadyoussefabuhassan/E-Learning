@@ -1,7 +1,7 @@
-﻿using E_Learning.Domain.Sections.Events;
-using E_Learning.Domain.Abstractions;
-using E_Learning.Domain.Shared;
+﻿using E_Learning.Domain.Abstractions;
 using E_Learning.Domain.Courses;
+using E_Learning.Domain.Sections.Events;
+using E_Learning.Domain.Shared;
 
 namespace E_Learning.Domain.Sections
 {
@@ -11,7 +11,7 @@ namespace E_Learning.Domain.Sections
         {
         }
 
-        private Section(Guid id, SectionTitle title, Price price,bool islocked, Guid courseId) : base(id)
+        private Section(Guid id, SectionTitle title, Price price, bool islocked, Guid courseId) : base(id)
         {
             SectionTitle = title;
             Price = price;
@@ -26,9 +26,9 @@ namespace E_Learning.Domain.Sections
         public Guid CourseId { get; private set; }
         public Course Course { get; private set; } = null!;
         public ICollection<Units.Unit> Units { get; private set; } = new List<Units.Unit>();
-        public static Section Create( SectionTitle title, Price price, Guid courseId)
+        public static Section Create(SectionTitle title, Price price, Guid courseId)
         {
-            var section = new Section(Guid.NewGuid(), title, price,true, courseId);
+            var section = new Section(Guid.NewGuid(), title, price, true, courseId);
             section.RaiseDomainEvent(new SectionCreatedDomainEvent(section.Id, section.SectionTitle.Value, section.Price.Value, section.CourseId));
             return section;
         }

@@ -17,7 +17,7 @@ namespace E_Learning.Application.Students.Commands.RegisterStudent
 
         public RegisterStudentCommandHandler(IUnitOfWork unitOfWork,
             IStudentRepository studentRepository,
-            IUserRepository userRepository, 
+            IUserRepository userRepository,
             IFileService fileService,
             IRoleRepository roleRepository)
         {
@@ -36,7 +36,7 @@ namespace E_Learning.Application.Students.Commands.RegisterStudent
             var existingUser = await _userRepository.GetByEmailAsync(new Email(request.Email), cancellationToken);
             if (existingUser != null)
                 return Result.Failure<Guid>(UserErrors.EmailAlreadyExists);
-     
+
             var user = User.Create(
                 new FullName(request.FullName),
                 new Email(request.Email),
@@ -49,7 +49,7 @@ namespace E_Learning.Application.Students.Commands.RegisterStudent
             await _userRepository.AddAsync(user, cancellationToken);
             var student = Student.Create(
                 user.Id,
-                new  SubjectStudent(request.Education)
+                new SubjectStudent(request.Education)
             );
             await _studentRepository.AddAsync(student, cancellationToken);
             await _unitOfWork.SaveChangesAsync(cancellationToken);

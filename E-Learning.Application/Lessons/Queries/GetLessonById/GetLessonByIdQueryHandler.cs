@@ -15,7 +15,7 @@ namespace E_Learning.Application.Lessons.Queries.GetLessonById
 
         public async Task<Result<LessonResponse>> Handle(GetLessonByIdQuery request, CancellationToken cancellationToken)
         {
-            var lesson = await _lessonRepository.GetByIdAsync(request.lessonId , cancellationToken);
+            var lesson = await _lessonRepository.GetByIdAsync(request.lessonId, cancellationToken);
             if (lesson is null)
                 Result.Failure<LessonResponse>(LessonsErrors.NotFound);
             var response = new LessonResponse(

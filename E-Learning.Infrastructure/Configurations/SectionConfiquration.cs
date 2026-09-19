@@ -1,5 +1,4 @@
-﻿using E_Learning.Domain.Courses;
-using E_Learning.Domain.Sections;
+﻿using E_Learning.Domain.Sections;
 using E_Learning.Domain.Shared;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Metadata.Builders;
@@ -29,7 +28,7 @@ namespace E_Learning.Infrastructure.Configurations
                    .IsRequired();
 
 
-            builder.HasOne(s => s.Course) 
+            builder.HasOne(s => s.Course)
                    .WithMany(c => c.Sections)
                    .HasForeignKey(s => s.CourseId)
                  .OnDelete(DeleteBehavior.Cascade);

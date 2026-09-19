@@ -1,5 +1,4 @@
-﻿using E_Learning.Domain.Courses;
-using E_Learning.Domain.ExamExplanations;
+﻿using E_Learning.Domain.ExamExplanations;
 using E_Learning.Domain.Shared;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Metadata.Builders;

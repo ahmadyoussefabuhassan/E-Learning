@@ -21,6 +21,6 @@ namespace E_Learning.Infrastructure.Repositories
             .Include(l => l.Lessons)
             .Include(s => s.Section)
             .ThenInclude(c => c.Course)
-            .FirstOrDefaultAsync(s => s.Id == id , cancellationToken);
+            .FirstOrDefaultAsync(s => s.Id == id, cancellationToken);
     }
 }

@@ -9,7 +9,7 @@ using Microsoft.AspNetCore.Http;
 
 namespace E_Learning.Application.StudentSubscriptions.Queries.GetStudentSubscriptionStreamImage
 {
-    public sealed class GetStudentSubscriptionStreamImageQueryHandler : BaseService,IQueryHandler<GetStudentSubscriptionStreamImageQuery, FileStream>
+    public sealed class GetStudentSubscriptionStreamImageQueryHandler : BaseService, IQueryHandler<GetStudentSubscriptionStreamImageQuery, FileStream>
     {
         private readonly IStudentSubscriptionRepositry _subscriptionRepo;
         private readonly IFileService _fileService;
@@ -27,7 +27,7 @@ namespace E_Learning.Application.StudentSubscriptions.Queries.GetStudentSubscrip
             var user = await _userRepository.GetByIdAsync(UserId, cancellationToken);
             if (user is null)
                 return Result.Failure<FileStream>(UserErrors.NotFound);
-            if(user.Role.notType != Domain.Roles.NotType.Student)
+            if (user.Role.notType != Domain.Roles.NotType.Student)
             {
                 return Result.Failure<FileStream>(UserErrors.Unauthorized);
             }

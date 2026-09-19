@@ -14,8 +14,8 @@ namespace E_Learning.Application.Teachers.Commands.RegisterTeacher
         private readonly IRoleRepository _roleRepository;
 
         public RegisterTeacherCommandHandler(IUnitOfWork unitOfWork,
-            ITeacherRepository teacherRepository, 
-            IUserRepository userRepository, 
+            ITeacherRepository teacherRepository,
+            IUserRepository userRepository,
             IRoleRepository roleRepository)
         {
             _unitOfWork = unitOfWork;
@@ -27,12 +27,12 @@ namespace E_Learning.Application.Teachers.Commands.RegisterTeacher
         public async Task<Result<Guid>> Handle(RegisterTeacherCommand request, CancellationToken cancellationToken)
         {
             var role = await _roleRepository.GetByNameAsync(Name.Teacher, NotType.Teacher);
-            if(role is null)
+            if (role is null)
                 return Result.Failure<Guid>(RoleErrors.NotFound);
             var existingUser = await _userRepository.GetByEmailAsync(new Email(request.Email), cancellationToken);
             if (existingUser != null)
                 return Result.Failure<Guid>(UserErrors.EmailAlreadyExists);
-           
+
             var user = User.Create(
                 new FullName(request.FullName),
                 new Email(request.Email),
@@ -49,7 +49,7 @@ namespace E_Learning.Application.Teachers.Commands.RegisterTeacher
                 new SubjectTeacher(request.Education)
 
             );
-            await _teacherRepository.AddAsync(teacher , cancellationToken);
+            await _teacherRepository.AddAsync(teacher, cancellationToken);
             await _unitOfWork.SaveChangesAsync(cancellationToken);
             return Result.Success(teacher.Id);
         }

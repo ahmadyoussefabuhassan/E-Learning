@@ -1,5 +1,4 @@
-﻿using E_Learning.Domain.ExamExplanations;
-using E_Learning.Domain.ExamVideos;
+﻿using E_Learning.Domain.ExamVideos;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Metadata.Builders;
 

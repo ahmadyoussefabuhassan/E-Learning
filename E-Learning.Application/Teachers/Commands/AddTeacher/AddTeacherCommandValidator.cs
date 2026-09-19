@@ -2,7 +2,7 @@
 
 namespace E_Learning.Application.Teachers.Commands.AddTeacher
 {
-    internal sealed class AddTeacherCommandValidator :  AbstractValidator<AddTeacherCommand>
+    internal sealed class AddTeacherCommandValidator : AbstractValidator<AddTeacherCommand>
     {
         public AddTeacherCommandValidator()
         {

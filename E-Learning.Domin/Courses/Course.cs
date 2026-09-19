@@ -3,8 +3,6 @@ using E_Learning.Domain.Courses.Events;
 using E_Learning.Domain.ExamExplanations;
 using E_Learning.Domain.Sections;
 using E_Learning.Domain.Shared;
-using E_Learning.Domain.Teachers;
-using E_Learning.Domain.User;
 
 namespace E_Learning.Domain.Courses
 {
@@ -58,7 +56,7 @@ namespace E_Learning.Domain.Courses
             Description = description;
             Price = price;
             ClassesId = classesId;
-            RaiseDomainEvent(new CourseUpdatedDomainEvent(Id, CourseName.Value, Price.Value,  ClassesId));
+            RaiseDomainEvent(new CourseUpdatedDomainEvent(Id, CourseName.Value, Price.Value, ClassesId));
         }
         public void ToggleStatus() => IsActive = !IsActive;
         public void ToggleLock() => IsLocked = !IsLocked;

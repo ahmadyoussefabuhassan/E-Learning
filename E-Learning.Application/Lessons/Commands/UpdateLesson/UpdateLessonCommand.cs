@@ -8,5 +8,5 @@ namespace E_Learning.Application.Lessons.Commands.UpdateLesson
         string Title,
         string TitleUrl,
         IFormFile VidoUrl
-    ):ICommand<Guid>;
+    ) : ICommand<Guid>;
 }
