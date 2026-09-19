@@ -27,7 +27,7 @@ namespace E_Learning.Application.Lessons.Queries.GetLessonStream
             if (user is null)
                 return Result.Failure<FileStream>(UserErrors.NotFound);
             var lesson = await _lessonRepository.GetByIdAsync(request.LessonId, cancellationToken);
-            if (lesson == null || string.IsNullOrEmpty(lesson.URL?.Value))
+            if (lesson is null || string.IsNullOrEmpty(lesson.URL?.Value))
                 return Result.Failure<FileStream>(LessonsErrors.NotFound);
             if(user.Role.notType == Domain.Roles.NotType.Student)
             {

@@ -43,7 +43,7 @@ namespace E_Learning.Application.Students.Commands.RegisterStudent
                 new Password(request.Password),
                 new PhoneNumber(request.PhoneNumber),
                 new Address(request.Address),
-                new ImageUrl("/uploads/users/default-profile.png"),
+                new ImageUrl(null),
                 role.Id
             );
             await _userRepository.AddAsync(user, cancellationToken);

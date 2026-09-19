@@ -4,7 +4,7 @@ using Microsoft.Extensions.Logging;
 
 namespace E_Learning.Application.Abstractions.Behaviors
 {
-    public sealed class LoggingBehavior<TRequest, TResponse> : IPipelineBehavior<TRequest, TResponse>
+    internal sealed class LoggingBehavior<TRequest, TResponse> : IPipelineBehavior<TRequest, TResponse>
             where TRequest : IBaseCommand
     {
         private readonly ILogger<TRequest> _logger;

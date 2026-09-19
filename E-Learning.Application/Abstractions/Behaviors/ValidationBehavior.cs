@@ -5,7 +5,7 @@ using MediatR;
 
 namespace E_Learning.Application.Abstractions.Behaviors
 {
-    public sealed class ValidationBehavior<TRequest, TResponse> : IPipelineBehavior<TRequest, TResponse>
+    internal sealed class ValidationBehavior<TRequest, TResponse> : IPipelineBehavior<TRequest, TResponse>
         where TRequest : IBaseCommand
     {
         private readonly IEnumerable<IValidator<TRequest>> _validators;

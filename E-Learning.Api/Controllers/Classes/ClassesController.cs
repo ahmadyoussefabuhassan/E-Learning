@@ -27,7 +27,7 @@ namespace E_Learning.Api.Controllers.Classes
             return result.IsSuccess ? Ok(result.Value) : BadRequest(result.Error);
         }
         [HttpGet("GetAll")]
-        [Authorize]
+        [AllowAnonymous]
         public async Task<IActionResult> GetAllClasses(CancellationToken cancellation)
         {
             var query = new GetAllClassesQuery();

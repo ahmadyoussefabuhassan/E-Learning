@@ -35,7 +35,7 @@ namespace E_Learning.Application.Students.Queries.GetProfileStudent
                 user.Email.Value,
                 user.PhoneNumber.Value,
                 user.Address.Value,
-                 user.ImageUrl?.Value ?? "/uploads/users/default-profile.png",
+                 user.ImageUrl?.Value ?? string.Empty,
                 student.SubjectStudent.Value,
                 user.Role?.notType.ToArabicString() ?? string.Empty
             );

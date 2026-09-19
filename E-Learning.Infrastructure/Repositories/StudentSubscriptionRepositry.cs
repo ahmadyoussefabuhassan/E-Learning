@@ -126,7 +126,7 @@ namespace E_Learning.Infrastructure.Repositories
             if (subscriptions == null || !subscriptions.Any())
                 return Enumerable.Empty<ExamExplanation>();
             var targetIds = subscriptions
-                .Where(s => s.TargetType != null && (s.TargetType.Value == "دورة" || s.TargetType.Value == "ExamExplanation"))
+                .Where(s => s.TargetType != null && (s.TargetType.Value == "أسئلة دورات" || s.TargetType.Value == "ExamExplanation"))
                 .Select(s => s.TargetId)
                 .ToList();
             if (!targetIds.Any())

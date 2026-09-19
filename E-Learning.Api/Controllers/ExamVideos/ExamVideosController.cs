@@ -36,7 +36,7 @@ namespace E_Learning.Api.Controllers.ExamVideos
         {
             var command = new AddExamVideoCommand(
                 examId,
-                request.VidoUrl,
+                request.VidoeUrl,
                 request.TitleUrl,
                 request.Year
             );

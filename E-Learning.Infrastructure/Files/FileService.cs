@@ -85,5 +85,12 @@ namespace E_Learning.Infrastructure.Files
                 File.Delete(videoPath);
             }
         }
+
+        public FileStream GetImageProvider(string path)
+        {
+            if (!File.Exists(path))
+                throw new FileNotFoundException();
+            return new FileStream(path, FileMode.Open, FileAccess.Read, FileShare.Read);
+        }
     }
 }

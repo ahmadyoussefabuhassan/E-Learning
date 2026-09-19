@@ -13,6 +13,7 @@ using E_Learning.Application.StudentSubscriptions.Queries.GetAllCoursesSubscript
 using E_Learning.Application.StudentSubscriptions.Queries.GetAllSectionsSubscriptionsByStudent;
 using E_Learning.Application.StudentSubscriptions.Queries.GetAllExamExplanationsSubscriptionsByStudent;
 using E_Learning.Application.StudentSubscriptions.Queries.GetAllInvtensivesSubscriptionsByStudent;
+using E_Learning.Application.StudentSubscriptions.Queries.GetStudentSubscriptionStreamImage;
 
 namespace E_Learning.Api.Controllers.StudentSubscriptions
 {
@@ -24,6 +25,16 @@ namespace E_Learning.Api.Controllers.StudentSubscriptions
 
         public StudentSubscriptionsController(ISender sender)
             => _sender = sender;
+        [HttpGet("streamImage/{subscriptionId:guid}")]
+        [Authorize(Roles = "Admin")]
+        public async Task<IActionResult> StreamImage(Guid subscriptionId , CancellationToken cancellation)
+        {
+            var query = new GetStudentSubscriptionStreamImageQuery(subscriptionId);
+            var result = await _sender.Send(query, cancellation);
+            if (result.IsFailure)
+                return BadRequest(result.Error);
+            return File(result.Value, "image/jpeg", enableRangeProcessing: true);
+        }
         [HttpPost("RegisterCourse/{courseId:guid}")]
         [Authorize(Roles ="Student")]
         public async Task<IActionResult> RegisterCourse(Guid courseId , [FromForm] RegisterStudentSubscriptionsRequests request , CancellationToken cancellation)

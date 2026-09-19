@@ -7,6 +7,7 @@ namespace E_Learning.Application.Abstractions.Files
         Task<string> UploadImageAsync(IFormFile file, string folderName, CancellationToken cancellationToken = default);
         Task<string> UploadVideoAsync(IFormFile file, string folderName, CancellationToken cancellationToken = default);
         FileStream GetVideoProvider(string path);
+        FileStream GetImageProvider(string path);
         void DeleteImage(string imagePath);
         void DeleteVideo(string videoPath);
     }
